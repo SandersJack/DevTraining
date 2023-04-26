@@ -1,0 +1,7 @@
+
+####### VisWithPy ########
+VisWithPy/.venv
+VisWithPy/NatGas/__pycache__
+VisWithPy/NatGas/Constants.py
+__pycache__
+VisWithPy/NatGas/dataSets/

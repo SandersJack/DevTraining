@@ -1,0 +1,189 @@
+/* Author: Jack Sanders */
+
+body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    background-color: #F7F7F7;
+}
+
+.header {
+    background-color: #87CEEB;
+    height: 150px;
+    padding: 16px 0 0 0;
+}
+
+.home-sub-title {
+    background-color: #87CEEB;
+    height: 70px;
+    padding: 16px 0 0 0;
+}
+
+.home-sub-sub-heading {
+    margin-top: 5px;
+}
+
+.home-context {
+    margin: 10px;
+    padding: 10px;
+    border:2px solid #87CEEB; 
+}
+
+.page-top {
+    background-color: #87CEEB; 
+    text-align: center;
+}
+
+.nav-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.nav-bar {
+    display: inline;
+    margin: 0 3rem;
+    justify-content: space-around;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #87CEEB;
+}
+
+.header-flag {
+    height: 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 48px;
+    color: #FFFFFF;
+    font-weight:bold;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.sub-header-title {
+    font-size: 30px;
+    color: #FFFFFF;
+    font-weight:bold;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.menu {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 24px;
+    margin: -80px auto 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
+}
+
+.Select-control {
+    width: 256px;
+    height: 48px;
+}
+
+.wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1924px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-top: 32px;
+}
+
+.home-wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1924px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-top: 32px;
+}
+
+#home2 {
+    height:1270px;
+}
+
+.home-card {
+    max-width: 900px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
+}
+
+#storage {
+    padding: 10px;
+}
+
+.storage-text {
+    padding: 10px;
+    border:2px solid #87CEEB; 
+}
+
+.top-prod {
+    margin-bottom: 10px;
+    padding: 10px;
+    height: 460px;
+    border:2px solid #87CEEB;
+}
+
+#prod{
+    float: left;
+    width: 47%; 
+}
+
+#prodText {
+    float: right;
+    width: 47%;
+    height: 430px;
+    padding: 10px;
+    margin-bottom: 24px;    
+}
+
+#export-chart {
+    float: right;
+    width: 47%;
+    padding: 1%;
+    border:2px solid #87CEEB;
+    height: 670px;
+}
+
+#resText {
+    padding: 1%;
+    float: left;
+    width: 47%;
+    border:2px solid #87CEEB;
+    height: 670px;
+}
+
+#res{
+    height: 450px;
+
+}
+
+.card {
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
+}
+
+.Select--single>.Select-control .Select-value,
+.Select-placeholder {
+    line-height: 48px;
+}
+
+.Select--multi .Select-value-label {
+    line-height: 48px;
+}
+
+.home-footer {
+    color: #87CEEB;
+    height: 70px;
+}
