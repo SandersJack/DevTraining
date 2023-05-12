@@ -8,8 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/jack/Code/DevTraining/Apps/Orbits/Orbits.cc" "CMakeFiles/OrbitSim.dir/Orbits.cc.o" "gcc" "CMakeFiles/OrbitSim.dir/Orbits.cc.o.d"
-  "/home/jack/Code/DevTraining/Apps/Orbits/src/RunManager.cc" "CMakeFiles/OrbitSim.dir/src/RunManager.cc.o" "gcc" "CMakeFiles/OrbitSim.dir/src/RunManager.cc.o.d"
+  "/home/jack/Code/DevTraining/Apps/Orbits/src/RunManager.cc" "CMakeFiles/Orbits.cc.dir/src/RunManager.cc.o" "gcc" "CMakeFiles/Orbits.cc.dir/src/RunManager.cc.o.d"
   )
 
 # Targets to which this target links.

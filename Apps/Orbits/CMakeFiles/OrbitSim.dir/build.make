@@ -69,31 +69,47 @@ include CMakeFiles/OrbitSim.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/OrbitSim.dir/flags.make
 
-CMakeFiles/OrbitSim.dir/Orbits.o: CMakeFiles/OrbitSim.dir/flags.make
-CMakeFiles/OrbitSim.dir/Orbits.o: Orbits.cc
-CMakeFiles/OrbitSim.dir/Orbits.o: CMakeFiles/OrbitSim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/OrbitSim.dir/Orbits.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OrbitSim.dir/Orbits.o -MF CMakeFiles/OrbitSim.dir/Orbits.o.d -o CMakeFiles/OrbitSim.dir/Orbits.o -c /home/jack/Code/DevTraining/Apps/Orbits/Orbits.cc
+CMakeFiles/OrbitSim.dir/Orbits.cc.o: CMakeFiles/OrbitSim.dir/flags.make
+CMakeFiles/OrbitSim.dir/Orbits.cc.o: Orbits.cc
+CMakeFiles/OrbitSim.dir/Orbits.cc.o: CMakeFiles/OrbitSim.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/OrbitSim.dir/Orbits.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OrbitSim.dir/Orbits.cc.o -MF CMakeFiles/OrbitSim.dir/Orbits.cc.o.d -o CMakeFiles/OrbitSim.dir/Orbits.cc.o -c /home/jack/Code/DevTraining/Apps/Orbits/Orbits.cc
 
-CMakeFiles/OrbitSim.dir/Orbits.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/OrbitSim.dir/Orbits.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jack/Code/DevTraining/Apps/Orbits/Orbits.cc > CMakeFiles/OrbitSim.dir/Orbits.i
+CMakeFiles/OrbitSim.dir/Orbits.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/OrbitSim.dir/Orbits.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jack/Code/DevTraining/Apps/Orbits/Orbits.cc > CMakeFiles/OrbitSim.dir/Orbits.cc.i
 
-CMakeFiles/OrbitSim.dir/Orbits.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/OrbitSim.dir/Orbits.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jack/Code/DevTraining/Apps/Orbits/Orbits.cc -o CMakeFiles/OrbitSim.dir/Orbits.s
+CMakeFiles/OrbitSim.dir/Orbits.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/OrbitSim.dir/Orbits.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jack/Code/DevTraining/Apps/Orbits/Orbits.cc -o CMakeFiles/OrbitSim.dir/Orbits.cc.s
+
+CMakeFiles/OrbitSim.dir/src/RunManager.cc.o: CMakeFiles/OrbitSim.dir/flags.make
+CMakeFiles/OrbitSim.dir/src/RunManager.cc.o: src/RunManager.cc
+CMakeFiles/OrbitSim.dir/src/RunManager.cc.o: CMakeFiles/OrbitSim.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/OrbitSim.dir/src/RunManager.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OrbitSim.dir/src/RunManager.cc.o -MF CMakeFiles/OrbitSim.dir/src/RunManager.cc.o.d -o CMakeFiles/OrbitSim.dir/src/RunManager.cc.o -c /home/jack/Code/DevTraining/Apps/Orbits/src/RunManager.cc
+
+CMakeFiles/OrbitSim.dir/src/RunManager.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/OrbitSim.dir/src/RunManager.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jack/Code/DevTraining/Apps/Orbits/src/RunManager.cc > CMakeFiles/OrbitSim.dir/src/RunManager.cc.i
+
+CMakeFiles/OrbitSim.dir/src/RunManager.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/OrbitSim.dir/src/RunManager.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jack/Code/DevTraining/Apps/Orbits/src/RunManager.cc -o CMakeFiles/OrbitSim.dir/src/RunManager.cc.s
 
 # Object files for target OrbitSim
 OrbitSim_OBJECTS = \
-"CMakeFiles/OrbitSim.dir/Orbits.o"
+"CMakeFiles/OrbitSim.dir/Orbits.cc.o" \
+"CMakeFiles/OrbitSim.dir/src/RunManager.cc.o"
 
 # External object files for target OrbitSim
 OrbitSim_EXTERNAL_OBJECTS =
 
-OrbitSim: CMakeFiles/OrbitSim.dir/Orbits.o
+OrbitSim: CMakeFiles/OrbitSim.dir/Orbits.cc.o
+OrbitSim: CMakeFiles/OrbitSim.dir/src/RunManager.cc.o
 OrbitSim: CMakeFiles/OrbitSim.dir/build.make
 OrbitSim: CMakeFiles/OrbitSim.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable OrbitSim"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable OrbitSim"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/OrbitSim.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

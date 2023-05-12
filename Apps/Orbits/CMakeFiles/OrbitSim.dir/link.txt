@@ -1,1 +1,1 @@
-/usr/bin/c++ -rdynamic CMakeFiles/OrbitSim.dir/Orbits.o -o OrbitSim 
+/usr/bin/c++ CMakeFiles/OrbitSim.dir/Orbits.cc.o CMakeFiles/OrbitSim.dir/src/RunManager.cc.o -o OrbitSim 

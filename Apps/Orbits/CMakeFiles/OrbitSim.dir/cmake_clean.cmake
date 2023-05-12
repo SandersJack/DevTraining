@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/OrbitSim.dir/Orbits.o"
-  "CMakeFiles/OrbitSim.dir/Orbits.o.d"
+  "CMakeFiles/OrbitSim.dir/Orbits.cc.o"
+  "CMakeFiles/OrbitSim.dir/Orbits.cc.o.d"
+  "CMakeFiles/OrbitSim.dir/src/RunManager.cc.o"
+  "CMakeFiles/OrbitSim.dir/src/RunManager.cc.o.d"
   "OrbitSim"
   "OrbitSim.pdb"
 )

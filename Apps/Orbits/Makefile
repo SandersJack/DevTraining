@@ -129,20 +129,53 @@ OrbitSim/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/build
 .PHONY : OrbitSim/fast
 
-# target to build an object file
-Orbits.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.o
+Orbits.o: Orbits.cc.o
 .PHONY : Orbits.o
 
-# target to preprocess a source file
-Orbits.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.i
+# target to build an object file
+Orbits.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.cc.o
+.PHONY : Orbits.cc.o
+
+Orbits.i: Orbits.cc.i
 .PHONY : Orbits.i
 
-# target to generate assembly for a file
-Orbits.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.s
+# target to preprocess a source file
+Orbits.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.cc.i
+.PHONY : Orbits.cc.i
+
+Orbits.s: Orbits.cc.s
 .PHONY : Orbits.s
+
+# target to generate assembly for a file
+Orbits.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.cc.s
+.PHONY : Orbits.cc.s
+
+src/RunManager.o: src/RunManager.cc.o
+.PHONY : src/RunManager.o
+
+# target to build an object file
+src/RunManager.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/src/RunManager.cc.o
+.PHONY : src/RunManager.cc.o
+
+src/RunManager.i: src/RunManager.cc.i
+.PHONY : src/RunManager.i
+
+# target to preprocess a source file
+src/RunManager.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/src/RunManager.cc.i
+.PHONY : src/RunManager.cc.i
+
+src/RunManager.s: src/RunManager.cc.s
+.PHONY : src/RunManager.s
+
+# target to generate assembly for a file
+src/RunManager.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/src/RunManager.cc.s
+.PHONY : src/RunManager.cc.s
 
 # Help Target
 help:
@@ -156,6 +189,9 @@ help:
 	@echo "... Orbits.o"
 	@echo "... Orbits.i"
 	@echo "... Orbits.s"
+	@echo "... src/RunManager.o"
+	@echo "... src/RunManager.i"
+	@echo "... src/RunManager.s"
 .PHONY : help
 
 

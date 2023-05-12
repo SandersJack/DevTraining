@@ -1,9 +1,12 @@
-project(Orbits)
+cmake_minimum_required(VERSION 3.10)
 
-file(GLOB SOURCES src/*.cc)
-file(GLOB headers src/*.hh)
+project(OrbitSim)
 
+file(GLOB SRC
+     "src/*.cc"
+)
 
-add_executable(OrbitSim Orbits.cc ${SOURCES})
-
+set(MAIN_FILE Orbits.cc)
 include_directories(include)
+add_executable(OrbitSim ${MAIN_FILE} ${SRC})
+

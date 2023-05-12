@@ -149,7 +149,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Orbits
+CMAKE_PROJECT_NAME:STATIC=OrbitSim
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -218,6 +218,15 @@ EXECUTABLE_OUTPUT_PATH:PATH=
 
 //Single output directory for building all libraries.
 LIBRARY_OUTPUT_PATH:PATH=
+
+//Value Computed by CMake
+OrbitSim_BINARY_DIR:STATIC=/home/jack/Code/DevTraining/Apps/Orbits
+
+//Value Computed by CMake
+OrbitSim_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+OrbitSim_SOURCE_DIR:STATIC=/home/jack/Code/DevTraining/Apps/Orbits
 
 //Value Computed by CMake
 Orbits_BINARY_DIR:STATIC=/home/jack/Code/DevTraining/Apps/Orbits
