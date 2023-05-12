@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/jack/Code/DevTraining/Apps/Orbits
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Orbits.dir/all
+all: CMakeFiles/OrbitSim.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Orbits.dir/clean
+clean: CMakeFiles/OrbitSim.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Orbits.dir
+# Target rules for target CMakeFiles/OrbitSim.dir
 
 # All Build rule for target.
-CMakeFiles/Orbits.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Orbits.dir/build.make CMakeFiles/Orbits.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Orbits.dir/build.make CMakeFiles/Orbits.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles --progress-num=1,2 "Built target Orbits"
-.PHONY : CMakeFiles/Orbits.dir/all
+CMakeFiles/OrbitSim.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles --progress-num=1,2 "Built target OrbitSim"
+.PHONY : CMakeFiles/OrbitSim.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Orbits.dir/rule: cmake_check_build_system
+CMakeFiles/OrbitSim.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Orbits.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/OrbitSim.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jack/Code/DevTraining/Apps/Orbits/CMakeFiles 0
-.PHONY : CMakeFiles/Orbits.dir/rule
+.PHONY : CMakeFiles/OrbitSim.dir/rule
 
 # Convenience name for target.
-Orbits: CMakeFiles/Orbits.dir/rule
-.PHONY : Orbits
+OrbitSim: CMakeFiles/OrbitSim.dir/rule
+.PHONY : OrbitSim
 
 # clean rule for target.
-CMakeFiles/Orbits.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Orbits.dir/build.make CMakeFiles/Orbits.dir/clean
-.PHONY : CMakeFiles/Orbits.dir/clean
+CMakeFiles/OrbitSim.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/clean
+.PHONY : CMakeFiles/OrbitSim.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

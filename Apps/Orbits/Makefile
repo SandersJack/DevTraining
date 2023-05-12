@@ -117,31 +117,31 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Orbits
+# Target rules for targets named OrbitSim
 
 # Build rule for target.
-Orbits: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Orbits
-.PHONY : Orbits
+OrbitSim: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OrbitSim
+.PHONY : OrbitSim
 
 # fast build rule for target.
-Orbits/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Orbits.dir/build.make CMakeFiles/Orbits.dir/build
-.PHONY : Orbits/fast
+OrbitSim/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/build
+.PHONY : OrbitSim/fast
 
 # target to build an object file
 Orbits.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Orbits.dir/build.make CMakeFiles/Orbits.dir/Orbits.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.o
 .PHONY : Orbits.o
 
 # target to preprocess a source file
 Orbits.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Orbits.dir/build.make CMakeFiles/Orbits.dir/Orbits.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.i
 .PHONY : Orbits.i
 
 # target to generate assembly for a file
 Orbits.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Orbits.dir/build.make CMakeFiles/Orbits.dir/Orbits.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OrbitSim.dir/build.make CMakeFiles/OrbitSim.dir/Orbits.s
 .PHONY : Orbits.s
 
 # Help Target
@@ -152,7 +152,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Orbits"
+	@echo "... OrbitSim"
 	@echo "... Orbits.o"
 	@echo "... Orbits.i"
 	@echo "... Orbits.s"
