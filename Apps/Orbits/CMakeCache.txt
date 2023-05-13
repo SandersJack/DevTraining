@@ -237,6 +237,108 @@ Orbits_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Orbits_SOURCE_DIR:STATIC=/home/jack/Code/DevTraining/Apps/Orbits
 
+//Path to a library.
+ROOT_Core_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libCore.so
+
+//The directory containing a CMake configuration file for ROOT.
+ROOT_DIR:PATH=/home/jack/Code/root/cmake
+
+//Path to a library.
+ROOT_Gpad_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libGpad.so
+
+//Path to a library.
+ROOT_Graf3d_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libGraf3d.so
+
+//Path to a library.
+ROOT_Graf_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libGraf.so
+
+//Path to a library.
+ROOT_Hist_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libHist.so
+
+//Path to a library.
+ROOT_Imt_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libImt.so
+
+//Path to a library.
+ROOT_MathCore_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libMathCore.so
+
+//Path to a library.
+ROOT_Matrix_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libMatrix.so
+
+//Path to a library.
+ROOT_MultiProc_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libMultiProc.so
+
+//Path to a library.
+ROOT_Net_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libNet.so
+
+//Path to a library.
+ROOT_Physics_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libPhysics.so
+
+//Path to a library.
+ROOT_Postscript_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libPostscript.so
+
+//Path to a library.
+ROOT_RIO_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libRIO.so
+
+//Path to a library.
+ROOT_ROOTDataFrame_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libROOTDataFrame.so
+
+//Path to a library.
+ROOT_ROOTVecOps_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libROOTVecOps.so
+
+//Path to a library.
+ROOT_Rint_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libRint.so
+
+//Path to a library.
+ROOT_RooStats_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libRooStats.so
+
+//Path to a library.
+ROOT_Thread_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libThread.so
+
+//Path to a library.
+ROOT_TreePlayer_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libTreePlayer.so
+
+//Path to a library.
+ROOT_Tree_LIBRARY:FILEPATH=/home/jack/Code/root/lib/libTree.so
+
+//Path to a program.
+ROOT_genmap_CMD:FILEPATH=ROOT_genmap_CMD-NOTFOUND
+
+//Path to a program.
+ROOT_genreflex_CMD:FILEPATH=/home/jack/Code/root/bin/genreflex
+
+//Path to a program.
+ROOT_hadd_CMD:FILEPATH=/home/jack/Code/root/bin/hadd
+
+//Path to a program.
+ROOT_root_CMD:FILEPATH=/home/jack/Code/root/bin/root
+
+//Path to a program.
+ROOT_rootbrowse_CMD:FILEPATH=/home/jack/Code/root/bin/rootbrowse
+
+//Path to a program.
+ROOT_rootcint_CMD:FILEPATH=/home/jack/Code/root/bin/rootcint
+
+//Path to a program.
+ROOT_rootcling_CMD:FILEPATH=/home/jack/Code/root/bin/rootcling
+
+//Path to a program.
+ROOT_rootcp_CMD:FILEPATH=/home/jack/Code/root/bin/rootcp
+
+//Path to a program.
+ROOT_rootdraw_CMD:FILEPATH=ROOT_rootdraw_CMD-NOTFOUND
+
+//Path to a program.
+ROOT_rootls_CMD:FILEPATH=/home/jack/Code/root/bin/rootls
+
+//Path to a program.
+ROOT_rootmkdir_CMD:FILEPATH=/home/jack/Code/root/bin/rootmkdir
+
+//Path to a program.
+ROOT_rootmv_CMD:FILEPATH=/home/jack/Code/root/bin/rootmv
+
+//Path to a program.
+ROOT_rootrm_CMD:FILEPATH=/home/jack/Code/root/bin/rootrm
+
 
 ########################
 # INTERNAL cache entries
@@ -385,4 +487,66 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Core_LIBRARY
+ROOT_Core_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Gpad_LIBRARY
+ROOT_Gpad_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Graf3d_LIBRARY
+ROOT_Graf3d_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Graf_LIBRARY
+ROOT_Graf_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Hist_LIBRARY
+ROOT_Hist_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Imt_LIBRARY
+ROOT_Imt_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_MathCore_LIBRARY
+ROOT_MathCore_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Matrix_LIBRARY
+ROOT_Matrix_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_MultiProc_LIBRARY
+ROOT_MultiProc_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Net_LIBRARY
+ROOT_Net_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Physics_LIBRARY
+ROOT_Physics_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Postscript_LIBRARY
+ROOT_Postscript_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_RIO_LIBRARY
+ROOT_RIO_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_ROOTDataFrame_LIBRARY
+ROOT_ROOTDataFrame_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_ROOTVecOps_LIBRARY
+ROOT_ROOTVecOps_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Rint_LIBRARY
+ROOT_Rint_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_RooStats_LIBRARY
+ROOT_RooStats_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Thread_LIBRARY
+ROOT_Thread_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_TreePlayer_LIBRARY
+ROOT_TreePlayer_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_Tree_LIBRARY
+ROOT_Tree_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_genreflex_CMD
+ROOT_genreflex_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_hadd_CMD
+ROOT_hadd_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_root_CMD
+ROOT_root_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootbrowse_CMD
+ROOT_rootbrowse_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootcint_CMD
+ROOT_rootcint_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootcling_CMD
+ROOT_rootcling_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootcp_CMD
+ROOT_rootcp_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootls_CMD
+ROOT_rootls_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootmkdir_CMD
+ROOT_rootmkdir_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootmv_CMD
+ROOT_rootmv_CMD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ROOT_rootrm_CMD
+ROOT_rootrm_CMD-ADVANCED:INTERNAL=1
 

@@ -2,6 +2,10 @@
 #include "Vector3D.hh"
 #include "PhysicsEqs.hh"
 #include <iostream>
+#include <cmath>
+
+
+
 
 RunManager::RunManager() {
     std::cout << "RunManager" << std::endl;
@@ -16,6 +20,13 @@ RunManager *RunManager::GetInstance() {
 };
 
 void RunManager::Init() {
+
+  f_file = TFile::Open("Oribts.root", "recreate");
+  t_main = new TTree("Data", "Orbit results");
+
+  //t_main->SetDirectory(f_file->GetDirectory("/"));
+
+  t_main->SetBranchAddress("position", &fposition);
 
 }
 
@@ -59,12 +70,19 @@ void RunManager::Run() {
     earth_pos->AddZ(earth_v->GetZ()*dt);
 
     t += dt;
-    
-    Earth_a->Print();
-    earth_v->Print();
-    earth_pos->Print();
-  }
-  
 
-  //std::cout << test->GetX() << " " << test->GetY() << " " << test->GetZ() << std::endl;
+    Vector3D tmp = Vector3D(Earth_a);
+    fposition.push_back(tmp);
+  }
+  Vector3D *tmp = new Vector3D(fposition[-1]);
+  std::cout << tmp << std::endl;
+
+  std::cout << "HERE" << std::endl;
+  if(t_main->Write()) {  // Error in writing the output file (e.g. disk quota exceeded)
+      std::cerr << "Error while writing the output file!" << std::endl;
+  }
+  std::cout << "PEAR" << std::endl;
+  t_main->Print();
+
+
 }
