@@ -24,18 +24,13 @@ void RunManager::Init() {
   f_file = TFile::Open("Oribts.root", "recreate");
   t_main = new TTree("Data", "Orbit results");
 
-  //t_main->SetDirectory(f_file->GetDirectory("/"));
+  fposition = new Vector3D();
 
-  t_main->SetBranchAddress("position", &fposition);
+  t_main->Branch("position", fposition->IsA()->GetName(), &fposition);
 
 }
 
 void RunManager::Run() {
-
-  /*2460077.500000000 = A.D. 2023-May-13 00:00:00.0000 TDB 
- X =-9.502733785242791E+07 Y =-1.187272762699778E+08 Z = 3.915031966490299E+04
- VX= 2.288459517324164E+01 VY=-1.860895478429658E+01 VZ= 4.221814236808896E-04
- LT= 5.072627390815210E+02 RG= 1.520735434010618E+08 RR= 2.283656603172539E-01*/
 
   Vector3D *sun = new Vector3D(0,0,0);
   double sun_mass = 1.989e30;
@@ -51,13 +46,8 @@ void RunManager::Run() {
   double t = 0;
 
   Vector3D *Earth_a = PhyscisEq->GetAcceleration(earth_pos, sun, earth_mass, sun_mass, 0.1);
-  Earth_a->Print();
-  earth_v->Print();
-  earth_pos->Print();
 
-  for (int i=0; i<380; i++){
-    std::cout << "==================" <<std::endl;
-    std::cout << t << " "  << i <<std::endl;
+  for (int i=0; i<360; i++){
 
     Vector3D *Earth_a = PhyscisEq->GetAcceleration(earth_pos, sun, earth_mass, sun_mass, 0.1);
 
@@ -71,18 +61,20 @@ void RunManager::Run() {
 
     t += dt;
 
-    Vector3D tmp = Vector3D(Earth_a);
-    fposition.push_back(tmp);
-  }
-  Vector3D *tmp = new Vector3D(fposition[-1]);
-  std::cout << tmp << std::endl;
-
-  std::cout << "HERE" << std::endl;
-  if(t_main->Write()) {  // Error in writing the output file (e.g. disk quota exceeded)
+    //Vector3D tmp = Vector3D(Earth_a);
+    fposition->Set(earth_pos);
+    if(t_main->Fill()) {  // Error in writing the output file (e.g. disk quota exceeded)
       std::cerr << "Error while writing the output file!" << std::endl;
+    }
+
   }
-  std::cout << "PEAR" << std::endl;
+
+  //
+  
+  if(t_main->Write() <= 0) {  // Error in writing the output file (e.g. disk quota exceeded)
+    std::cerr << "Error while writing the output file!" << std::endl;
+  }
   t_main->Print();
-
-
+  f_file->Close();
+  
 }

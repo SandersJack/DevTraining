@@ -339,6 +339,15 @@ ROOT_rootmv_CMD:FILEPATH=/home/jack/Code/root/bin/rootmv
 //Path to a program.
 ROOT_rootrm_CMD:FILEPATH=/home/jack/Code/root/bin/rootrm
 
+//Dependencies for the target
+libOrbitSim.so_LIB_DEPENDS:STATIC=general;/home/jack/Code/root/lib/libCore.so;general;/home/jack/Code/root/lib/libImt.so;general;/home/jack/Code/root/lib/libRIO.so;general;/home/jack/Code/root/lib/libNet.so;general;/home/jack/Code/root/lib/libHist.so;general;/home/jack/Code/root/lib/libGraf.so;general;/home/jack/Code/root/lib/libGraf3d.so;general;/home/jack/Code/root/lib/libGpad.so;general;/home/jack/Code/root/lib/libROOTDataFrame.so;general;/home/jack/Code/root/lib/libTree.so;general;/home/jack/Code/root/lib/libTreePlayer.so;general;/home/jack/Code/root/lib/libRint.so;general;/home/jack/Code/root/lib/libPostscript.so;general;/home/jack/Code/root/lib/libMatrix.so;general;/home/jack/Code/root/lib/libPhysics.so;general;/home/jack/Code/root/lib/libMathCore.so;general;/home/jack/Code/root/lib/libThread.so;general;/home/jack/Code/root/lib/libMultiProc.so;general;/home/jack/Code/root/lib/libROOTVecOps.so;
+
+//Dependencies for the target
+libOrbitSim_LIB_DEPENDS:STATIC=general;/home/jack/Code/root/lib/libCore.so;general;/home/jack/Code/root/lib/libImt.so;general;/home/jack/Code/root/lib/libRIO.so;general;/home/jack/Code/root/lib/libNet.so;general;/home/jack/Code/root/lib/libHist.so;general;/home/jack/Code/root/lib/libGraf.so;general;/home/jack/Code/root/lib/libGraf3d.so;general;/home/jack/Code/root/lib/libGpad.so;general;/home/jack/Code/root/lib/libROOTDataFrame.so;general;/home/jack/Code/root/lib/libTree.so;general;/home/jack/Code/root/lib/libTreePlayer.so;general;/home/jack/Code/root/lib/libRint.so;general;/home/jack/Code/root/lib/libPostscript.so;general;/home/jack/Code/root/lib/libMatrix.so;general;/home/jack/Code/root/lib/libPhysics.so;general;/home/jack/Code/root/lib/libMathCore.so;general;/home/jack/Code/root/lib/libThread.so;general;/home/jack/Code/root/lib/libMultiProc.so;general;/home/jack/Code/root/lib/libROOTVecOps.so;
+
+//Dependencies for the target
+my_LIB_DEPENDS:STATIC=general;/home/jack/Code/root/lib/libCore.so;general;/home/jack/Code/root/lib/libImt.so;general;/home/jack/Code/root/lib/libRIO.so;general;/home/jack/Code/root/lib/libNet.so;general;/home/jack/Code/root/lib/libHist.so;general;/home/jack/Code/root/lib/libGraf.so;general;/home/jack/Code/root/lib/libGraf3d.so;general;/home/jack/Code/root/lib/libGpad.so;general;/home/jack/Code/root/lib/libROOTDataFrame.so;general;/home/jack/Code/root/lib/libTree.so;general;/home/jack/Code/root/lib/libTreePlayer.so;general;/home/jack/Code/root/lib/libRint.so;general;/home/jack/Code/root/lib/libPostscript.so;general;/home/jack/Code/root/lib/libMatrix.so;general;/home/jack/Code/root/lib/libPhysics.so;general;/home/jack/Code/root/lib/libMathCore.so;general;/home/jack/Code/root/lib/libThread.so;general;/home/jack/Code/root/lib/libMultiProc.so;general;/home/jack/Code/root/lib/libROOTVecOps.so;
+
 
 ########################
 # INTERNAL cache entries

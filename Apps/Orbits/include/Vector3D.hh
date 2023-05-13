@@ -19,6 +19,7 @@ class Vector3D: public TObject {
         void SetY(double val){fy = val;}
         void SetZ(double val){fz = val;}
         void Set(double val_x, double val_y, double val_z){fx = val_x, fy=val_y; fz=val_z;};
+        void Set(Vector3D *val){fx = val->GetX();fy = val->GetY();fz = val->GetZ();};
         
         void AddX(double val){fx += val;}
         void AddY(double val){fy += val;}
@@ -26,7 +27,7 @@ class Vector3D: public TObject {
 
         void Print();
 
-        ClassDef(Vector3D, 3);
+        ClassDef(Vector3D, 1);
     private:
         double fx, fy,fz;
 };

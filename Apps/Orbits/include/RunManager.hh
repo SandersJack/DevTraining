@@ -26,6 +26,6 @@ class RunManager {
         TFile *f_file;
         TTree *t_main;
 
-        std::vector<Vector3D> fposition;
+        Vector3D *fposition;
 };
 #endif

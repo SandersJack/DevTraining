@@ -1,6 +1,7 @@
 #include "Vector3D.hh"
 #include <iostream>
 
+ClassImp(Vector3D)
 
 Vector3D::Vector3D(): fx(0), fy(0), fz(0) {
 
