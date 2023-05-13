@@ -5,7 +5,8 @@
 int main(){
 
     std::cout << "HELLO" << std::endl;
-    //RunManager *runMan = RunManager::GetInstance();
-    new RunManager();
+    RunManager *runMan = RunManager::GetInstance();
+
+    runMan->Run();
     return 0;
 }

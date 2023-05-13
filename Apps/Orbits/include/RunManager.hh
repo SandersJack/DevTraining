@@ -10,6 +10,9 @@ class RunManager {
         static RunManager *GetInstance();
         void Test() {std::cout << "HERE"<<std::endl;}
 
+        void Init();
+        void Run();
+
     private:
         static RunManager *fInstance;
 };
