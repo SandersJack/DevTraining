@@ -1,7 +1,13 @@
-
+######## Global ##########
+.vscode
 ####### VisWithPy ########
 VisWithPy/.venv
 VisWithPy/NatGas/__pycache__
 VisWithPy/NatGas/Constants.py
 __pycache__
 VisWithPy/NatGas/dataSets/
+
+######## Orbits ###########
+Apps/Orbits/bin
+Apps/Orbits/CMakeFiles
+Apps/Orbits/Makefile
