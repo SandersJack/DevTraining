@@ -16,6 +16,10 @@ class Vector3D {
         void SetZ(double val){fz = val;}
         void Set(double val_x, double val_y, double val_z){fx = val_x, fy=val_y; fz=val_z;};
         
+        void AddX(double val){fx += val;}
+        void AddY(double val){fy += val;}
+        void AddZ(double val){fz += val;}
+
         void Print();
 
 
