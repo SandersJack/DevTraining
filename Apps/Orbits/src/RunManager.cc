@@ -88,7 +88,7 @@ void RunManager::Run() {
     fMars->Set(mars_pos);
 
     if(t_main->Fill()) {  // Error in writing the output file (e.g. disk quota exceeded)
-      std::cerr << "Error while writing the output file!" << std::endl;
+      //std::cerr << "Error while writing the output file!" << std::endl;
     }
 
   }
@@ -96,7 +96,7 @@ void RunManager::Run() {
   //
   
   if(t_main->Write() <= 0) {  // Error in writing the output file (e.g. disk quota exceeded)
-    std::cerr << "Error while writing the output file!" << std::endl;
+    //std::cerr << "Error while writing the output file!" << std::endl;
   }
   t_main->Print();
   f_file->Close();
