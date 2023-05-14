@@ -26,6 +26,8 @@ class RunManager {
         TFile *f_file;
         TTree *t_main;
 
-        Vector3D *fposition;
+        Vector3D *fEarth;
+
+        Vector3D *fMars;
 };
 #endif

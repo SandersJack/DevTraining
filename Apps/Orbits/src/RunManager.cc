@@ -24,9 +24,13 @@ void RunManager::Init() {
   f_file = TFile::Open("Oribts.root", "recreate");
   t_main = new TTree("Data", "Orbit results");
 
-  fposition = new Vector3D();
+  fEarth = new Vector3D();
 
-  t_main->Branch("position", fposition->IsA()->GetName(), &fposition);
+  t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
+
+  fMars = new Vector3D();
+
+  t_main->Branch("Mars", fMars->IsA()->GetName(), &fMars);
 
 }
 
@@ -39,15 +43,17 @@ void RunManager::Run() {
   double earth_mass = 5.97219e24;
   Vector3D *earth_v = new Vector3D(0,29290,0);
 
+  Vector3D *mars_pos = new Vector3D(1.6662*AU,0,0);
+  double mars_mass = 6.39e23;
+  Vector3D *mars_v = new Vector3D(0,21970,0);
+
   PhysicsEqs *PhyscisEq = PhysicsEqs::GetInstance();
 
   double dt = 86400; //seconds 
 
   double t = 0;
 
-  Vector3D *Earth_a = PhyscisEq->GetAcceleration(earth_pos, sun, earth_mass, sun_mass, 0.1);
-
-  for (int i=0; i<360; i++){
+  for (int i=0; i<1000; i++){
 
     Vector3D *Earth_a = PhyscisEq->GetAcceleration(earth_pos, sun, earth_mass, sun_mass, 0.1);
 
@@ -59,10 +65,22 @@ void RunManager::Run() {
     earth_pos->AddY(earth_v->GetY()*dt);
     earth_pos->AddZ(earth_v->GetZ()*dt);
 
+    Vector3D *Mars_a = PhyscisEq->GetAcceleration(mars_pos, sun, mars_mass, sun_mass, 0.1);
+
+    mars_v->AddX(Mars_a->GetX()*dt);
+    mars_v->AddY(Mars_a->GetY()*dt);
+    mars_v->AddZ(Mars_a->GetZ()*dt);
+
+    mars_pos->AddX(mars_v->GetX()*dt);
+    mars_pos->AddY(mars_v->GetY()*dt);
+    mars_pos->AddZ(mars_v->GetZ()*dt);
+
     t += dt;
 
     //Vector3D tmp = Vector3D(Earth_a);
-    fposition->Set(earth_pos);
+    fEarth->Set(earth_pos);
+    fMars->Set(mars_pos);
+
     if(t_main->Fill()) {  // Error in writing the output file (e.g. disk quota exceeded)
       std::cerr << "Error while writing the output file!" << std::endl;
     }

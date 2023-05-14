@@ -1,5 +1,10 @@
 ######## Global ##########
 .vscode
+*.cxx
+*.so
+*pcm
+*module.modulemap
+*.rootmap
 ####### VisWithPy ########
 VisWithPy/.venv
 VisWithPy/NatGas/__pycache__
