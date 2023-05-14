@@ -1,4 +1,7 @@
 #include "RunManager.hh"
+
+#include "EarthParameters.hh"
+
 #include "Vector3D.hh"
 #include "PhysicsEqs.hh"
 #include <iostream>
@@ -9,6 +12,7 @@
 
 RunManager::RunManager() {
     std::cout << "RunManager" << std::endl;
+    EarthParameters::GetInstance();
 }
 
 RunManager *RunManager::fInstance = nullptr;
@@ -52,6 +56,8 @@ void RunManager::Run() {
   double dt = 86400; //seconds 
 
   double t = 0;
+
+
 
   for (int i=0; i<1000; i++){
 
