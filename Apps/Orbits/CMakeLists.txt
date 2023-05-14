@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
+include(CMakePrintHelpers)
+
 project(OrbitSim)
 
 find_package(ROOT REQUIRED COMPONENTS RIO)
@@ -10,9 +12,9 @@ else()
     message (FATAL_ERROR "ROOT not found")
 endif()
 
-set(CMAKE_BINARY_DIR "bin/")
+set(CMAKE_BINARY_DIR ".")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-#set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 include_directories(${ROOT_INCLUDE_DIR})
 link_directories(${ROOT_LIBRARY_DIR})

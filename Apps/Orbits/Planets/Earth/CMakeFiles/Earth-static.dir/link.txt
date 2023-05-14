@@ -1,2 +1,0 @@
-/usr/bin/ar qc libEarth-static.a CMakeFiles/EarthObjLib.dir/src/EarthParameters.cc.o
-/usr/bin/ranlib libEarth-static.a

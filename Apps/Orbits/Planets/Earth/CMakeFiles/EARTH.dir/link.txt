@@ -1,2 +1,0 @@
-/usr/bin/ar qc libEARTH.a CMakeFiles/EARTH.dir/src/EarthParameters.cc.o
-/usr/bin/ranlib libEARTH.a
