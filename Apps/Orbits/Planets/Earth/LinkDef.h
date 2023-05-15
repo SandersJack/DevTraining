@@ -7,6 +7,5 @@
 #pragma link C++ nestedclass;
 #pragma link C++ nestedtypedef;
 
-#pragma link C++ class Vector3D+;
-#pragma link C++ class Planets+;
+#pragma link C++ class Earth+;
 #endif

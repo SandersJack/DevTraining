@@ -31,11 +31,9 @@ add_executable(OrbitSim ${MAIN_FILE} ${SRC})
 target_link_libraries(OrbitSim ROOT::RIO)   
 target_link_libraries(OrbitSim ${ROOT_LIBRARIES} )
 
-ROOT_GENERATE_DICTIONARY(Vector3DDict Vector3D.hh MODULE OrbitSim LINKDEF LinkDef.h)
+ROOT_GENERATE_DICTIONARY(Vector3DDict Vector3D.hh Planets.hh MODULE OrbitSim LINKDEF LinkDef.h)
 target_include_directories(Vector3DDict PUBLIC "include/")
-
-add_library(myLib SHARED src/Vector3D.cc)
-
+add_library(myLib SHARED src/Vector3D.cc src/Planets.cc)
 target_link_libraries(${PROJECT_NAME} myLib)
 
 

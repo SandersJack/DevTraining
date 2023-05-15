@@ -3,6 +3,8 @@
 
 #include "Vector3D.hh"
 
+#include"Planets.hh"
+
 #include <iostream>
 #include <vector>
 
@@ -27,7 +29,10 @@ class RunManager {
         TTree *t_main;
 
         Vector3D *fEarth;
-
         Vector3D *fMars;
+
+        double fdt;
+
+        std::vector<Planets *> fPlanets;
 };
 #endif
