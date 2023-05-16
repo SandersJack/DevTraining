@@ -1,6 +1,7 @@
 #include "EarthParameters.hh"
 #include <iostream>
 
+ClassImp(EarthParameters)
 
 EarthParameters::EarthParameters(){
     Init();
