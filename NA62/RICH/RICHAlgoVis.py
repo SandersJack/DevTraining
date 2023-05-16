@@ -65,17 +65,19 @@ circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue")
 plt.gca().add_patch(circle)
 plo = 0
 
+animate = False
+
 def plot(x,y,n,m,l,k, col="red"):
-    
-    print(k,l,m,n)
-    circle = plt.Circle((x-x_center,y-y_center),7.5, fc=col,ec="blue")
-    #plt.plot(x,y)
-    plt.gca().add_patch(circle)
-    plt.pause(0.0001)
-    if plo == 0:
-        pass
-    else:
-        plt.draw()
+    if animate:
+        #print(k,l,m,n)
+        circle = plt.Circle((x-x_center,y-y_center),7.5, fc=col,ec="blue")
+        #plt.plot(x,y)
+        plt.gca().add_patch(circle)
+        plt.pause(0.0001)
+        if plo == 0:
+            pass
+        else:
+            plt.draw()
     
 
 for k in range(nRow):  #first half
@@ -97,7 +99,7 @@ for k in range(nRow):  #first half
         
         cell_dist[k] = int(np.floor(center_distance / (2 * (ConeInputRadius + HoneyCombDistance)) + 0.2))
         
-        
+        print(cell_dist[k])
 
     for l in range(nSuperCellinRow[k]):
 
@@ -133,7 +135,7 @@ for k in range(nRow):  #first half
         y_center_row0_up = y_center_row0_up / nSuperCellinRow[k]
 
 #end first half
-
+exit(0)
 for j in range(nRow): 
     for l in range(nSuperCellinRow[j]):
 
