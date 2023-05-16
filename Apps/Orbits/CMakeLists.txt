@@ -12,8 +12,8 @@ else()
     message (FATAL_ERROR "ROOT not found")
 endif()
 
-set(CMAKE_BINARY_DIR ".")
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set(EXECUTABLE_OUTPUT_PATH ".")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 include_directories(${ROOT_INCLUDE_DIR})
@@ -42,6 +42,10 @@ set(PlanetsIncludeDirs ${PlanetsList})
 list(TRANSFORM PlanetsIncludeDirs PREPEND "Planets/")
 list(TRANSFORM PlanetsIncludeDirs APPEND "/include")
 include_directories(${PlanetsIncludeDirs})
-target_link_libraries(${PROJECT_NAME} ${PlanetsList})
-
+target_link_libraries(${PROJECT_NAME} ${PlanetsList}Persistency)
 add_subdirectory(Planets)
+
+message(PROJECT_SOURCE_DIR="${PlanetsList}")
+
+#install(FILES "${PlanetsList}/lib${SubDir}Persistency_rdict.pcm" DESTINATION "${EXECUTABLE_OUTPUT_PATH}/build")
+#install(FILES "${PlanetsList}/lib${SubDir}Persistency.rootmap" DESTINATION "${EXECUTABLE_OUTPUT_PATH}/build")

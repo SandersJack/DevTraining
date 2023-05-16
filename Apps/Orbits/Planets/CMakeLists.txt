@@ -1,4 +1,5 @@
 foreach(Planets ${PlanetsList})
   add_subdirectory(${Planets})
-  target_link_libraries(OrbitSim ${detector})
+  target_link_libraries(OrbitSim ${Planets}Persistency)
+  message(PROJECT_SOURCE_DIR="${Planets}")
 endforeach()

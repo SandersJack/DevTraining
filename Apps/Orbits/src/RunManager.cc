@@ -32,7 +32,7 @@ void RunManager::Init() {
   t_main = new TTree("Data", "Orbit results");
 
   for(Planets *p : fPlanets){
-    t_main->Branch("Earth", p->IsA()->GetName(), &p);
+    t_main->Branch("Earth", p->IsA()->GetName(), static_cast<Earth*>(p));
     p->SetTimeStep(fdt);
   }
 
