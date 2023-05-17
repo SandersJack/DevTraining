@@ -28,6 +28,8 @@ void Earth::NextStep(){
     
     Vector3D Earth_a = PhysicsEqs->GetAcceleration(fPosition, sun, fMass, sun_mass, 0.1);
 
+    fAcceleration = Earth_a;
+
     fVelocity.AddX(Earth_a.GetX()*fdt);
     fVelocity.AddY(Earth_a.GetY()*fdt);
     fVelocity.AddZ(Earth_a.GetZ()*fdt);
