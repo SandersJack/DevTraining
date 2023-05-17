@@ -6,6 +6,7 @@
 #include "Planets.hh"
 #include "Earth.hh"
 #include "Mars.hh"
+#include "Moon.hh"
 
 #include <iostream>
 #include <vector>
@@ -33,6 +34,7 @@ class RunManager {
         TBranch *fEarthBranch;
         Earth *fEarth;
         Mars *fMars;
+        Moon *fMoon;
 
         double fdt;
 

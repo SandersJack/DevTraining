@@ -69,5 +69,3 @@ ADD_CUSTOM_TARGET(link_target2 ALL
 
 ADD_CUSTOM_TARGET(link_target3 ALL
                   COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_BINARY_DIR}Planets/Mars/libMarsPersistency.rootmap" "${CMAKE_CURRENT_BINARY_DIR}/libMarsPersistency.rootmap")                 
-#install(FILES "${PlanetsList}/lib${SubDir}Persistency_rdict.pcm" DESTINATION "${EXECUTABLE_OUTPUT_PATH}/build")
-#install(FILES "${PlanetsList}/lib${SubDir}Persistency.rootmap" DESTINATION "${EXECUTABLE_OUTPUT_PATH}/build")

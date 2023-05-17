@@ -2,6 +2,7 @@
 
 #include "Earth.hh"
 #include "Mars.hh"
+#include "Moon.hh"
 
 #include "Vector3D.hh"
 #include "PhysicsEqs.hh"
@@ -35,6 +36,9 @@ void RunManager::Init() {
   fMars = new Mars();
   fMars->SetTimeStep(fdt);
 
+  fMoon = new Moon();
+  fMoon->SetTimeStep(fdt);
+
  
 
   f_file = TFile::Open("Oribts.root", "recreate");
@@ -42,6 +46,7 @@ void RunManager::Init() {
 
   t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
   t_main->Branch("Mars", fMars->IsA()->GetName(), &fMars);
+  t_main->Branch("Moon", fMoon->IsA()->GetName(), &fMoon);
 
   //for(Planets *p : fPlanets){
   //  t_main->Branch("Earth", p->IsA()->GetName(), static_cast<Earth*>(p));
@@ -80,6 +85,9 @@ void RunManager::Run() {
 
     fMars->NextStep();
     fMars->PrintPos();
+
+    fMoon->NextStep(fEarth);
+    fMoon->PrintPos();
 
     t += fdt;
 

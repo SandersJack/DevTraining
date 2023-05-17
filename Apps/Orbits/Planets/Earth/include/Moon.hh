@@ -1,14 +1,23 @@
-#ifndef Planets_H
-#define Planets_H 
+#ifndef Moon_H
+#define Moon_H
 
-#include "TObject.h"
+#include "Planets.hh"
+#include "Earth.hh"
+#include "MoonParameters.hh"
+#include "PhysicsEqs.hh"
+#include "TTree.h"
 #include "Vector3D.hh"
+#include "TObject.h"
 
-class Planets: public TObject {
 
+class Moon: public TObject {
     public:
-        Planets();
-        ~Planets();
+        Moon();
+        ~Moon();
+
+        void Init();
+        void InitRootIO(TTree *t_main);
+        void PrintPos();
 
         void SetPosition(Vector3D val){ fPosition = val;};
         void SetVelocity(Vector3D val){ fVelocity = val;};
@@ -21,10 +30,14 @@ class Planets: public TObject {
         double GetMass(){return fMass;}
 
         void SetTimeStep(double val){ fdt = val;}
+        
+        void NextStep(Earth *E);
 
-        virtual void NextStep() = 0;
+        ClassDef(Moon,1);
 
-    public:
+    private:
+
+        Vector3D fSunPosition;
         Vector3D fPosition;
         Vector3D fVelocity;
         Vector3D fAcceleration;
@@ -32,9 +45,7 @@ class Planets: public TObject {
         double fMass;
         double fdt;
 
-        ClassDef(Planets,1);
-
-
+    
 };
 
 #endif
