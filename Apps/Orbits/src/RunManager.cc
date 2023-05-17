@@ -1,6 +1,7 @@
 #include "RunManager.hh"
 
 #include "Earth.hh"
+#include "Mars.hh"
 
 #include "Vector3D.hh"
 #include "PhysicsEqs.hh"
@@ -29,30 +30,23 @@ void RunManager::Init() {
   //fPlanets.push_back(new Earth());
 
   fEarth = new Earth();
-  std::cout << fEarth << std::endl;
   fEarth->SetTimeStep(fdt);
 
-  
+  fMars = new Mars();
+  fMars->SetTimeStep(fdt);
 
  
 
   f_file = TFile::Open("Oribts.root", "recreate");
   t_main = new TTree("Data", "Orbit results");
 
-  fEarthBranch = t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
-  std::cout << "BAM" << std::endl;
+  t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
+  t_main->Branch("Mars", fMars->IsA()->GetName(), &fMars);
+
   //for(Planets *p : fPlanets){
   //  t_main->Branch("Earth", p->IsA()->GetName(), static_cast<Earth*>(p));
   //  p->SetTimeStep(fdt);
   //}
-
-  //fEarth = new Vector3D();
-
-  //t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
-
-  //fMars = new Vector3D();
-
-  //t_main->Branch("Mars", fMars->IsA()->GetName(), &fMars);
 
 }
 
@@ -78,39 +72,17 @@ void RunManager::Run() {
 
 
   for (int i=0; i<1000; i++){
-    /*
-    Vector3D *Earth_a = PhyscisEq->GetAcceleration(earth_pos, sun, earth_mass, sun_mass, 0.1);
-
-    earth_v->AddX(Earth_a->GetX()*dt);
-    earth_v->AddY(Earth_a->GetY()*dt);
-    earth_v->AddZ(Earth_a->GetZ()*dt);
-
-    earth_pos->AddX(earth_v->GetX()*dt);
-    earth_pos->AddY(earth_v->GetY()*dt);
-    earth_pos->AddZ(earth_v->GetZ()*dt);
-    */
-   
     //for(Planets *p : fPlanets){
     //  p->NextStep();
     //}
     fEarth->NextStep();
     fEarth->PrintPos();
-/*
-    Vector3D *Mars_a = PhyscisEq->GetAcceleration(mars_pos, sun, mars_mass, sun_mass, 0.1);
 
-    mars_v->AddX(Mars_a->GetX()*fdt);
-    mars_v->AddY(Mars_a->GetY()*fdt);
-    mars_v->AddZ(Mars_a->GetZ()*fdt);
+    fMars->NextStep();
+    fMars->PrintPos();
 
-    mars_pos->AddX(mars_v->GetX()*fdt);
-    mars_pos->AddY(mars_v->GetY()*fdt);
-    mars_pos->AddZ(mars_v->GetZ()*fdt);
-*/
     t += fdt;
 
-    //Vector3D tmp = Vector3D(Earth_a);
-    //fEarth->Set(earth_pos);
-    //fMars->Set(mars_pos);
 
     if(t_main->Fill()) {  // Error in writing the output file (e.g. disk quota exceeded)
       //std::cerr << "Error while writing the output file!" << std::endl;
