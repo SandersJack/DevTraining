@@ -1,27 +1,29 @@
 #include "Earth.hh"
+#include <iostream>
 
 ClassImp(Earth)
 
 Earth::Earth() {
-    fEParam = EarthParameters::GetInstance();
-    fPhysicsEqs = PhysicsEqs::GetInstance();
     Init();
 }
 
-Earth::~Earth(){}
+Earth::~Earth(){
+}
 
 void Earth::Init(){
-    fMass = fEParam->GetMass();
-    fPosition = fEParam->GetStartPos();
-    fVelocity = fEParam->GetStartVel();
+    EarthParameters *EParam = EarthParameters::GetInstance();
+    fMass = EParam->GetMass();
+    fPosition = new Vector3D(EParam->GetStartPos());
+    fVelocity = new Vector3D(EParam->GetStartVel());
 }
 
 void Earth::NextStep(){
+    PhysicsEqs *PhysicsEqs = PhysicsEqs::GetInstance();
 
     Vector3D *sun = new Vector3D(0,0,0);
     double sun_mass = 1.989e30;
-
-    Vector3D *Earth_a = fPhysicsEqs->GetAcceleration(fPosition, sun, fMass, sun_mass, 0.1);
+    
+    Vector3D *Earth_a = PhysicsEqs->GetAcceleration(fPosition, sun, fMass, sun_mass, 0.1);
 
     fVelocity->AddX(Earth_a->GetX()*fdt);
     fVelocity->AddY(Earth_a->GetY()*fdt);
@@ -31,4 +33,8 @@ void Earth::NextStep(){
     fPosition->AddY(fVelocity->GetY()*fdt);
     fPosition->AddZ(fVelocity->GetZ()*fdt);
 
+}
+
+void Earth::PrintPos(){
+    std::cout << fPosition->GetX() << " " << fPosition->GetY() << " " << fPosition->GetZ() << std::endl;
 }

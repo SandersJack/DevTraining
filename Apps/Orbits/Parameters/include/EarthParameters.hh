@@ -16,8 +16,6 @@ class EarthParameters {
         Vector3D *GetStartVel(){ return fStartVel;}
         double GetMass(){ return fMass;}
 
-        ClassDef(EarthParameters,1);
-
     private:
         static EarthParameters *fInstance;
         Vector3D *fStartPos;

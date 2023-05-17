@@ -3,7 +3,8 @@
 
 #include "Vector3D.hh"
 
-#include"Planets.hh"
+#include "Planets.hh"
+#include "Earth.hh"
 
 #include <iostream>
 #include <vector>
@@ -28,7 +29,8 @@ class RunManager {
         TFile *f_file;
         TTree *t_main;
 
-        Vector3D *fEarth;
+        TBranch *fEarthBranch;
+        Earth *fEarth;
         Vector3D *fMars;
 
         double fdt;

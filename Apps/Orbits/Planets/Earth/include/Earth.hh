@@ -14,14 +14,13 @@ class Earth: public Planets {
 
         void Init();
         void InitRootIO(TTree *t_main);
+        void PrintPos();
         
         virtual void NextStep();
 
         ClassDef(Earth,1);
 
     private:
-        EarthParameters *fEParam;
-        PhysicsEqs *fPhysicsEqs;
 
     
 };

@@ -15,10 +15,13 @@ ROOT_GENERATE_DICTIONARY(${SubDir}PersistencyDICT ${INC} OPTIONS -inlineInputHea
 #add_library(${SubDir}Persistency SHARED $<TARGET_OBJECTS:${SubDir}ObjPersistencyLib>)
 add_library(${SubDir}Persistency SHARED ${SRC} ${SubDir}PersistencyDICT.cxx)
 
-message(PROJECT_SOURCE_DIR="${CMAKE_BINARY_DIR}")
+target_link_libraries(${SubDir}Persistency Parameters)
+target_link_libraries(${SubDir}Persistency myLib)
+
+message(PROJECT_SOURCE_DIR="${EXECUTABLE_OUTPUT_PATH}")
 message(DIR="${CMAKE_CURRENT_BINARY_DIR}/lib${SubDir}Persistency_rdict.pcm")
 
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/lib${SubDir}Persistency_rdict.pcm" DESTINATION "${CMAKE_BINARY_DIR}")
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/lib${SubDir}Persistency.rootmap" DESTINATION "${CMAKE_BINARY_DIR}")
 
-install(TARGETS ${SubDir}Persistency DESTINATION EXECUTABLE_OUTPUT_PATH)
+install(TARGETS ${SubDir}Persistency DESTINATION CMAKE_BINARY_DIR)

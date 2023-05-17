@@ -26,15 +26,25 @@ void RunManager::Init() {
 
   fdt = 86400; //seconds
 
-  fPlanets.push_back(new Earth());
+  //fPlanets.push_back(new Earth());
+
+  fEarth = new Earth();
+  std::cout << fEarth << std::endl;
+  fEarth->SetTimeStep(fdt);
+
+  
+
+ 
 
   f_file = TFile::Open("Oribts.root", "recreate");
   t_main = new TTree("Data", "Orbit results");
 
-  for(Planets *p : fPlanets){
-    t_main->Branch("Earth", p->IsA()->GetName(), static_cast<Earth*>(p));
-    p->SetTimeStep(fdt);
-  }
+  fEarthBranch = t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
+  std::cout << "BAM" << std::endl;
+  //for(Planets *p : fPlanets){
+  //  t_main->Branch("Earth", p->IsA()->GetName(), static_cast<Earth*>(p));
+  //  p->SetTimeStep(fdt);
+  //}
 
   //fEarth = new Vector3D();
 
@@ -80,9 +90,11 @@ void RunManager::Run() {
     earth_pos->AddZ(earth_v->GetZ()*dt);
     */
    
-    for(Planets *p : fPlanets){
-      p->NextStep();
-    }
+    //for(Planets *p : fPlanets){
+    //  p->NextStep();
+    //}
+    fEarth->NextStep();
+    fEarth->PrintPos();
 
     Vector3D *Mars_a = PhyscisEq->GetAcceleration(mars_pos, sun, mars_mass, sun_mass, 0.1);
 

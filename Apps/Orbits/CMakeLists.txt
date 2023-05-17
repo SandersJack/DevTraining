@@ -37,6 +37,10 @@ add_library(myLib SHARED src/Vector3D.cc src/Planets.cc)
 target_link_libraries(${PROJECT_NAME} myLib)
 
 
+include_directories("Parameters/include")
+target_link_libraries(${PROJECT_NAME} Parameters)
+add_subdirectory(Parameters)
+
 set(PlanetsList Earth)
 set(PlanetsIncludeDirs ${PlanetsList})
 list(TRANSFORM PlanetsIncludeDirs PREPEND "Planets/")
