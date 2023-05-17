@@ -5,6 +5,7 @@
 #include "EarthParameters.hh"
 #include "PhysicsEqs.hh"
 #include "TTree.h"
+#include "Vector3D.hh"
 
 
 class Earth: public Planets {
@@ -21,6 +22,7 @@ class Earth: public Planets {
         ClassDef(Earth,1);
 
     private:
+
 
     
 };

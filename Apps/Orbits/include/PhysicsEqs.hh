@@ -10,7 +10,7 @@ class PhysicsEqs{
         ~PhysicsEqs();
         static PhysicsEqs *GetInstance();
 
-        Vector3D *GetAcceleration(Vector3D *pos1, Vector3D *pos2, double mass1, double mass2, double soft);
+        Vector3D GetAcceleration(Vector3D pos1, Vector3D pos2, double mass1, double mass2, double soft);
 
     private:
         static PhysicsEqs *fInstance;

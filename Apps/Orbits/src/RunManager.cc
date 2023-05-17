@@ -50,9 +50,9 @@ void RunManager::Init() {
 
   //t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
 
-  fMars = new Vector3D();
+  //fMars = new Vector3D();
 
-  t_main->Branch("Mars", fMars->IsA()->GetName(), &fMars);
+  //t_main->Branch("Mars", fMars->IsA()->GetName(), &fMars);
 
 }
 
@@ -95,7 +95,7 @@ void RunManager::Run() {
     //}
     fEarth->NextStep();
     fEarth->PrintPos();
-
+/*
     Vector3D *Mars_a = PhyscisEq->GetAcceleration(mars_pos, sun, mars_mass, sun_mass, 0.1);
 
     mars_v->AddX(Mars_a->GetX()*fdt);
@@ -105,12 +105,12 @@ void RunManager::Run() {
     mars_pos->AddX(mars_v->GetX()*fdt);
     mars_pos->AddY(mars_v->GetY()*fdt);
     mars_pos->AddZ(mars_v->GetZ()*fdt);
-
+*/
     t += fdt;
 
     //Vector3D tmp = Vector3D(Earth_a);
     //fEarth->Set(earth_pos);
-    fMars->Set(mars_pos);
+    //fMars->Set(mars_pos);
 
     if(t_main->Fill()) {  // Error in writing the output file (e.g. disk quota exceeded)
       //std::cerr << "Error while writing the output file!" << std::endl;

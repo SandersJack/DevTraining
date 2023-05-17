@@ -12,9 +12,10 @@ else()
     message (FATAL_ERROR "ROOT not found")
 endif()
 
-set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build/")
 set(EXECUTABLE_OUTPUT_PATH ".")
-set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
+message(LIB="${LIBRARY_OUTPUT_PATH}")
 
 include_directories(${ROOT_INCLUDE_DIR})
 link_directories(${ROOT_LIBRARY_DIR})
@@ -47,9 +48,16 @@ list(TRANSFORM PlanetsIncludeDirs PREPEND "Planets/")
 list(TRANSFORM PlanetsIncludeDirs APPEND "/include")
 include_directories(${PlanetsIncludeDirs})
 target_link_libraries(${PROJECT_NAME} ${PlanetsList}Persistency)
+
 add_subdirectory(Planets)
 
-message(PROJECT_SOURCE_DIR="${PlanetsList}")
+message(PROJECT_SOURCE_DIR="${CMAKE_BINARY_DIR}Planets/${PlanetsList}/lib${PlanetsList}Persistency_rdict.pcm")
+
+ADD_CUSTOM_TARGET(link_target ALL
+                  COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_BINARY_DIR}Planets/${PlanetsList}/lib${PlanetsList}Persistency_rdict.pcm" "${CMAKE_CURRENT_BINARY_DIR}/libEarthPersistency_rdict.pcm")
+
+ADD_CUSTOM_TARGET(link_target1 ALL
+                  COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_BINARY_DIR}Planets/${PlanetsList}/lib${PlanetsList}Persistency.rootmap" "${CMAKE_CURRENT_BINARY_DIR}/lib${PlanetsList}Persistency.rootmap")
 
 #install(FILES "${PlanetsList}/lib${SubDir}Persistency_rdict.pcm" DESTINATION "${EXECUTABLE_OUTPUT_PATH}/build")
 #install(FILES "${PlanetsList}/lib${SubDir}Persistency.rootmap" DESTINATION "${EXECUTABLE_OUTPUT_PATH}/build")

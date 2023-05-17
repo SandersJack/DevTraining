@@ -10,14 +10,14 @@ class Planets: public TObject {
         Planets();
         ~Planets();
 
-        void SetPosition(Vector3D *val){ fPosition = val;};
-        void SetVelocity(Vector3D *val){ fVelocity = val;};
-        void SetAcceleration(Vector3D *val){ fAcceleration = val;}
+        void SetPosition(Vector3D val){ fPosition = val;};
+        void SetVelocity(Vector3D val){ fVelocity = val;};
+        void SetAcceleration(Vector3D val){ fAcceleration = val;}
         void SetMass(double val){ fMass = val;};
 
-        Vector3D *SetPosition(){ return fPosition;}
-        Vector3D *SetVelocity(){ return fVelocity;}
-        Vector3D *SetAcceleration(){ return fAcceleration;}
+        Vector3D SetPosition(){ return fPosition;}
+        Vector3D SetVelocity(){ return fVelocity;}
+        Vector3D SetAcceleration(){ return fAcceleration;}
         double SetMass(){return fMass;}
 
         void SetTimeStep(double val){ fdt = val;}
@@ -25,9 +25,9 @@ class Planets: public TObject {
         virtual void NextStep() = 0;
 
     public:
-        Vector3D *fPosition;
-        Vector3D *fVelocity;
-        Vector3D *fAcceleration;
+        Vector3D fPosition;
+        Vector3D fVelocity;
+        Vector3D fAcceleration;
 
         double fMass;
         double fdt;
