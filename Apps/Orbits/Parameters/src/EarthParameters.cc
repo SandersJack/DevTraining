@@ -18,7 +18,7 @@ EarthParameters *EarthParameters::GetInstance() {
 }
 
 void EarthParameters::Init() {
-    fAU = 1.5e11;
+    fAU = 1.495e11;
     fStartPos = new Vector3D(1.0167*fAU,0,0);
     fStartVel = new Vector3D(0,29290,0);
     fMass = 5.97219e24;

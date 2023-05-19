@@ -3,6 +3,7 @@
 
 #include "TObject.h"
 #include "Vector3D.hh"
+#include <cmath>
 
 class Planets: public TObject {
 
@@ -19,6 +20,8 @@ class Planets: public TObject {
         Vector3D GetVelocity(){ return fVelocity;}
         Vector3D GetAcceleration(){ return fAcceleration;}
         double GetMass(){return fMass;}
+
+        double GetAngle(){return atan(fPosition.GetY()/fPosition.GetX());}
 
         void SetTimeStep(double val){ fdt = val;}
 
