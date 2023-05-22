@@ -37,6 +37,8 @@ void Earth::NextStep(){
     fPosition.AddX(fVelocity.GetX()*fdt);
     fPosition.AddY(fVelocity.GetY()*fdt);
     fPosition.AddZ(fVelocity.GetZ()*fdt);
+
+    fTime += fdt;
     
 }
 

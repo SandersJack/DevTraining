@@ -34,6 +34,7 @@ class Planets: public TObject {
 
         double fMass;
         double fdt;
+        double fTime;
 
         ClassDef(Planets,1);
 

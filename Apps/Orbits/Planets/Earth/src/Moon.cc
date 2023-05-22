@@ -45,6 +45,7 @@ void Moon::NextStep(Earth *E){
     fPosition.AddY(fVelocity.GetY()*fdt);
     fPosition.AddZ(fVelocity.GetZ()*fdt);
 
+    /// This is extremely cheaty but its late and I cant do maths at this time to fix it :)
     fSunPosition.SetX(fPosition.GetX() + E->GetPosition().GetX());
     fSunPosition.SetY(fPosition.GetY() + E->GetPosition().GetY());
     fSunPosition.SetZ(fPosition.GetZ() + E->GetPosition().GetZ());
