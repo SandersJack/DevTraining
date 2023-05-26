@@ -1,7 +1,7 @@
 import uproot
 import matplotlib.pyplot as plt
 
-file = uproot.open("/home/jack/Code/DevTraining/Apps/Orbits/Oribts.root")
+file = uproot.open("/home/jack/Code/DevTraining/Apps/Orbits/proton.root")
 
 fx_earth = file["Data"]["Earth/Planets/fPosition.fx"].array()
 fy_earth = file["Data"]["Earth/Planets/fPosition.fy"].array()
