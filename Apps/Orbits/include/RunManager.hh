@@ -8,12 +8,12 @@
 #include "Mars.hh"
 #include "Moon.hh"
 
+#include "RootIO.hh"
+
 #include <iostream>
 #include <vector>
 
-#include "TROOT.h"
-#include "TTree.h"
-#include "TFile.h"
+
 
 
 class RunManager {
@@ -26,10 +26,10 @@ class RunManager {
         void Init();
         void Run();
 
+        std::vector<Planets *>  GetPlanetMap() { return fPlanets;}
+
     private:
         static RunManager *fInstance;
-        TFile *f_file;
-        TTree *t_main;
 
         TBranch *fEarthBranch;
         Earth *fEarth;
@@ -39,5 +39,7 @@ class RunManager {
         double fdt;
 
         std::vector<Planets *> fPlanets;
+
+        RootIO *fIOManager; 
 };
 #endif

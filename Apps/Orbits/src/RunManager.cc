@@ -4,12 +4,14 @@
 #include "Mars.hh"
 #include "Moon.hh"
 
+#include "namedPlanets.hh"
+
 #include "Vector3D.hh"
 #include "PhysicsEqs.hh"
+
 #include <iostream>
+#include <string>
 #include <cmath>
-
-
 
 
 RunManager::RunManager() {
@@ -28,63 +30,51 @@ void RunManager::Init() {
 
   fdt = 86400; //seconds
 
-  //
+  std::string test = "Earth";
 
-  fEarth = new Earth();
-  fEarth->SetTimeStep(fdt);
-  fPlanets.push_back(fEarth);
+  namedPlanets *conv = namedPlanets::GetInstance();
+
+  fPlanets.push_back(conv->GetPlanetFunc(test));
 
   fMars = new Mars();
   fMars->SetTimeStep(fdt);
   fPlanets.push_back(fMars);
 
-  fMoon = new Moon();
-  fMoon->SetTimeStep(fdt);
+  //fMoon = new Moon();
+  //fMoon->SetTimeStep(fdt);
 
- 
-
-  f_file = TFile::Open("Oribts.root", "recreate");
-  t_main = new TTree("Data", "Orbit results");
-
-  t_main->Branch("Moon", fMoon->IsA()->GetName(), &fMoon);
+  //t_main->Branch("Moon", fMoon->IsA()->GetName(), &fMoon);
 
   for(Planets *p : fPlanets){
-    std::cout << p->IsA()->GetName() << std::endl;
-    t_main->Branch(p->IsA()->GetName(), "Planets", p);
+    p->SetTimeStep(fdt);
   }
+
+  fIOManager = RootIO::GetInstance();
+  fIOManager->Init();
+  fIOManager->InitBranches();
+
 }
 
 void RunManager::Run() {
   PhysicsEqs *PhyscisEq = PhysicsEqs::GetInstance();
 
-   
-
   double t = 0;
-
 
 
   for (int i=0; i<1000; i++){
     for(Planets *p : fPlanets){
       p->NextStep();
     }
-    fMoon->NextStep(fEarth);
-    fMoon->PrintPos();
+    //fMoon->NextStep(fEarth);
+    //fMoon->PrintPos();
 
     t += fdt;
 
 
-    if(t_main->Fill()) {  // Error in writing the output file (e.g. disk quota exceeded)
-      //std::cerr << "Error while writing the output file!" << std::endl;
-    }
+    fIOManager->SaveStep();
 
   }
+  
+  fIOManager->EndRun();
 
-  //
-  
-  if(t_main->Write() <= 0) {  // Error in writing the output file (e.g. disk quota exceeded)
-    //std::cerr << "Error while writing the output file!" << std::endl;
-  }
-  t_main->Print();
-  f_file->Close();
-  
 }
