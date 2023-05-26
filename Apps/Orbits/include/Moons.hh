@@ -1,16 +1,16 @@
-#ifndef Planets_H
-#define Planets_H 
+#ifndef Moons_H
+#define Moons_H 
 
+#include "Planets.hh"
 #include "TObject.h"
 #include "Vector3D.hh"
 #include <cmath>
-#include <iostream>
 
-class Planets: public TObject {
+class Moons: public TObject {
 
     public:
-        Planets();
-        ~Planets();
+        Moons();
+        ~Moons();
 
         void SetPosition(Vector3D val){ fPosition = val;};
         void SetVelocity(Vector3D val){ fVelocity = val;};
@@ -26,9 +26,14 @@ class Planets: public TObject {
 
         void SetTimeStep(double val){ fdt = val;}
 
+        void SetBody(Planets *val) {fBody = val;}
+
         virtual void NextStep() = 0;
 
     public:
+
+        Planets *fBody;
+
         Vector3D fPosition;
         Vector3D fVelocity;
         Vector3D fAcceleration;
@@ -37,7 +42,7 @@ class Planets: public TObject {
         double fdt;
         double fTime;
 
-        ClassDef(Planets,1);
+        ClassDef(Moons,1);
 
 
 };

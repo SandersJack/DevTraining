@@ -20,16 +20,16 @@ void Moon::Init(){
     fVelocity = Vector3D(EParam->GetStartVel());
 }
 
-void Moon::NextStep(Earth *E){
+void Moon::NextStep(){
     
     PhysicsEqs *PhysicsEqs = PhysicsEqs::GetInstance();
 
     Vector3D *cen = new Vector3D(0,0,0);
     double sun_mass = 1.989e30;
     
-    //std::cout << E->GetMass() << std::endl;
+    //std::cout << fBody->GetMass() << std::endl;
     Vector3D Moon_a = PhysicsEqs->GetAcceleration(fPosition, cen, fMass, sun_mass, 0.1);
-    Vector3D Moon_Earth = PhysicsEqs->GetAcceleration(fPosition, cen, fMass, E->GetMass(), 0.1);
+    Vector3D Moon_Earth = PhysicsEqs->GetAcceleration(fPosition, cen, fMass, fBody->GetMass(), 0.1);
 
     fAcceleration = Moon_Earth;
 
@@ -46,9 +46,9 @@ void Moon::NextStep(Earth *E){
     fPosition.AddZ(fVelocity.GetZ()*fdt);
 
     /// This is extremely cheaty but its late and I cant do maths at this time to fix it :)
-    fSunPosition.SetX(fPosition.GetX() + E->GetPosition().GetX());
-    fSunPosition.SetY(fPosition.GetY() + E->GetPosition().GetY());
-    fSunPosition.SetZ(fPosition.GetZ() + E->GetPosition().GetZ());
+    fSunPosition.SetX(fPosition.GetX() + fBody->GetPosition().GetX());
+    fSunPosition.SetY(fPosition.GetY() + fBody->GetPosition().GetY());
+    fSunPosition.SetZ(fPosition.GetZ() + fBody->GetPosition().GetZ());
     
 }
 

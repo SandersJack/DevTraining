@@ -4,7 +4,7 @@
 #include "Mars.hh"
 #include "Moon.hh"
 
-#include "namedPlanets.hh"
+#include "namedBodies.hh"
 #include "InputManager.hh"
 
 #include "Vector3D.hh"
@@ -30,21 +30,32 @@ void RunManager::Init() {
 
   fPlanetList = InputManager::GetInstance()->GetPlanetList();
 
-  namedPlanets *conv = namedPlanets::GetInstance();
+  fMoonMap = InputManager::GetInstance()->GetMoonList();
+
+  namedBodies *conv = namedBodies::GetInstance();
 
   std::cout << "[RunManager] Simulation using Planets: " << std::endl;
   for(std::string plan : fPlanetList){
     std::cout << "[RunManager] " << plan << std::endl;
-    fPlanets.push_back(conv->GetPlanetFunc(plan));
+    Planets *b = conv->GetPlanetFunc(plan);
+    fPlanets.push_back(b);
+    std::map<std::string, std::string>::iterator iter = fMoonMap.find(plan);
+    if (iter != fMoonMap.end() )
+    {
+      std::cout << "[RunManager] - " << iter->second << std::endl;
+      Moons *m = conv->GetMoonsFunc(iter->second);
+      m->SetBody(b);
+      fMoons.push_back(m);
+    }
   }
 
-  //fMoon = new Moon();
-  //fMoon->SetTimeStep(fdt);
-
-  //t_main->Branch("Moon", fMoon->IsA()->GetName(), &fMoon);
 
   for(Planets *p : fPlanets){
     p->SetTimeStep(fdt);
+  }
+
+  for(Moons *m : fMoons){
+    m->SetTimeStep(fdt);
   }
 
   fIOManager = RootIO::GetInstance();
@@ -65,8 +76,10 @@ void RunManager::Run() {
     for(Planets *p : fPlanets){
       p->NextStep();
     }
-    //fMoon->NextStep(fEarth);
-    //fMoon->PrintPos();
+
+    for(Moons *m : fMoons){
+      m->NextStep();
+    }
 
     t += fdt;
 

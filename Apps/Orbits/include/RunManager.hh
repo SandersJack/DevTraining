@@ -4,6 +4,7 @@
 #include "Vector3D.hh"
 
 #include "Planets.hh"
+#include "Moons.hh"
 #include "Earth.hh"
 #include "Mars.hh"
 #include "Moon.hh"
@@ -30,7 +31,8 @@ class RunManager {
         void SetTimeStep(double val) {fdt = val;}
         void SetStopTime(double val) {fStopTime = val;}
 
-        std::vector<Planets *>  GetPlanetMap() { return fPlanets;}
+        std::vector<Planets *>  GetPlanetList() { return fPlanets;}
+        std::vector<Moons *>  GetMoonList() { return fMoons;}
 
     private:
         static RunManager *fInstance;
@@ -41,6 +43,9 @@ class RunManager {
 
         std::vector<Planets *> fPlanets;
         std::vector<std::string> fPlanetList;
+
+        std::vector<Moons *> fMoons;
+        std::map<std::string, std::string> fMoonMap;
 
         RootIO *fIOManager; 
         OrbitHelper *fHelper;
