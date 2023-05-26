@@ -28,13 +28,15 @@ void RunManager::Init() {
 
   fdt = 86400; //seconds
 
-  //fPlanets.push_back(new Earth());
+  //
 
   fEarth = new Earth();
   fEarth->SetTimeStep(fdt);
+  fPlanets.push_back(fEarth);
 
   fMars = new Mars();
   fMars->SetTimeStep(fdt);
+  fPlanets.push_back(fMars);
 
   fMoon = new Moon();
   fMoon->SetTimeStep(fdt);
@@ -44,30 +46,15 @@ void RunManager::Init() {
   f_file = TFile::Open("Oribts.root", "recreate");
   t_main = new TTree("Data", "Orbit results");
 
-  t_main->Branch("Earth", fEarth->IsA()->GetName(), &fEarth);
-  t_main->Branch("Mars", fMars->IsA()->GetName(), &fMars);
   t_main->Branch("Moon", fMoon->IsA()->GetName(), &fMoon);
 
-  //for(Planets *p : fPlanets){
-  //  t_main->Branch("Earth", p->IsA()->GetName(), static_cast<Earth*>(p));
-  //  p->SetTimeStep(fdt);
-  //}
-
+  for(Planets *p : fPlanets){
+    std::cout << p->IsA()->GetName() << std::endl;
+    t_main->Branch(p->IsA()->GetName(), "Planets", p);
+  }
 }
 
 void RunManager::Run() {
-
-  Vector3D *sun = new Vector3D(0,0,0);
-  double sun_mass = 1.989e30;
-  double AU = 1.5e11;
-  Vector3D *earth_pos = new Vector3D(1.0167*AU,0,0);
-  double earth_mass = 5.97219e24;
-  Vector3D *earth_v = new Vector3D(0,29290,0);
-
-  Vector3D *mars_pos = new Vector3D(1.6662*AU,0,0);
-  double mars_mass = 6.39e23;
-  Vector3D *mars_v = new Vector3D(0,21970,0);
-
   PhysicsEqs *PhyscisEq = PhysicsEqs::GetInstance();
 
    
@@ -77,15 +64,9 @@ void RunManager::Run() {
 
 
   for (int i=0; i<1000; i++){
-    //for(Planets *p : fPlanets){
-    //  p->NextStep();
-    //}
-    fEarth->NextStep();
-    fEarth->PrintPos();
-
-    fMars->NextStep();
-    fMars->PrintPos();
-
+    for(Planets *p : fPlanets){
+      p->NextStep();
+    }
     fMoon->NextStep(fEarth);
     fMoon->PrintPos();
 
