@@ -5,6 +5,7 @@
 #include "Moon.hh"
 
 #include "namedPlanets.hh"
+#include "InputManager.hh"
 
 #include "Vector3D.hh"
 #include "PhysicsEqs.hh"
@@ -15,7 +16,6 @@
 
 
 RunManager::RunManager() {
-    std::cout << "RunManager" << std::endl;
 }
 
 RunManager *RunManager::fInstance = nullptr;
@@ -28,17 +28,17 @@ RunManager *RunManager::GetInstance() {
 
 void RunManager::Init() {
 
-  fdt = 86400; //seconds
+  fPlanetList = InputManager::GetInstance()->GetPlanetList();
 
-  std::string test = "Earth";
+  fdt = 86400; //seconds
 
   namedPlanets *conv = namedPlanets::GetInstance();
 
-  fPlanets.push_back(conv->GetPlanetFunc(test));
-
-  fMars = new Mars();
-  fMars->SetTimeStep(fdt);
-  fPlanets.push_back(fMars);
+  std::cout << "[RunManager] Simulation using Planets: " << std::endl;
+  for(std::string plan : fPlanetList){
+    std::cout << "[RunManager] " << plan << std::endl;
+    fPlanets.push_back(conv->GetPlanetFunc(plan));
+  }
 
   //fMoon = new Moon();
   //fMoon->SetTimeStep(fdt);

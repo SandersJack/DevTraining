@@ -39,6 +39,7 @@ class RunManager {
         double fdt;
 
         std::vector<Planets *> fPlanets;
+        std::vector<std::string> fPlanetList;
 
         RootIO *fIOManager; 
 };
