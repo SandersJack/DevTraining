@@ -11,7 +11,7 @@ for iID1 in range(500):
     for iID2 in range(500):
         fPMsIDs[iID1][iID2] = -1
 
-SiType = 2 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
 
@@ -26,7 +26,7 @@ elif SiType == 1:
     cen_fac = 18/6
     supercell_fac = 37
     nRow = 17
-    channels_1 = 10000#8496 
+    channels_1 = 10000
 elif SiType == 2:
     SensorWidth = 0.009 * m
     cen_fac = 18/9
@@ -120,7 +120,7 @@ for k in range(nRow):  #first half
     for l in range(nSuperCellinRow[k]):
         for m in range(0,3):
             for n in range(-1,2):
-                if ((l%3 == 0 and m == 2 and n==1) or (l%3 == 1 and m == 1 and n==1) or (l%3 == 2 and m == 0 and n==-1)):
+                if (((l%3 == 0 and m == 2 and n==1) or (l%3 == 1 and m == 1 and n==1) or (l%3 == 2 and m == 0 and n==-1))):
                     continue
                 if((l%3 == 1 and m==2) or (l%3==2)):
                     PM_positions[nPM][0] = (n + l*3 + 3*cell_dist[k] - triCell - 1)*SensorWidth;
@@ -140,47 +140,8 @@ for k in range(nRow):  #first half
                 #print(n + l*3 + 3*cell_dist[k] - triCell + 100,m + k*3 + 100)
                 if nPM ==1:
                     x_center = PM_positions[nPM-1][0] + 300 - SensorWidth
-                '''
-                if (l%3 == 0):
-                    if (m == 2 and n==1):
-                        continue
-                    PM_positions[nPM][0] = SensorWidth*n + SensorWidth*l*3 + 3*SensorWidth*cell_dist[k] - triCell*SensorWidth
-                    PM_positions[nPM][1] = SensorWidth*m + SensorWidth*k*3
-                    
-                    plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
-                    plo +=1
-                    fPMsIDs[n + 5 * l + 1 * k + 5 * cell_dist[k] + 100][m - 1 * l + 3 * k - 1 * cell_dist[k] + 100] = nPM
-                    nPM += 1   
-                    print(1, nPM ,nPM%8)
-                if (l%3 == 1):
-                    
-                    if (m == 1 and n==1):
-                        continue
-                    PM_positions[nPM][0] = SensorWidth*n + SensorWidth*l*3 + 3*SensorWidth*cell_dist[k] - triCell*SensorWidth
-                    PM_positions[nPM][1] = SensorWidth*m + SensorWidth*k*3
-                    if (m ==2):
-                        PM_positions[nPM][0] = SensorWidth*n + SensorWidth*l*3 + 3*SensorWidth*cell_dist[k] - SensorWidth - triCell*SensorWidth
-                    
-                    plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
-                    plo +=1
-                    fPMsIDs[n + 5 * l + 1 * k + 5 * cell_dist[k] + 100][m - 1 * l + 3 * k - 1 * cell_dist[k] + 100] = nPM
-                    nPM += 1 
-                    print(2, nPM, nPM%8)
-                if (l%3 == 2):
-                    if (m == 0 and n==-1):
-                        continue
-                    PM_positions[nPM][0] = SensorWidth*n + SensorWidth*l*3 + 3*SensorWidth*cell_dist[k] - SensorWidth - triCell*SensorWidth
-                    PM_positions[nPM][1] = SensorWidth*m + SensorWidth*k*3
-                    
-                    plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
-                    plo +=1
-                    fPMsIDs[n + 5 * l + 1 * k + 5 * cell_dist[k] + 100][m - 1 * l + 3 * k - 1 * cell_dist[k] + 100] = nPM
-                    nPM += 1 
-                    print(3, nPM ,nPM%8) 
-
-                ''' 
         if l%3 == 2:
-            triCell += 1  
+            triCell += 1 
             #print(triCell)      
 #end first half
 for j in range(nRow): 
@@ -204,11 +165,37 @@ for j in range(nRow):
                 else:
                     fPMsIDs[n + l*3 + 3*cell_dist[j] - triCell+ 300][m + j*3 + 300] = nPM;
                 nPM += 1
-                print(n + l*3 + 3*cell_dist[j] - triCell+ 300)
+                #print(n + l*3 + 3*cell_dist[j] - triCell+ 300)
         if l%3 == 2:
             triCell += 1  
+print(nPM)
+y_center = 0
 
+fGeoIDs = [0]*channels_1
 
+SCID = 0
+UpDwID = 0
+PMinSC = 0
+
+for iPM in range(nPM):
+    #PMsPositions[iPM].Set(PM_positions[iPM][0] - x_Center, PM_positions[iPM][1] - y_Center);
+    #    G4cout<<iPM<<"\t"<<PM_positions[iPM][0]-x_Center<<"\t"<<PM_positions[iPM][1]-y_Center<<G4endl;
+    if(iPM < channels_1/2):
+        UpDwID = 0
+        SCID = int(iPM / 8)
+    else:
+        UpDwID = 1
+        SCID = int((iPM - (channels_1/2)) / 8)
+
+    
+
+    PMinSC = iPM - (SCID * 8 + channels_1/2 * UpDwID)
+    fGeoIDs[iPM] = UpDwID * 10000 + SCID * 100 + PMinSC; 
+
+    #print(iPM,UpDwID,SCID,PMinSC)
+    
+
+#exit(0)
 #print(fPMsIDs)
 #x_center = 297
 y_center = 0
