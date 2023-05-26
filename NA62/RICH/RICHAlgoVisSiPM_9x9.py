@@ -1,10 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 m = 1000
 mm = 2
 
 
+def DecodeChannelID(ChannelID):
+    DiskID = np.floor(ChannelID / 100000)
+    UpDownDiskID = np.floor((ChannelID % 100000) / 10000)
+    SuperCellID = np.floor((ChannelID % 10000) / 10)
+    OrSuperCellID = np.floor((ChannelID % 100) / 10)
+    PmtID = np.floor(ChannelID % 10)
+    
+    return DiskID,UpDownDiskID,SuperCellID,OrSuperCellID,PmtID
 
 SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
@@ -134,7 +143,6 @@ for k in range(nRow):
                 PM_positions[nPM][0] = (l + cell_dist[k]-2)*SensorWidth;
                 PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 fPMsIDs[l + cell_dist[k]-2][m + k*3] = nPM;
-                print(nPM%16)
                 #print(-2 + l + cell_dist[k],m + k*3)
                 #plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
                 nPM += 1
@@ -142,7 +150,6 @@ for k in range(nRow):
                     x_center = PM_positions[nPM-1][0] + 300
             #print(triCell)      
 #end first half
-exit(0)
 for j in range(nRow): 
     triCell = 0
     if j%2 == 0:
@@ -179,8 +186,13 @@ SCID = 0
 UpDwID = 0
 PMinSC = 0
 
+channel = []
+channel_map = []
+count = 0
+
 for iPM in range(nPM):
-    break
+    
+    
     #PMsPositions[iPM].Set(PM_positions[iPM][0] - x_Center, PM_positions[iPM][1] - y_Center);
     #    G4cout<<iPM<<"\t"<<PM_positions[iPM][0]-x_Center<<"\t"<<PM_positions[iPM][1]-y_Center<<G4endl;
     if(iPM < channels_1/2):
@@ -191,14 +203,45 @@ for iPM in range(nPM):
         SCID = int((iPM - (channels_1/2)) / 8)
 
     
-
+    #print(UpDwID,SCID)
     PMinSC = iPM - (SCID * 8 + channels_1/2 * UpDwID)
-    fGeoIDs[iPM] = UpDwID * 10000 + SCID * 100 + PMinSC; 
+    fGeoIDs[iPM] = UpDwID * 10000 + SCID * 10 + PMinSC; 
 
-    #print(iPM,UpDwID,SCID,PMinSC)
+    ### Needed to create rawDecoder
+    if (PMinSC % 8 == 0 and iPM != 0):
+        count += 1
+
+    if count == 2:
+        channel_map.append(channel)
+        channel = []
+        count = 0
     
+    channel.append(int(fGeoIDs[iPM]))
 
-#exit(0)
+    if iPM == nPM-1:
+        channel_map.append(channel)
+
+    print(fGeoIDs[iPM],DecodeChannelID(fGeoIDs[iPM]))
+    print(DecodeChannelID(fGeoIDs[iPM])[-1]%8)
+    #if (iPM == channels_1/2):
+    #    break
+
+
+createRawDec = True
+print(len(channel_map)) 
+print(channel_map[260])
+if createRawDec:
+    os.remove('RawDecoder_{}.txt'.format(SiType)) 
+    with open('RawDecoder_{}.txt'.format(SiType), 'w') as out:
+        for i in range(len(channel_map)):
+            substring = ""
+            print(channel_map[i])
+            for t in range(len(channel_map[i])):
+                substring += " {}".format(channel_map[i][t])
+            string = "ChRemap_{:04n} ={}".format(i,substring)
+            out.write(string + '\n')
+
+exit(0)
 #print(fPMsIDs)
 #x_center = 297
 y_center = 0
