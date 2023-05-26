@@ -4,14 +4,9 @@ import matplotlib.pyplot as plt
 m = 1000
 mm = 2
 
-fPMsIDs = [None]*1000
-for iID in range(1000):
-    fPMsIDs[iID] = [None]*1000
-for iID1 in range(1000):
-    for iID2 in range(1000):
-        fPMsIDs[iID1][iID2] = -1
 
-SiType = 0 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+
+SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
 
@@ -21,18 +16,28 @@ if(SiType == 0):
     supercell_fac = 75
     nRow = 34
     channels_1 = 32346
+    id_length = 401
 elif SiType == 1:
     SensorWidth = 0.006 * m 
     cen_fac = 18/6
     supercell_fac = 37
     nRow = 17
     channels_1 = 8304
+    id_length = 301
 elif SiType == 2:
     SensorWidth = 0.009 * m
     cen_fac = 18/9
     supercell_fac = 25
     nRow = 12
     channels_1 = 3924
+    id_length = 271
+
+fPMsIDs = [None]*id_length
+for iID in range(id_length):
+    fPMsIDs[iID] = [None]*id_length
+for iID1 in range(id_length):
+    for iID2 in range(id_length):
+        fPMsIDs[iID1][iID2] = -1
 
 ConeInputRadius = 0.5 * SensorWidth
 
@@ -110,57 +115,61 @@ for k in range(nRow):
         x_center = 600 - (nSuperCellinRow[k]) * SensorWidth * 3/3 /2 -10
         #print(x_center)
     
-    triCell = 0
+    triCell = 0 
     if k%2 == 0:
         for l in range(nSuperCellinRow[k]):
             for m in range(0,3):
-                for n in range(-1,0):
-                    
-                    PM_positions[nPM][0] = (n + l + cell_dist[k])*SensorWidth;
-                    PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
-                    fPMsIDs[n + l*3 + 3*cell_dist[k]][m + k*3] = nPM;
-                    #plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
-                    nPM += 1
-                    if nPM ==1:
-                        x_center = PM_positions[nPM-1][0] + 300
+                PM_positions[nPM][0] = (-1 + l + cell_dist[k])*SensorWidth;
+                PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                fPMsIDs[-1 + l + cell_dist[k]][m + k*3] = nPM;
+                print(nPM%16)
+                #print(-1 + l + cell_dist[k],m + k*3)
+                #plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
+                nPM += 1
+                if nPM ==1:
+                    x_center = PM_positions[nPM-1][0] + 300
     else:
         for l in range(nSuperCellinRow[k],0,-1):
             for m in range(0,3):
-                for n in range(-1,0):
-                    
-                    PM_positions[nPM][0] = (n + l + cell_dist[k]-1)*SensorWidth;
-                    PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
-                    fPMsIDs[n + l*3 + 3*cell_dist[k]][m + k*3] = nPM;
-                    #plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
-                    nPM += 1
-                    if nPM ==1:
-                        x_center = PM_positions[nPM-1][0] + 300
+                PM_positions[nPM][0] = (l + cell_dist[k]-2)*SensorWidth;
+                PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                fPMsIDs[l + cell_dist[k]-2][m + k*3] = nPM;
+                print(nPM%16)
+                #print(-2 + l + cell_dist[k],m + k*3)
+                #plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
+                nPM += 1
+                if nPM ==1:
+                    x_center = PM_positions[nPM-1][0] + 300
             #print(triCell)      
 #end first half
+exit(0)
 for j in range(nRow): 
     triCell = 0
     if j%2 == 0:
         for l in range(nSuperCellinRow[j]):
             for m in range(0,3):
-                for n in range(-1,0):
-                    PM_positions[nPM][0] = (n + l + cell_dist[j])*SensorWidth;
-                                    
-                    PM_positions[nPM][1] = -(m + j*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
-                    
-                    fPMsIDs[n + l*3 + 3*cell_dist[j]+ 300][m + j*3 + 300] = nPM;
-                    plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
-                    nPM += 1
-                    #print(n + l*3 + 3*cell_dist[j] - triCell+ 300)
+                PM_positions[nPM][0] = (-1 + l + cell_dist[j])*SensorWidth;
+                                
+                PM_positions[nPM][1] = -(m + j*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                
+                fPMsIDs[-1 + l + cell_dist[j]+ 200][m + j*3 + 200] = nPM;
+                print(l + cell_dist[j] - 1 + 200,m + j*3 + 200)
+                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                nPM += 1
+                #print(n + l*3 + 3*cell_dist[j] - triCell+ 300)
     else:
         for l in range(nSuperCellinRow[j],0,-1):
             for m in range(0,3):
-                for n in range(-1,0):
-                    PM_positions[nPM][0] = (n + l + cell_dist[j]-1)*SensorWidth;       
-                    PM_positions[nPM][1] = -(m + j*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
-                    
-                    fPMsIDs[n + l*3 + 3*cell_dist[j]+ 300][m + j*3 + 300] = nPM;
-                    plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
-                    nPM += 1
+               
+                PM_positions[nPM][0] = (l + cell_dist[j]-2)*SensorWidth;       
+                PM_positions[nPM][1] = -(m + j*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                
+                fPMsIDs[l + cell_dist[j] - 2 + 200][m + j*3 + 200] = nPM;
+                print(l + cell_dist[j] - 2 + 200,m + j*3 + 200)
+                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                nPM += 1
+
+    #exit(0)
 print(nPM)
 y_center = 0
 
