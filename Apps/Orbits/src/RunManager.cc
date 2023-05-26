@@ -15,7 +15,7 @@
 #include <cmath>
 
 
-RunManager::RunManager() {
+RunManager::RunManager(): fdt(0), fStopTime(0) {
 }
 
 RunManager *RunManager::fInstance = nullptr;
@@ -29,8 +29,6 @@ RunManager *RunManager::GetInstance() {
 void RunManager::Init() {
 
   fPlanetList = InputManager::GetInstance()->GetPlanetList();
-
-  fdt = 86400; //seconds
 
   namedPlanets *conv = namedPlanets::GetInstance();
 
@@ -53,6 +51,8 @@ void RunManager::Init() {
   fIOManager->Init();
   fIOManager->InitBranches();
 
+  fHelper = new OrbitHelper();
+
 }
 
 void RunManager::Run() {
@@ -61,7 +61,7 @@ void RunManager::Run() {
   double t = 0;
 
 
-  for (int i=0; i<1000; i++){
+  for (int i=0; i<fStopTime; i++){
     for(Planets *p : fPlanets){
       p->NextStep();
     }
@@ -70,11 +70,22 @@ void RunManager::Run() {
 
     t += fdt;
 
+    int fDisplayPeriod = 100;
+    if(i % fDisplayPeriod == 0) {
+    std::pair<Double_t, Double_t> memoryUsage = fHelper->GetMemoryUsage();
+    std::cout << "[" << fHelper->TimeString() << "] Running Day "
+              << i
+              << " [Memory usage -> Virtual: " << memoryUsage.first
+              << " MB, Resident: " << memoryUsage.second << " MB]" << std::endl;
+    }
+
+
 
     fIOManager->SaveStep();
 
   }
   
   fIOManager->EndRun();
-
+  std::cout << "[RunManager] Simulation Complete :)" << std::endl;
 }
+
