@@ -108,6 +108,11 @@ def plot(x,y,n,m,l,k,i):
             pass
             #plt.draw()
 
+    
+                
+            
+
+
 for k in range(nRow):
       #first half
     nSuperCellinRow[k] = 0
@@ -190,6 +195,10 @@ channel = []
 channel_map = []
 count = 0
 
+pos = []
+pos_map = []
+
+
 for iPM in range(nPM):
     
     
@@ -210,19 +219,23 @@ for iPM in range(nPM):
     ### Needed to create rawDecoder
     if (PMinSC % 8 == 0 and iPM != 0):
         count += 1
+        pos_map.append(pos)
+        pos = []
 
     if count == 2:
         channel_map.append(channel)
         channel = []
         count = 0
-    
-    channel.append(int(fGeoIDs[iPM]))
 
+    #print(PM_positions[iPM][0],PM_positions[iPM][1])
+    pos.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center])
+    channel.append(int(fGeoIDs[iPM]))
     if iPM == nPM-1:
         channel_map.append(channel)
+        pos_map.append(pos)
 
-    print(fGeoIDs[iPM],DecodeChannelID(fGeoIDs[iPM]))
-    print(DecodeChannelID(fGeoIDs[iPM])[-1]%8)
+    #print(fGeoIDs[iPM],DecodeChannelID(fGeoIDs[iPM]))
+    #print(DecodeChannelID(fGeoIDs[iPM])[-1]%8)
     #if (iPM == channels_1/2):
     #    break
 
@@ -231,15 +244,38 @@ createRawDec = True
 print(len(channel_map)) 
 print(channel_map[260])
 if createRawDec:
-    os.remove('RawDecoder_{}.txt'.format(SiType)) 
+    try: 
+        os.remove('RawDecoder_{}.txt'.format(SiType)) 
+    except FileNotFoundError:
+        pass
     with open('RawDecoder_{}.txt'.format(SiType), 'w') as out:
-        for i in range(len(channel_map)):
-            substring = ""
-            print(channel_map[i])
-            for t in range(len(channel_map[i])):
-                substring += " {}".format(channel_map[i][t])
-            string = "ChRemap_{:04n} ={}".format(i,substring)
-            out.write(string + '\n')
+        adder = [0,100000]
+        adder_i = [0,len(channel_map)]
+        for v in range(0,2):
+            for i in range(len(channel_map)):
+                substring = ""
+                #print(channel_map[i])
+                for t in range(len(channel_map[i])):
+                    substring += " {}".format(channel_map[i][t]+adder[v])
+                string = "ChRemap_{:04n} ={}".format(i+adder_i[v],substring)
+                out.write(string + '\n')
+
+create_conf = False
+
+if create_conf:
+        try: 
+            os.remove('PMTPositons_{}.txt'.format(SiType)) 
+        except FileNotFoundError:
+            pass 
+        with open('PMTPositons_{}.dat'.format(SiType), 'w') as out:
+            for i in range(len(pos_map)):
+                substring = ""
+                for t in range(len(pos_map[i])):
+                    substring += " {}".format(pos_map[i][t][0])
+                    substring += " {}".format(pos_map[i][t][1])
+                string = "PMPosition_SC_{} ={}".format(i,substring)
+                out.write(string + '\n')
+
 
 exit(0)
 #print(fPMsIDs)
