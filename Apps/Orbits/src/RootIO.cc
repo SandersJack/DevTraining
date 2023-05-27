@@ -27,6 +27,8 @@ void RootIO::InitBranches() {
 
     std::vector<Moons*> fMoons = RunManager::GetInstance()->GetMoonList();
 
+    std::vector<Satellite*> fSatellites = RunManager::GetInstance()->GetSatelliteList();
+
     for(Planets *p : fPlanets){
         t_main->Branch(p->IsA()->GetName(), "Planets", p);
         std::cout << "[RootIO] "<< p->IsA()->GetName() << "IO Initialised"<< std::endl;
@@ -35,6 +37,11 @@ void RootIO::InitBranches() {
     for(Moons *m : fMoons){
         t_main->Branch(m->IsA()->GetName(), "Moons", m);
         std::cout << "[RootIO] "<< m->IsA()->GetName() << "IO Initialised"<< std::endl;
+    }
+
+    for(Satellite *s : fSatellites){
+        t_main->Branch(s->IsA()->GetName(), "Satellite", s);
+        std::cout << "[RootIO] "<< s->IsA()->GetName() << "IO Initialised"<< std::endl;
     }
 }
 

@@ -5,6 +5,7 @@
 
 #include "Planets.hh"
 #include "Moons.hh"
+#include "Satellite.hh"
 #include "Earth.hh"
 #include "Mars.hh"
 #include "Moon.hh"
@@ -33,6 +34,7 @@ class RunManager {
 
         std::vector<Planets *>  GetPlanetList() { return fPlanets;}
         std::vector<Moons *>  GetMoonList() { return fMoons;}
+        std::vector<Satellite *>  GetSatelliteList() { return fSatellites;}
 
     private:
         static RunManager *fInstance;
@@ -46,6 +48,11 @@ class RunManager {
 
         std::vector<Moons *> fMoons;
         std::map<std::string, std::string> fMoonMap;
+
+        std::vector<Satellite *> fSatellites;
+        std::map<std::string, std::string> fSatMap;
+        std::map<std::string, std::vector<double>> fSatAtrMap;
+        
 
         RootIO *fIOManager; 
         OrbitHelper *fHelper;

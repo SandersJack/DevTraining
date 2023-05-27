@@ -3,6 +3,7 @@
 
 #include "Planets.hh"
 #include "Moons.hh"
+#include "Satellite.hh"
 #include <iostream>
 #include <string>
 
@@ -15,6 +16,7 @@ class namedBodies {
 
         Planets *GetPlanetFunc(std::string planet);
         Moons *GetMoonsFunc(std::string moo);
+        Satellite *GetSatelliteFunc(std::string sat);
 
     private:
         static namedBodies *fInstance;

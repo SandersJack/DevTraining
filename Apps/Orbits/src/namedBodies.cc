@@ -35,3 +35,11 @@ Moons *namedBodies::GetMoonsFunc(std::string moo) {
         return nullptr;
     }
 }
+
+Satellite *namedBodies::GetSatelliteFunc(std::string sat) {
+    if(sat == "Satellite"){
+        return new Satellite();
+    } else {
+        return nullptr;
+    }
+}

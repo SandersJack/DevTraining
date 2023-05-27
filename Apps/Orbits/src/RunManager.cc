@@ -32,6 +32,9 @@ void RunManager::Init() {
 
   fMoonMap = InputManager::GetInstance()->GetMoonList();
 
+  fSatMap = InputManager::GetInstance()->GetSatelliteList();
+  fSatAtrMap = InputManager::GetInstance()->GetSatelliteAtributesList();
+
   namedBodies *conv = namedBodies::GetInstance();
 
   std::cout << "[RunManager] Simulation using Planets: " << std::endl;
@@ -47,6 +50,22 @@ void RunManager::Init() {
       m->SetBody(b);
       fMoons.push_back(m);
     }
+
+    std::map<std::string, std::string>::iterator sat_iter = fSatMap.find(plan);
+    if (sat_iter != fSatMap.end() )
+    {
+      std::cout << "[RunManager] - " << sat_iter->second << std::endl;
+      std::map<std::string, std::vector<double>>::iterator atr_iter = fSatAtrMap.find(sat_iter->second);
+      Satellite *m = conv->GetSatelliteFunc(sat_iter->second);
+      if (atr_iter != fSatAtrMap.end() )
+      {
+        m->SetMass(atr_iter->second[0]);
+        m->SetStartPosition(b->GetPosition(),atr_iter->second[1]);
+        m->SetStartVelocity(b->GetVelocity(),atr_iter->second[2]);
+      }
+      //m->SetBody(b);
+      fSatellites.push_back(m);
+    }
   }
 
 
@@ -57,6 +76,11 @@ void RunManager::Init() {
   for(Moons *m : fMoons){
     m->SetTimeStep(fdt);
   }
+
+  for(Satellite *s : fSatellites){
+    s->SetTimeStep(fdt);
+  }
+
 
   fIOManager = RootIO::GetInstance();
   fIOManager->Init();
@@ -79,6 +103,10 @@ void RunManager::Run() {
 
     for(Moons *m : fMoons){
       m->NextStep();
+    }
+
+    for(Satellite *s : fSatellites){
+      s->NextStep();
     }
 
     t += fdt;

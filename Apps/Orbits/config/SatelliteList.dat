@@ -1,0 +1,3 @@
+# List of Satelites to be simulated
+# Satellite(Body that it is in orbit around) Mass[kg] OrbitHeight[km] DeltaV[m/s]
+Satellite(Earth) 10000 500 2900

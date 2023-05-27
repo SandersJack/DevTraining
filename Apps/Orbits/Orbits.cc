@@ -9,6 +9,7 @@ int main(){
     // Default Parameters
     std::string infile = "config/PlanetsList.dat";
     std::string Mooninfile = "config/MoonsList.dat";
+    std::string Satinfile = "config/SatelliteList.dat";
     double timeStep = 86400; //seconds
     double stopTime = 1000; //days
 
@@ -19,6 +20,7 @@ int main(){
 
     InputManager::GetInstance()->ParsePlanetFile(infile);
     InputManager::GetInstance()->ParsePlanetFile(Mooninfile);
+    InputManager::GetInstance()->ParsePlanetFile(Satinfile);
     RunManager *runMan = RunManager::GetInstance();
     runMan->SetTimeStep(timeStep);
     runMan->SetStopTime(stopTime);
