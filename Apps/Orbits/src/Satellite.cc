@@ -9,10 +9,10 @@ Satellite::Satellite():fMass(0), fdt(0) , fTime(0){
 
 Satellite::~Satellite(){}
 
-void Satellite::SetStartPosition(Vector3D body_val,double sat_val){
+void Satellite::SetStartPosition(double body_radius, Vector3D body_val,double sat_val){
 
     fPosition = Vector3D(body_val);
-    fPosition.AddX(sat_val*1e3+6000e3);
+    fPosition.AddX(sat_val*1e3+body_radius);
 
 }
 

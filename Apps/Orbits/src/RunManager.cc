@@ -60,10 +60,9 @@ void RunManager::Init() {
       if (atr_iter != fSatAtrMap.end() )
       {
         m->SetMass(atr_iter->second[0]);
-        m->SetStartPosition(b->GetPosition(),atr_iter->second[1]);
+        m->SetStartPosition(b->GetRadius(),b->GetPosition(),atr_iter->second[1]);
         m->SetStartVelocity(b->GetVelocity(),atr_iter->second[2]);
       }
-      //m->SetBody(b);
       fSatellites.push_back(m);
     }
   }

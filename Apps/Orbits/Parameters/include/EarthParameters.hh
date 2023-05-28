@@ -15,6 +15,7 @@ class EarthParameters {
         Vector3D *GetStartPos(){ return fStartPos;}
         Vector3D *GetStartVel(){ return fStartVel;}
         double GetMass(){ return fMass;}
+        double GetRadius() {return fRadius;}
 
     private:
         static EarthParameters *fInstance;
@@ -22,6 +23,7 @@ class EarthParameters {
         Vector3D *fStartVel;
         double fMass;
         double fAU;
+        double fRadius;
 };
 
 #endif

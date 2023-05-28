@@ -21,6 +21,7 @@ class Planets: public TObject {
         Vector3D GetVelocity(){ return fVelocity;}
         Vector3D GetAcceleration(){ return fAcceleration;}
         double GetMass(){return fMass;}
+        double GetRadius() {return fRadius;}
 
         double GetAngle(){return atan(fPosition.GetY()/fPosition.GetX());}
 
@@ -36,6 +37,8 @@ class Planets: public TObject {
         double fMass;
         double fdt;
         double fTime;
+
+        double fRadius;
 
         ClassDef(Planets,1);
 
