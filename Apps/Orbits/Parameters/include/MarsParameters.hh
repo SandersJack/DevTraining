@@ -15,6 +15,7 @@ class MarsParameters {
         Vector3D *GetStartPos(){ return fStartPos;}
         Vector3D *GetStartVel(){ return fStartVel;}
         double GetMass(){ return fMass;}
+        double GetRadius(){ return fRadius;}
 
     private:
         static MarsParameters *fInstance;
@@ -22,6 +23,7 @@ class MarsParameters {
         Vector3D *fStartVel;
         double fMass;
         double fAU;
+        double fRadius;
 };
 
 #endif

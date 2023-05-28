@@ -26,4 +26,5 @@ void MarsParameters::Init() {
     fStartPos = new Vector3D(r*fAU*cos(angle),r*fAU*sin(angle),0);
     fStartVel = new Vector3D(-v*sin(angle),v*cos(angle),0);
     fMass = 6.39e23;
+    fRadius = 3389.5e3;
 }
