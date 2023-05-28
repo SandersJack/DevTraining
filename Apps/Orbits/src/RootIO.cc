@@ -40,7 +40,7 @@ void RootIO::InitBranches() {
     }
 
     for(Satellite *s : fSatellites){
-        t_main->Branch(s->IsA()->GetName(), "Satellite", s);
+        t_main->Branch(s->GetName().c_str(), "Satellite", s);
         std::cout << "[RootIO] "<< s->IsA()->GetName() << "IO Initialised"<< std::endl;
     }
 }

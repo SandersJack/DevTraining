@@ -19,7 +19,7 @@ class InputManager {
 
         std::map<std::string, std::string> GetMoonList(){ return fMoonsList;}
 
-        std::map<std::string, std::string> GetSatelliteList(){ return fSatelliteList;}
+        std::map<std::string, std::pair<std::string,std::string>> GetSatelliteList(){ return fSatelliteList;}
         std::map<std::string, std::vector<double>> GetSatelliteAtributesList(){ return fSatelliteAtributesList;}
 
     private:
@@ -29,7 +29,7 @@ class InputManager {
 
         std::map<std::string, std::string> fMoonsList;
 
-        std::map<std::string, std::string> fSatelliteList;
+        std::map<std::string, std::pair<std::string,std::string>> fSatelliteList;
         std::map<std::string, std::vector<double>> fSatelliteAtributesList;
 
 };

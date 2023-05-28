@@ -50,7 +50,7 @@ class RunManager {
         std::map<std::string, std::string> fMoonMap;
 
         std::vector<Satellite *> fSatellites;
-        std::map<std::string, std::string> fSatMap;
+        std::map<std::string, std::pair<std::string,std::string>> fSatMap;
         std::map<std::string, std::vector<double>> fSatAtrMap;
         
 

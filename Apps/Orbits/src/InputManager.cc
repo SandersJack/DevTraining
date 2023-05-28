@@ -70,9 +70,11 @@ void InputManager::ParsePlanetFile(std::string file) {
             }
             
             std::string Sat = "";
+            std::string name = "";
             std::string Planet = "";
             std::vector<double> Atributes;
             bool write = false;
+            bool write_name = false;
             for(int t{0}; t<tokens.size(); t++){
                 if(t == 0){
                     for (int i = 0; i < tokens[t].length(); i++) {
@@ -80,21 +82,30 @@ void InputManager::ParsePlanetFile(std::string file) {
                         if(x[i-1] == '('){
                             Sat = tokens[t].substr(0, i-1);
                             write = true;
+                            write_name = true;
                         }
-                        if(write){
+                        if(write_name){
+                            if(tokens[t][i] == ','){
+                                write_name = false;
+                                continue;
+                            }
+                            name += x[i];
+                        }
+                        if(write && !write_name){
                             if(tokens[t][i] == ')')
                                 break;
                             Planet += x[i];
                         }
                     }
-                    fSatelliteList.insert({Planet,Sat});
+                    std::cout << name << std::endl;
+                    fSatelliteList.insert({Planet,std::pair(Sat,name)});
                 }
                 if(t>0){
                     int inter = std::stod(tokens[t]);
                     Atributes.push_back(inter);
                 }
             }
-            fSatelliteAtributesList.insert({Sat,Atributes});
+            fSatelliteAtributesList.insert({name,Atributes});
         }
     }
 

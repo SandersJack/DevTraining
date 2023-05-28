@@ -3,7 +3,7 @@
 
 ClassImp(Satellite)
 
-Satellite::Satellite():fMass(0), fdt(0) , fTime(0){
+Satellite::Satellite():fMass(0), fdt(0) , fTime(0), fName("c"){
 
 }
 
