@@ -7,6 +7,7 @@
 #include "Uranus.hh"
 #include "Neptune.hh"
 #include "Venus.hh"
+#include "Mercury.hh"
 
 #include "Moon.hh"
 
@@ -38,6 +39,8 @@ Planets *namedBodies::GetPlanetFunc(std::string planet) {
         return new Neptune();
     } else if (planet == "Venus") {
         return new Venus();
+    } else if (planet == "Mercury") {
+        return new Mercury();
     } else {
         return nullptr;
     }

@@ -23,4 +23,5 @@ void EarthParameters::Init() {
     fStartVel = new Vector3D(0,29290,0);
     fMass = 5.97219e24;
     fRadius = 6371e3; 
+    // 0 deg = 282.94
 }

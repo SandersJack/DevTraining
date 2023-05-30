@@ -97,7 +97,6 @@ void InputManager::ParsePlanetFile(std::string file) {
                             Planet += x[i];
                         }
                     }
-                    std::cout << name << std::endl;
                     fSatelliteList.insert({Planet,std::pair(Sat,name)});
                 }
                 if(t>0){
