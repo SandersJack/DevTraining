@@ -23,7 +23,7 @@ class Planets: public TObject {
         double GetMass(){return fMass;}
         double GetRadius() {return fRadius;}
 
-        double GetAngle(){return atan(fPosition.GetY()/fPosition.GetX());}
+        double GetAngle();
 
         void SetTimeStep(double val){ fdt = val;}
 

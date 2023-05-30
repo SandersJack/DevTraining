@@ -59,9 +59,12 @@ void RunManager::Init() {
       Satellite *s = conv->GetSatelliteFunc(sat_iter->second.first);
       if (atr_iter != fSatAtrMap.end() )
       {
+        s->SetBody(b);
         s->SetMass(atr_iter->second[0]);
         s->SetStartPosition(b->GetRadius(),b->GetPosition(),atr_iter->second[1]);
         s->SetStartVelocity(b->GetVelocity(),atr_iter->second[2]);
+        s->SetStartAngle(atr_iter->second[3]);
+        s->SetStartTime(atr_iter->second[4]);
         s->SetName(sat_iter->second.second);
       }
       fSatellites.push_back(s);
@@ -96,7 +99,7 @@ void RunManager::Run() {
   double t = 0;
 
   // Step the Simualtion by Dt
-  for (int i=0; i<fStopTime; i++){
+  for (int i=0; i*fdt<fStopTime*24*60*60; i++){
     for(Planets *p : fPlanets){
       p->NextStep();
     }
@@ -115,7 +118,7 @@ void RunManager::Run() {
     if(i % fDisplayPeriod == 0) {
     std::pair<Double_t, Double_t> memoryUsage = fHelper->GetMemoryUsage();
     std::cout << "[" << fHelper->TimeString() << "] Running Day "
-              << i
+              << double(i*fdt)/(24*60*60)
               << " [Memory usage -> Virtual: " << memoryUsage.first
               << " MB, Resident: " << memoryUsage.second << " MB]" << std::endl;
     }
