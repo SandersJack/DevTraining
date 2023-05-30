@@ -2,6 +2,7 @@
 
 #include "Earth.hh"
 #include "Mars.hh"
+#include "Jupiter.hh"
 
 #include "Moon.hh"
 
@@ -23,6 +24,8 @@ Planets *namedBodies::GetPlanetFunc(std::string planet) {
         return new Earth();
     } else if (planet == "Mars") {
         return new Mars();
+    } else if (planet == "Jupiter") {
+        return new Jupiter();
     } else {
         return nullptr;
     }
