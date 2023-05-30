@@ -195,8 +195,16 @@ channel = []
 channel_map = []
 count = 0
 
+count_sc = 0
+
 pos = []
 pos_map = []
+
+pos_SC = []
+pos_map_SC = []
+
+supercell_map = []
+supercell = []
 
 
 for iPM in range(nPM):
@@ -214,22 +222,35 @@ for iPM in range(nPM):
     
     #print(UpDwID,SCID)
     PMinSC = iPM - (SCID * 8 + channels_1/2 * UpDwID)
-    fGeoIDs[iPM] = UpDwID * 10000 + SCID * 10 + PMinSC; 
+    fGeoIDs[iPM] = UpDwID * 100000 + SCID * 100 + PMinSC; 
 
     ### Needed to create rawDecoder
     if (PMinSC % 8 == 0 and iPM != 0):
         count += 1
-        pos_map.append(pos)
+        pos_map.append(pos) 
         pos = []
+
+    if (PMinSC % 8 == 0):
+        supercell.append(UpDwID * 100000 + SCID * 100 + 1*10)
 
     if count == 2:
         channel_map.append(channel)
         channel = []
         count = 0
 
+    if PMinSC == 4:
+        pos_SC.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center]) 
+        count_sc += 1
+
+    if count_sc == 2:
+        pos_map_SC.append(pos_SC)
+        pos_SC = []
+        count_sc = 0
+
     #print(PM_positions[iPM][0],PM_positions[iPM][1])
     pos.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center])
     channel.append(int(fGeoIDs[iPM]))
+    
     if iPM == nPM-1:
         channel_map.append(channel)
         pos_map.append(pos)
@@ -239,8 +260,20 @@ for iPM in range(nPM):
     #if (iPM == channels_1/2):
     #    break
 
+tmp = []
+for p in range(len(supercell)):
+    if p%16 == 0 and p !=0:
+        supercell_map.append(tmp)
+        tmp = []
+    
+    if p+1 == len(supercell):
+        supercell_map.append(tmp)
 
-createRawDec = True
+    tmp.append(supercell[p])
+
+
+createRawDec = False
+list_string = []
 print(len(channel_map)) 
 print(channel_map[260])
 if createRawDec:
@@ -249,25 +282,75 @@ if createRawDec:
     except FileNotFoundError:
         pass
     with open('RawDecoder_{}.txt'.format(SiType), 'w') as out:
-        adder = [0,100000]
-        adder_i = [0,len(channel_map)]
-        for v in range(0,2):
-            for i in range(len(channel_map)):
-                substring = ""
-                #print(channel_map[i])
-                for t in range(len(channel_map[i])):
-                    substring += " {}".format(channel_map[i][t]+adder[v])
-                string = "ChRemap_{:04n} ={}".format(i+adder_i[v],substring)
-                out.write(string + '\n')
+        adder = [0,1000000,]
+        adder_i = [0,len(channel_map),len(channel_map)*2+1, len(channel_map)*2+len(supercell_map)+1]
+        for v in range(0,4):
+            if v<2:
+                for i in range(len(channel_map)):
+                    substring = ""
+                    #print(channel_map[i])
+                    for t in range(len(channel_map[i])):
+                        substring += " {}".format(channel_map[i][t]+adder[v])
+                    string = "ChRemap_{:04n}={}".format(i+adder_i[v],substring)
+                    list_string.append(string)
+                    out.write(string + '\n')
+            else:
+                for i in range(len(supercell_map)):
+                    substring = ""
+                    #print(supercell_map[i])
+                    for t in range(len(supercell_map[i])):
+                        substring += " {}".format(supercell_map[i][t]+adder[v-2])
+                    string = "ChRemap_{:04n}={}".format(len(list_string),substring)
+                    list_string.append(string)
+                    out.write(string + '\n')
+
+
+            print(v)
+            '''if (v == 1 or v ==3):
+                print(len(list_string), len(list_string) % 32)
+                if (len(list_string) % 32 > 0):
+                    q = 0
+                    for po in range(32-(len(list_string) % 32)):
+                        substring = ""
+                        for t in range(16):
+                            substring += " {}".format(-1)
+                        string = "ChRemap_{:04n}={}".format(i+q+1+adder_i[v],substring)
+                        list_string.append(string)
+                        #print(string)
+                        q += 1
+                        out.write(string + '\n')
+                        if v == 0:
+                            adder_i[v+1] += 1
+                        if v == 1:
+                            adder_i[v+1] += 1
+            else:
+            '''
+            if (len(list_string) % 8 > 0):
+                q = 0
+                for po in range(8-(len(list_string) % 8)):
+                    substring = ""
+                    for t in range(16):
+                        substring += " {}".format(-1)
+                    string = "ChRemap_{:04n}={}".format(len(list_string),substring)
+                    list_string.append(string)
+                    #print(string)
+                    q += 1
+                    out.write(string + '\n')
+                    if v == 0:
+                        adder_i[v+1] += 1
+                    if v == 1:
+                        adder_i[v+1] += 1
+
+            
 
 create_conf = False
 
 if create_conf:
         try: 
-            os.remove('PMTPositons_{}.txt'.format(SiType)) 
+            os.remove('PMTPositions_{}.txt'.format(SiType)) 
         except FileNotFoundError:
             pass 
-        with open('PMTPositons_{}.dat'.format(SiType), 'w') as out:
+        with open('PMTPositions_{}.dat'.format(SiType), 'w') as out:
             for i in range(len(pos_map)):
                 substring = ""
                 for t in range(len(pos_map[i])):
@@ -276,6 +359,22 @@ if create_conf:
                 string = "PMPosition_SC_{} ={}".format(i,substring)
                 out.write(string + '\n')
 
+
+create_SC_pos = True
+
+if create_SC_pos:
+        try: 
+            os.remove('SCPositions_{}.txt'.format(SiType)) 
+        except FileNotFoundError:
+            pass 
+        with open('SCPositions_{}.dat'.format(SiType), 'w') as out:
+            for i in range(len(pos_map_SC)):
+                substring = ""
+                for t in range(len(pos_map_SC[i])):
+                    substring += " {}".format(pos_map_SC[i][t][0])
+                    substring += " {}".format(pos_map_SC[i][t][1])
+                string = "SCPosition_SC_{} ={}".format(i,substring)
+                out.write(string + '\n')
 
 exit(0)
 #print(fPMsIDs)
