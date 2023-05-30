@@ -8,5 +8,6 @@ alias make_clean="rm build/* -r"
 
 alias make="cmake -Bbuild/ -S.; cd build; make; cd .."
 
-
 source /home/jack/Code/root/bin/thisroot.sh
+
+source .venv/bin/activate

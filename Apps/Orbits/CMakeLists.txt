@@ -47,20 +47,13 @@ set(PlanetsIncludeDirs ${PlanetsList})
 list(TRANSFORM PlanetsIncludeDirs PREPEND "Planets/")
 list(TRANSFORM PlanetsIncludeDirs APPEND "/include")
 include_directories(${PlanetsIncludeDirs})
-#foreach(P IN ${PlanetsList})
-#    target_link_libraries(${PROJECT_NAME} ${P}Persistency) 
-#endforeach()
-
-message(PLANET_LIST="${PlanetsList}")
 
 
 add_subdirectory(Planets)
 
-message(PROJECT_SOURCE_DIR="${CMAKE_BINARY_DIR}Planets/${PlanetsList}/lib${PlanetsList}Persistency_rdict.pcm")
-
+message(STATUS "Building Planets: ")
 foreach(Planets ${PlanetsList})
     message(STATUS "${Planets}")
-    message(STATUS "${CMAKE_BINARY_DIR}Planets/${Planets}/lib${Planets}Persistency_rdict.pcm")
     ADD_CUSTOM_TARGET(${Planets}_rdict_target ALL
         COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_BINARY_DIR}Planets/${Planets}/lib${Planets}Persistency_rdict.pcm" "${CMAKE_CURRENT_BINARY_DIR}/lib${Planets}Persistency_rdict.pcm")
 
