@@ -43,6 +43,7 @@ int main(int argc, char* argv[]){
     std::cout << "##    Time Step = " << timeStep/(24*60*60) << " days. Total Time = " << stopTime << " days."  << "       ##" << std::endl;
     std::cout << "##########################################################" << std::endl;
 
+    // Parse config input files
     InputManager::GetInstance()->ParsePlanetFile(infile);
     InputManager::GetInstance()->ParsePlanetFile(Mooninfile);
     InputManager::GetInstance()->ParsePlanetFile(Satinfile);
@@ -50,6 +51,7 @@ int main(int argc, char* argv[]){
     runMan->SetTimeStep(timeStep);
     runMan->SetStopTime(stopTime);
     runMan->Init();
+    // Run the Sim
     runMan->Run();
     return 0;
 }

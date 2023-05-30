@@ -36,7 +36,7 @@ void RunManager::Init() {
   fSatAtrMap = InputManager::GetInstance()->GetSatelliteAtributesList();
 
   namedBodies *conv = namedBodies::GetInstance();
-
+  // Init Bodies and Satellites
   std::cout << "[RunManager] Simulation using Planets: " << std::endl;
   for(std::string plan : fPlanetList){
     std::cout << "[RunManager] " << plan << std::endl;
@@ -95,7 +95,7 @@ void RunManager::Run() {
 
   double t = 0;
 
-
+  // Step the Simualtion by Dt
   for (int i=0; i<fStopTime; i++){
     for(Planets *p : fPlanets){
       p->NextStep();
