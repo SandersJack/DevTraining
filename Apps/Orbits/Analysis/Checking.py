@@ -47,6 +47,13 @@ try:
 except uproot.exceptions.KeyInFileError:
     Neptune = False
 
+venus = True
+try:
+    fx_venus = file["Data"]["Venus/Planets/fPosition.fx"].array()
+    fy_venus = file["Data"]["Venus/Planets/fPosition.fy"].array()
+except uproot.exceptions.KeyInFileError:
+    venus = False
+
 fx_moon = file["Data"]["Moon/fSunPosition.fx"].array()
 fy_moon = file["Data"]["Moon/fSunPosition.fy"].array()
 
@@ -67,6 +74,8 @@ if Uranus:
     plt.scatter(fx_Uranus,fy_Uranus)
 if Neptune:
     plt.scatter(fx_Neptune,fy_Neptune)
+if earth:
+    plt.scatter(fx_venus,fy_venus)
 plt.scatter(fx_sat,fy_sat)
 #plt.scatter(fx_moon,fy_moon)
 plt.scatter(0,0)
