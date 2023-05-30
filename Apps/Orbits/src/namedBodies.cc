@@ -4,6 +4,7 @@
 #include "Mars.hh"
 #include "Jupiter.hh"
 #include "Saturn.hh"
+#include "Uranus.hh"
 
 #include "Moon.hh"
 
@@ -29,7 +30,9 @@ Planets *namedBodies::GetPlanetFunc(std::string planet) {
         return new Jupiter();
     } else if (planet == "Saturn") {
         return new Saturn();
-    }else {
+    } else if (planet == "Uranus") {
+        return new Uranus();
+    } else {
         return nullptr;
     }
 }
