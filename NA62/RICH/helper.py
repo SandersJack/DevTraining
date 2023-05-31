@@ -1,7 +1,7 @@
 
 string = ""
 
-for i in range(148):
-    string += " 5"
+for i in range(152):
+    string += " 2"
 
 print(string)

@@ -272,7 +272,7 @@ for p in range(len(supercell)):
     tmp.append(supercell[p])
 
 
-createRawDec = False
+createRawDec = True
 list_string = []
 print(len(channel_map)) 
 print(channel_map[260])
@@ -305,16 +305,18 @@ if createRawDec:
                     out.write(string + '\n')
 
 
-            print(v)
-            '''if (v == 1 or v ==3):
-                print(len(list_string), len(list_string) % 32)
+            print(v ,len(list_string) % 32)
+            if (v == 1 or v ==3):
+                print(v, len(list_string), len(list_string) % 32)
                 if (len(list_string) % 32 > 0):
                     q = 0
-                    for po in range(32-(len(list_string) % 32)):
+                    for po in range(32 -(len(list_string) % 32)):
+                        print(po,32 -(len(list_string) % 32))
                         substring = ""
                         for t in range(16):
                             substring += " {}".format(-1)
-                        string = "ChRemap_{:04n}={}".format(i+q+1+adder_i[v],substring)
+                        string = "ChRemap_{:04n}={}".format(len(list_string),substring)
+                        print(len(list_string))
                         list_string.append(string)
                         #print(string)
                         q += 1
@@ -323,23 +325,22 @@ if createRawDec:
                             adder_i[v+1] += 1
                         if v == 1:
                             adder_i[v+1] += 1
-            else:
-            '''
-            if (len(list_string) % 8 > 0):
-                q = 0
-                for po in range(8-(len(list_string) % 8)):
-                    substring = ""
-                    for t in range(16):
-                        substring += " {}".format(-1)
-                    string = "ChRemap_{:04n}={}".format(len(list_string),substring)
-                    list_string.append(string)
-                    #print(string)
-                    q += 1
-                    out.write(string + '\n')
-                    if v == 0:
-                        adder_i[v+1] += 1
-                    if v == 1:
-                        adder_i[v+1] += 1
+            #else:
+                if (len(list_string) % 8 > 0):
+                    q = 0
+                    for po in range(8-(len(list_string) % 8)):
+                        substring = ""
+                        for t in range(16):
+                            substring += " {}".format(-1)
+                        string = "ChRemap_{:04n}={}".format(len(list_string),substring)
+                        list_string.append(string)
+                        #print(string)
+                        q += 1
+                        out.write(string + '\n')
+                        if v == 0:
+                            adder_i[v+1] += 1
+                        if v == 1:
+                            adder_i[v+1] += 1
 
             
 
@@ -360,7 +361,7 @@ if create_conf:
                 out.write(string + '\n')
 
 
-create_SC_pos = True
+create_SC_pos = False
 
 if create_SC_pos:
         try: 
