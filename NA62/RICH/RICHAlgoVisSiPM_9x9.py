@@ -136,12 +136,14 @@ for k in range(nRow):
                 PM_positions[nPM][0] = (-1 + l + cell_dist[k])*SensorWidth;
                 PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 fPMsIDs[-1 + l + cell_dist[k]][m + k*3] = nPM;
-                print(nPM%16)
+                print(l)
                 #print(-1 + l + cell_dist[k],m + k*3)
-                #plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
+                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 if nPM ==1:
                     x_center = PM_positions[nPM-1][0] + 300
+        exit(l)
+                
     else:
         for l in range(nSuperCellinRow[k],0,-1):
             for m in range(0,3):
@@ -149,11 +151,14 @@ for k in range(nRow):
                 PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 fPMsIDs[l + cell_dist[k]-2][m + k*3] = nPM;
                 #print(-2 + l + cell_dist[k],m + k*3)
-                #plot(PM_positions[nPM][0],PM_positions[nPM][1],n,m,l,k,nPM)
+                #print(nPM)
+                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 if nPM ==1:
                     x_center = PM_positions[nPM-1][0] + 300
-            #print(triCell)      
+            #print(triCell) 
+            # 
+
 #end first half
 for j in range(nRow): 
     triCell = 0
@@ -207,53 +212,57 @@ supercell_map = []
 supercell = []
 
 
-for iPM in range(nPM):
-    
-    
-    #PMsPositions[iPM].Set(PM_positions[iPM][0] - x_Center, PM_positions[iPM][1] - y_Center);
-    #    G4cout<<iPM<<"\t"<<PM_positions[iPM][0]-x_Center<<"\t"<<PM_positions[iPM][1]-y_Center<<G4endl;
-    if(iPM < channels_1/2):
-        UpDwID = 0
-        SCID = int(iPM / 8)
-    else:
-        UpDwID = 1
-        SCID = int((iPM - (channels_1/2)) / 8)
+with open('Channels_{}.txt'.format(SiType), 'w') as out:
+    for iPM in range(nPM):
+        
+        
+        #PMsPositions[iPM].Set(PM_positions[iPM][0] - x_Center, PM_positions[iPM][1] - y_Center);
+        #    G4cout<<iPM<<"\t"<<PM_positions[iPM][0]-x_Center<<"\t"<<PM_positions[iPM][1]-y_Center<<G4endl;
+        if(iPM < channels_1/2):
+            UpDwID = 0
+            SCID = int(iPM / 8)
+        else:
+            UpDwID = 1
+            SCID = int((iPM - (channels_1/2)) / 8)
 
-    
-    #print(UpDwID,SCID)
-    PMinSC = iPM - (SCID * 8 + channels_1/2 * UpDwID)
-    fGeoIDs[iPM] = UpDwID * 100000 + SCID * 100 + PMinSC; 
+        
+        #print(UpDwID,SCID)
+        PMinSC = iPM - (SCID * 8 + channels_1/2 * UpDwID)
+        fGeoIDs[iPM] = UpDwID * 100000 + SCID * 100 + PMinSC; 
 
-    ### Needed to create rawDecoder
-    if (PMinSC % 8 == 0 and iPM != 0):
-        count += 1
-        pos_map.append(pos) 
-        pos = []
+        string = "{}".format(fGeoIDs[iPM])
+        out.write(string + '\n')
 
-    if (PMinSC % 8 == 0):
-        supercell.append(UpDwID * 100000 + SCID * 100 + 1*10)
+        ### Needed to create rawDecoder
+        if (PMinSC % 8 == 0 and iPM != 0):
+            count += 1
+            pos_map.append(pos) 
+            pos = []
 
-    if count == 2:
-        channel_map.append(channel)
-        channel = []
-        count = 0
+        if (PMinSC % 8 == 0):
+            supercell.append(UpDwID * 100000 + SCID * 100 + 1*10)
 
-    if PMinSC == 4:
-        pos_SC.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center]) 
-        count_sc += 1
+        if count == 2:
+            channel_map.append(channel)
+            channel = []
+            count = 0
 
-    if count_sc == 2:
-        pos_map_SC.append(pos_SC)
-        pos_SC = []
-        count_sc = 0
+        if PMinSC == 4:
+            pos_SC.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center]) 
+            count_sc += 1
 
-    #print(PM_positions[iPM][0],PM_positions[iPM][1])
-    pos.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center])
-    channel.append(int(fGeoIDs[iPM]))
-    
-    if iPM == nPM-1:
-        channel_map.append(channel)
-        pos_map.append(pos)
+        if count_sc == 2:
+            pos_map_SC.append(pos_SC)
+            pos_SC = []
+            count_sc = 0
+
+        #print(PM_positions[iPM][0],PM_positions[iPM][1])
+        pos.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center])
+        channel.append(int(fGeoIDs[iPM]))
+        
+        if iPM == nPM-1:
+            channel_map.append(channel)
+            pos_map.append(pos)
 
     #print(fGeoIDs[iPM],DecodeChannelID(fGeoIDs[iPM]))
     #print(DecodeChannelID(fGeoIDs[iPM])[-1]%8)
@@ -272,7 +281,7 @@ for p in range(len(supercell)):
     tmp.append(supercell[p])
 
 
-createRawDec = True
+createRawDec = False
 list_string = []
 print(len(channel_map)) 
 print(channel_map[260])
