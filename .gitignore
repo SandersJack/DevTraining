@@ -17,3 +17,7 @@ Apps/Orbits/bin
 Apps/Orbits/CMakeFiles
 Apps/Orbits/Makefile
 Apps/Orbits/build/
+
+######## CUDA #############
+MachineLearning/CUDA/tutorial/build/
+MachineLearning/CUDA/NeuralNetwork/build/
