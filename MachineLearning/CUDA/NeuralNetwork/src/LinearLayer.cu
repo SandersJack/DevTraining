@@ -1,8 +1,14 @@
 #include "LinearLayer.hh"
+#include "NNException.hh"
+
+#include <stdlib.h>
+#include <assert.h>
+#include <iostream>
+#include <random>
 
 __global__ void LinearLayerForward(float* W, float* A, float* Z, float* b, 
-    int W_x_dim, int W_y_dim
-    int A_x_dim, int A_y_dim) {
+    int W_x_dim, int W_y_dim,
+    int A_x_dim, int A_y_dim ){
     
     int row = blockIdx.y * blockDim.y + threadIdx.y;
     int col = blockIdx.x * blockDim.x + threadIdx.x;
@@ -14,7 +20,7 @@ __global__ void LinearLayerForward(float* W, float* A, float* Z, float* b,
 
     if (row < Z_y_dim && col < Z_x_dim) {
         for (int i = 0; i < W_x_dim; i++) {
-            Z_value += W[row * W_x_dim + i] * A[i*A_x_dim + col];
+            Z_value += W[row * W_x_dim + i] * A[i * A_x_dim + col];
         }
         Z[row * Z_x_dim + col] = Z_value + b[row];
     }
@@ -34,7 +40,7 @@ __global__ void LinearLayerBackprop(float* W, float* dZ, float *dA,
 
     if (row < dA_y_dim && col < dA_x_dim) {
         for (int i = 0; i < W_y_dim; i++) {
-            dA_value += W[i*W_x_dim+row] * dZ[i*dZ_x_dim+col];
+            dA_value += W[i * W_x_dim + row] * dZ[i * dZ_x_dim + col];
         }
         dA[row * dA_x_dim + col] = dA_value;
     }
@@ -55,9 +61,9 @@ __global__ void LinearLayerUpdateWeights(float* dZ, float* A, float* W,
 
     if (row < W_y_dim && col < W_x_dim) {
         for (int i=0; i<dZ_x_dim; i++) {
-            dW_value += dZ[row*dZ_x_dim+i] * A[col*A_x_dim+i];
+            dW_value += dZ[row * dZ_x_dim + i] * A[col * A_x_dim + i];
         }
-        W[row*W_x_dim+col] = W[row*W_x_dim+col] - learning_rate * (dW_value/A_x_dim);
+        W[row * W_x_dim + col] = W[row * W_x_dim + col] - learning_rate * (dW_value/A_x_dim);
     }
 }
 
@@ -70,13 +76,13 @@ __global__ void LinearLayerUpdateBias(float* dZ, float* b,
 
     if (index < dZ_x_dim * dZ_y_dim){
         int dZ_x = index % dZ_x_dim;
-        int dZ_y = index % dZ_y_dim;
-        atomicAdd(&b[dZ_y], -learning_rate*(dZ[dZ_y*dZ_x_dim+dZ_x]/dZ_x_dim));
+        int dZ_y = index / dZ_y_dim;
+        atomicAdd(&b[dZ_y], - learning_rate * (dZ[dZ_y * dZ_x_dim + dZ_x]  / dZ_x_dim));
     }
 }
 
 LinearLayer::LinearLayer(std::string name, Shape W_Shape): 
-    W(W_Shape), b(W_Shape.y,q) {
+    W(W_Shape), b(W_Shape.y,1) {
     
     this->name = name;
     b.allocateMemory();
@@ -117,56 +123,56 @@ Matrix& LinearLayer::forward(Matrix& A){
     Z.allocateMemoryIfNotAllocated(Z_shape);
 
     computeAndStoreLayerOutput(A);
-    NNException::throwIfDeviceErrorsOccurred("Cannot perform linear layer forward propagation");
+    NNException::throwIfDeviceErrorOccurred("Cannot perform linear layer forward propagation");
 
     return Z;
 }
 
 void LinearLayer::computeAndStoreLayerOutput(Matrix& A) {
     dim3 block_size(8,8);
-    dim3 num_of_blocks((Z.shape.x + block_size.x-1)/block_size.x,(Z.shape.y + block_size.y-1)/block_size.y)
+    dim3 num_of_blocks((Z.shape.x + block_size.x-1)/block_size.x,(Z.shape.y + block_size.y-1)/block_size.y);
 
-    LinearLayerForward<<<num_of_blocks,block_size>>>(W.data_device.get(), A.data_device.get(), Z.data_device.get()
+    LinearLayerForward<<<num_of_blocks,block_size>>>(W.data_device.get(), A.data_device.get(), Z.data_device.get(),
     b.data_device.get(), W.shape.x, W.shape.y, A.shape.x, A.shape.y);
 }
 
 Matrix& LinearLayer::backprop(Matrix& dZ, float learning_rate) {
-    dA.allocateMemoryIfNotAllocated();
+    dA.allocateMemoryIfNotAllocated(A.shape);
 
     computeAndStoreBackpropOutput(dZ);
-    NNException::throwIfDeviceErrorsOccurred("Cannot perform back propagation");
+    NNException::throwIfDeviceErrorOccurred("Cannot perform back propagation");
 
     updateBias(dZ, learning_rate);
-    NNException::throwIfDeviceErrorsOccurred("Cannot perform bias update");
+    NNException::throwIfDeviceErrorOccurred("Cannot perform bias update");
 
     updateWeights(dZ, learning_rate);
-    NNException::throwIfDeviceErrorsOccurred("Cannot perform weights update");
+    NNException::throwIfDeviceErrorOccurred("Cannot perform weights update");
 
     return dA;
 }
 
 void LinearLayer::computeAndStoreBackpropOutput(Matrix& dZ) {
     dim3 block_size(8,8);
-    dim3 num_of_blocks((Z.shape.x + block_size.x-1)/block_size.x,(Z.shape.y + block_size.y-1)/block_size.y)
+    dim3 num_of_blocks((dZ.shape.x + block_size.x-1)/block_size.x,(dZ.shape.y + block_size.y-1)/block_size.y);
 
-    LinearLayerBackprop<<<num_of_blocks,block_size>>>(W.data_device.get(), dZ.data_device.get(), dA.data_device.get()
+    LinearLayerBackprop<<<num_of_blocks,block_size>>>(W.data_device.get(), dZ.data_device.get(), dA.data_device.get(),
     W.shape.x, W.shape.y, dZ.shape.x, dZ.shape.y);
 }
 
 void LinearLayer::updateWeights(Matrix& dZ, float learning_rate) {
     dim3 block_size(8,8);
-    dim3 num_of_blocks((Z.shape.x + block_size.x-1)/block_size.x,(Z.shape.y + block_size.y-1)/block_size.y)
+    dim3 num_of_blocks((Z.shape.x + block_size.x-1)/block_size.x,(Z.shape.y + block_size.y-1)/block_size.y);
 
-    LinearLayerUpdateWeights<<<num_of_blocks, block_size>>>(dZ.data_device.get(), A.data_device.get(), W.data_device.get()
+    LinearLayerUpdateWeights<<<num_of_blocks, block_size>>>(dZ.data_device.get(), A.data_device.get(), W.data_device.get(),
     dZ.shape.x, dZ.shape.y, A.shape.x, A.shape.y, learning_rate);
 
 }
 
-void LinearLayer::updateBias(Matrix& dZ. float learning_rate) {
+void LinearLayer::updateBias(Matrix& dZ, float learning_rate) {
     dim3 block_size(256);
-    dim4 num_of_blocks((dZ.shape.y * dZ.shape.x + block_size.x - 1) / block_size.x);
+    dim3 num_of_blocks((dZ.shape.y * dZ.shape.x + block_size.x - 1) / block_size.x);
 
-    LinearLayerUpdateBias<<<num_of_blocks,block_size>>>(dZ.data_device.get(), b.data_device.get(), dZ.shape.x, dZ.shape.y
+    LinearLayerUpdateBias<<<num_of_blocks,block_size>>>(dZ.data_device.get(), b.data_device.get(), dZ.shape.x, dZ.shape.y,
     b.shape.x, learning_rate);
 }
 

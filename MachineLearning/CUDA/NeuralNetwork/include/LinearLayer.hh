@@ -1,3 +1,5 @@
+#pragma once
+
 #include "NNLayer.hh"
 #include "Shape.hh"
 #include "Matrix.hh"
@@ -32,6 +34,7 @@ class LinearLayer: public NNLayer {
 
         void computeAndStoreBackpropError(Matrix& dZ);
         void computeAndStoreLayerOutput(Matrix& A);
+        void computeAndStoreBackpropOutput(Matrix& dZ);
         void updateWeights(Matrix& dZ, float learning_rate);
         void updateBias(Matrix& dZ, float learning_rate);
 

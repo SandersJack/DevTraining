@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include "Matrix.hh"
 
@@ -16,3 +18,5 @@ class NNLayer {
 
         
 };
+
+inline NNLayer::~NNLayer() {}

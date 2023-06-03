@@ -1,3 +1,5 @@
+#pragma once
+
 #include "NNLayer.hh"
 
 class ReLUActivation: public NNLayer {

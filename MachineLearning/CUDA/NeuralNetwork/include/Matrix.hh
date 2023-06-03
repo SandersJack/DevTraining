@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Shape.hh"
 #include <memory>
 
@@ -15,7 +17,7 @@ class Matrix {
         Matrix(Shape shape);
 
         void allocateMemory();
-        void allocateMemoryIfNotAllocated();
+        void allocateMemoryIfNotAllocated(Shape shape);
 
         void copyHostToDevice();
         void copyDeviceToHost();

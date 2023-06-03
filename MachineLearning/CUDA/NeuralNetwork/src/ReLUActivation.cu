@@ -1,4 +1,5 @@
 #include "ReLUActivation.hh"
+#include "NNException.hh"
 
 __global__ void reluActivationForward(float* Z, float* A, int Z_x_dim, int Z_y_dim){
     int index = blockIdx.x * blockDim.x + threadIdx.x;
@@ -33,11 +34,11 @@ Matrix& ReLUActivation::forward(Matrix& Z) {
     A.allocateMemoryIfNotAllocated(Z.shape);
 
     dim3 block_size(256);
-    dim3 num_of_blocks((Z.shape.y * Z.shape.z + block_size.x -1)/block_size.x);
+    dim3 num_of_blocks((Z.shape.y * Z.shape.x + block_size.x -1)/block_size.x);
 
-    reluActivationForward<<<num_of_blocks, block_size>>>(Z.data_device.get(), A.data_device.get());
+    reluActivationForward<<<num_of_blocks, block_size>>>(Z.data_device.get(), A.data_device.get(), Z.shape.x, Z.shape.y);
 
-    NNException::throwIfDeviceErrorsOccurred("Cannot perform ReLU forawrd propagration.");
+    NNException::throwIfDeviceErrorOccurred("Cannot perform ReLU forawrd propagration.");
 
     return A;
 }
@@ -46,11 +47,11 @@ Matrix& ReLUActivation::backprop(Matrix& dA, float learning_rate) {
     dZ.allocateMemoryIfNotAllocated(Z.shape);
 
     dim3 block_size(256);
-    dim3 num_of_blocks((Z.shape.y * Z.shape.z + block_size.x -1)/block_size.x);
+    dim3 num_of_blocks((Z.shape.y * Z.shape.x + block_size.x -1)/block_size.x);
 
-    reluActivationBackprop<<<num_of_blocks, block_size>>>(Z.data_device.get(), dA.data_device.get());
+    reluActivationBackprop<<<num_of_blocks, block_size>>>(Z.data_device.get(), dA.data_device.get(), dZ.data_device.get(), Z.shape.x, Z.shape.y);
 
-    NNException::throwIfDeviceErrorsOccurred("Cannot perform ReLU back propagration.");
+    NNException::throwIfDeviceErrorOccurred("Cannot perform ReLU back propagration.");
 
     return dZ;
 }

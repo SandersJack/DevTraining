@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(Neural_CUDA LANGUAGES CXX CUDA)
+enable_language(CUDA)
 
 set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build/")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}")

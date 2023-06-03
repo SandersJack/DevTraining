@@ -1,4 +1,5 @@
 #include "Matrix.hh"
+#include "NNException.hh"
 
 Matrix::Matrix(size_t x_dim ,size_t y_dim):
     shape(x_dim, y_dim), data_device(nullptr), data_host(nullptr)
@@ -21,7 +22,7 @@ void Matrix::allocateCudaMemory() {
     if(!device_allocated) {
         float* device_memory = nullptr;
         cudaMalloc(&device_memory, shape.x * shape.y * sizeof(float));
-        NNException::throwIfDeviceErrorsOccurred("Cannot allocate CUDA memory for Tensor3D");
+        NNException::throwIfDeviceErrorOccurred("Cannot allocate CUDA memory for Tensor3D");
         data_device = std::shared_ptr<float>(device_memory,
                                             [&](float* ptr){ cudaFree(ptr);});
         device_allocated = true;
@@ -43,7 +44,7 @@ void Matrix::allocateMemoryIfNotAllocated(Shape shape){
 void Matrix::copyHostToDevice() {
     if (device_allocated && host_allocated){
         cudaMemcpy(data_device.get(), data_host.get(), shape.x * shape.y * sizeof(float), cudaMemcpyHostToDevice);
-        NNException::throwIfDeviceErrorsOccurred("Cannot copy host data to CUDA device");
+        NNException::throwIfDeviceErrorOccurred("Cannot copy host data to CUDA device");
     } else {
         throw NNException("Cannot copy host data to non allocated memory on device");
     }
@@ -51,8 +52,8 @@ void Matrix::copyHostToDevice() {
 
 void Matrix::copyDeviceToHost() {
     if (device_allocated && host_allocated){
-        cudaMemcpy(data_device.get(), data_host.get(), shape.x * shape.y * sizeof(float), cudaMemcpyHostToHost);
-        NNException::throwIfDeviceErrorsOccurred("Cannot copy host data to host");
+        cudaMemcpy(data_host.get(), data_device.get(), shape.x * shape.y * sizeof(float), cudaMemcpyDeviceToHost);
+        NNException::throwIfDeviceErrorOccurred("Cannot copy host data to host");
     } else {
         throw NNException("Cannot copy host data to non allocated memory on host");
     }

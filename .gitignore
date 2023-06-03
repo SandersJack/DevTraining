@@ -19,4 +19,5 @@ Apps/Orbits/Makefile
 Apps/Orbits/build/
 
 ######## CUDA #############
-MachineLearning/CUDA/build/
+MachineLearning/CUDA/tutorial/build/
+MachineLearning/CUDA/NeuralNetwork/build/

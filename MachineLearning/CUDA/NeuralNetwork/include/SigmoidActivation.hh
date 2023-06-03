@@ -1,3 +1,5 @@
+#pragma once
+
 #include "NNLayer.hh"
 
 class SigmoidActivation: public NNLayer {
@@ -13,5 +15,5 @@ class SigmoidActivation: public NNLayer {
 
         Matrix Z;
         Matrix dZ;
-        
+
 };
