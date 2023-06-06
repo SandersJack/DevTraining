@@ -1,0 +1,318 @@
+#################################################################################
+[NA62MC] Simulating 1 events for run number 20000 and seed 10
+[NA62MC] Saving output to pluto.root, with slimmed MC
+#################################################################################
+[RootIOManager] Initialized
+
+**************************************************************
+ Geant4 version Name: geant4-10-06-patch-02 [MT]   (29-May-2020)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+[NA62MC] Executing macros/StandardRun.mac
+[NA62MC] Applying default settings
+[PhysicsListMessenger] /Simulation/Physics QGSP_FTFP_BERT
+[PhysicsListMessenger] /Simulation/VerboseLevel 0
+[PhysicsListMessenger] /Simulation/ScintTrackSecFirst false
+[PhysicsListMessenger] /Simulation/CerenkTrackSecFirst false
+[PrimaryGeneratorMessenger] /beam/SetBeam turtle
+[PrimaryGeneratorMessenger] /beam/turtle/ParticleName kaon+
+[PrimaryGeneratorMessenger] /beam/neutral/TargetZPosition 0.0
+[PrimaryGeneratorMessenger] /beam/neutral/TargetRadius 2.0
+[PrimaryGeneratorMessenger] /beam/neutral/ProductionAngle 0.0024
+[PrimaryGeneratorMessenger] /beam/neutral/OpeningAngle 0.0003
+[PrimaryGeneratorMessenger] /beam/neutral/MinMomentum -1
+[PrimaryGeneratorMessenger] /beam/neutral/MaxMomentum -1
+[PrimaryGeneratorMessenger] /beam/neutral/FlatMomentumSpectrum 0
+[PrimaryGeneratorMessenger] /beam/gps/MacroFile macros/gps.mac
+[PrimaryGeneratorMessenger] /beam/external/InputFile external_mode_example.dat
+[PrimaryGeneratorMessenger] /beam/BeamLineInputFile /eos/experiment/na62/data/offline/BeamLine/BDSim/TreesConverted/v0.0.5/MuHalo-2/BDSIMTreeConverted_BDSimconverted_200000POT_dr28ca_merged_1000files_0_2e8POT.root
+[PrimaryGeneratorMessenger] /beam/BeamLineFolder /
+[PrimaryGeneratorMessenger] /beam/BeamLineTreeName MuonHalo
+[PrimaryGeneratorMessenger] /beam/BeamLineDisableAlignment true
+[PrimaryGeneratorMessenger] /beam/BeamLineSetAlignment 0.0 0.0 1.0
+[PrimaryGeneratorMessenger] /beam/BeamLineOverlay 0
+[PrimaryGeneratorMessenger] /beam/BeamLineMode 0
+[PrimaryGeneratorMessenger] /beam/BeamLineDecayMode 0
+[PrimaryGeneratorMessenger] /beam/BeamLinePDGCode 0
+[ExoticParticleGunMessenger] /exoticBeam/coupling 1
+[ExoticParticleGunMessenger] /exoticBeam/ALPYukawa 1
+[ExoticParticleGunMessenger] /exoticBeam/setZmin 102425
+[ExoticParticleGunMessenger] /exoticBeam/setZmax 180000
+[ExoticParticleGunMessenger] /exoticBeam/origin 0
+[ExoticParticleGunMessenger] /exoticBeam/ProductionMode -1
+[ExoticParticleGunMessenger] /exoticBeam/addMuon 0
+[DatacardMessenger] /decay/CheckPointListName CheckPoints.dat
+[DatacardMessenger] /decay/MaxZForCheckPoints 103000.0
+[DatacardMessenger] /decay/MaxKaonMomentum -1
+[DatacardMessenger] /kine/BeamParticleEndProcessToReject Inelastic
+[DatacardMessenger] /kine/zMinBeamForKineParts 69175.
+[DatacardMessenger] /kine/zMaxBeamForKineParts 300000.
+[DatacardMessenger] /kine/SaveAllSteps false
+[DatacardMessenger] /kine/SaveAllTracks false
+[DatacardMessenger] /kine/MinLevelDecay 1
+[DatacardMessenger] /kine/MaxLevelDecay 2
+[DatacardMessenger] /kine/MinLevelConversions 1
+[DatacardMessenger] /kine/MaxLevelConversions 2
+[DatacardMessenger] /kine/MinZConversions 183000
+[DatacardMessenger] /kine/MaxZConversions 219200
+[DatacardMessenger] /kine/ParticleTypeToReject nu_mu
+[DatacardMessenger] /kine/ParticleTypeToReject nu_e
+[DatacardMessenger] /kine/ParticleTypeToReject opticalphoton
+[DatacardMessenger] /kine/CreatorProcessToReject Inelastic
+[DatacardMessenger] /kine/CreatorProcessToReject Brem
+[DatacardMessenger] /kine/CreatorProcessToReject Nuclear
+[DatacardMessenger] /kine/CreatorProcessToReject Ioni
+[DatacardMessenger] /kine/CreatorProcessToReject PairProd
+[DatacardMessenger] /kine/CreatorProcessToReject annihil
+[DatacardMessenger] /kine/EndProcessToReject Scintillation
+[DatacardMessenger] /kine/MinimumEnergy 0.0
+[DatacardMessenger] /kine/MaximumInteractionLevel 1
+[DatacardMessenger] /kine/SaveTrackVerbose false
+[DatacardMessenger] /decay/force 2
+[DatacardMessenger] /decay/muforce 0
+[DatacardMessenger] /decay/piforce 0
+[DatacardMessenger] /decay/type 0
+[DatacardMessenger] /decay/GeneratorMode 0
+[DatacardMessenger] Setting (mode, uniform, radcor) = (0, 0, 0)
+[DatacardMessenger] /decay/PizeroDecayType 1 1 1
+[DatacardMessenger] /decay/MuonDecayType 3
+[DatacardMessenger] /decay/PionDecayType 0
+[DatacardMessenger] /decay/BrPie2 1.23e-4
+[DatacardMessenger] /decay/BrPi0D 0.01174
+[DatacardMessenger] /decay/zMin 102425.
+[DatacardMessenger] /decay/zMax 180000.
+[DatacardMessenger] /decay/forced/zMin -1
+[DatacardMessenger] /decay/forced/zMax 245900
+[DatacardMessenger] /decay/LeptonMinEnergy -1
+[DatacardMessenger] /decay/RadiativePhotonMinEnergy -1
+[DatacardMessenger] /decay/RadiativePhotonMaxEnergy -1
+[DatacardMessenger] /decay/TwoPhotonsMaxAngle -1
+[DatacardMessenger] /decay/LeptonPhotonMinAngle -1
+[DatacardMessenger] /decay/MinTracksMomentum -1
+[DatacardMessenger] /decay/MaxTracksMomentum -1
+[DatacardMessenger] /decay/MinPhotonEnergyToFilter -1
+[DatacardMessenger] /decay/MaxPhotonRadiusRICH -1
+[DatacardMessenger] /decay/MaxPhotonRadiusLKr -1
+[DatacardMessenger] /decay/MinPhotonRadiusLKr -1
+[DatacardMessenger] /decay/MinPhotonRadiusSAC -1
+[DatacardMessenger] /decay/MinPhotonEnergyLKr -1
+[DatacardMessenger] /decay/verbose 0
+[PhysicsListMessenger] /Simulation/ExoticParticle/Mass 0.0
+[PhysicsListMessenger] /Simulation/ExoticParticle/DecayMode 0
+[PhysicsListMessenger] /Simulation/ExoticParticle/FlatThreeBodyDecay 0
+[PhysicsListMessenger] /Simulation/ExoticParticle/Lifetime 1.0
+[PhysicsListMessenger] /Simulation/ExoticParticle/MassScale Linear
+[PhysicsListMessenger] /Simulation/ExoticParticle/MassStep 0.0
+[PhysicsListMessenger] /Simulation/ExoticParticle/NumberOfGeneratedParticles 1
+[DatacardMessenger] /biasing/biasCase 0
+[DatacardMessenger] /biasing/NmaxPhotonConversions 1
+[DatacardMessenger] /biasing/PhotonMinEnergy 100.0
+[DetectorMessenger] /Detector/GeometryFileName Geometry.dat
+[DetectorMessenger] /Detector/MagneticField/TRIM5/Scale 1.0
+[DetectorMessenger] /Detector/MagneticField/BlueTube/Scale 1.0
+[CedarDetectorMessenger] /Detector/Cedar/Settings West-N2
+[CedarDetectorMessenger] /Detector/Cedar/EnableCherenkovEffect true
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Datacards/Datacards.mac [Current Burst: 020000-0000]
+[StandardRun.mac] Reading individual .mac file or settings
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Dictionaries/Decay-Dictionary.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Geometry/Geometry.run020000_0000-run020000_9999.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Beam/Beam-FineTuning.dat [Current Burst: 020000-0000]
+[PhysicsList] Activating reference pysics list QGSP_FTFP_BERT
+<<< Geant4 Physics List simulation engine: QGSP_FTFP_BERT
+
+<<< Reference Physics List QGSP_FTFP_BERT is built
+
+[PhysicsList] Registered G4OpticalPhysics with options.
+[PrimaryGeneratorAction] Beam alignment x,y [mm] from condition file: 0.00 0.00
+[PrimaryGeneratorAction] Beam momentum scale factor from condition file: 1.0000
+[PrimaryGeneratorAction] Running in turtle mode
+[PrimaryGeneratorAction] Using beam alignment and momentum scaling factor
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Geometry/CheckPoints.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-field-map.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-x-part1.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-x-part2.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-x-part3.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-x-part4.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-y-part1.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-y-part2.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-y-part3.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-y-part4.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-z-part1.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-z-part2.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-z-part3.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/MNP33-coefficients-z-part4.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Cedar/Cedar-MCSettings-West-N2.dat [Current Burst: 020000-0000]
+[CedarGeometryParameters] CEDAR-WEST type requested
+[CedarGeometryParameters] Cedar/KTAG configuration: N2; diaphragm[mm] = 2; LightguideType = 48; alignment dx,dy[mm]=0,0
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/GigaTracker/GigaTracker-Stations.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/GigaTracker/GigaTracker-SensorLength.run010000_0000-run020000_9999.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/GigaTracker/GigaTracker-CoolingPlates.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/GigaTracker/GigaTracker-PCB.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/GigaTracker/GigaTracker-FastValvePosition.run010000_0000-run020000_9999.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/GigaTracker/GigaTracker-CollimatorXCHVOpening.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/GigaTracker/GigaTracker-BeamElementsParam.run010000_0000-run020000_9999.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/HAC/HAC-GeometryParameters.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/LAV/LAVEff.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/LAV/LAVDelay.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-Geometry.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-HolePosition-Chamber0.dat [Current Burst: 020000-0000]
+[RegionCheck] Element             Zmin        Zmax        Length
+[RegionCheck] Cedar               69205       75305       6100
+[RegionCheck] QFSMagnet           76305       77105       800
+[RegionCheck] QFSMagnet           78305       79105       800
+[RegionCheck] GigaTracker         79440       102420      22980
+[RegionCheck] VetoCounter         0           0           0
+[RegionCheck] CHANTI              102420      104458      2038
+[RegionCheck] ANTI0               104700      104910      210
+[RegionCheck] VesselEndCap        105095      105595      500
+[RegionCheck] Vessel              105595      120595      15000
+[RegionCheck] LAV1                120595      122145      1550
+[RegionCheck] Vessel              122145      128205      6060
+[RegionCheck] LAV2                128205      129755      1550
+[RegionCheck] Vessel              129755      135815      6060
+[RegionCheck] LAV3                135815      137365      1550
+[RegionCheck] Vessel              137365      143425      6060
+[RegionCheck] LAV4                143425      144975      1550
+[RegionCheck] Vessel              144975      151035      6060
+[RegionCheck] LAV5                151035      152585      1550
+[RegionCheck] Vessel              152585      158560      5975
+[RegionCheck] Vessel              158560      164545      5985
+[RegionCheck] LAV6                164545      166095      1550
+[RegionCheck] Vessel              166095      172055      5960
+[RegionCheck] LAV7                172055      173605      1550
+[RegionCheck] Vessel              173605      179565      5960
+[RegionCheck] LAV8                179565      181115      1550
+[RegionCheck] Vessel              181115      182175      1060
+[RegionCheck] Vessel              182175      183310.275  1135.275
+[RegionCheck] Spectrometer        183310.275  183705.525  395.25
+[RegionCheck] Vessel              183705.525  191941      8235.475
+[RegionCheck] LAV9                191941      193371      1430
+[RegionCheck] Vessel              193371      193865.275  494.275
+[RegionCheck] Spectrometer        193865.275  194260.525  395.25
+[RegionCheck] Vessel              194260.525  195935      1674.475
+[RegionCheck] Vessel              195935      195950      15
+[RegionCheck] Vessel              195950      196345      395
+[RegionCheck] SpectrometerMagnet  196345      197645      1300
+[RegionCheck] Vessel              197645      198050      405
+[RegionCheck] Vessel              198050      198065      15
+[RegionCheck] Vessel              198065      202334      4269
+[RegionCheck] LAV10               202334      203764      1430
+[RegionCheck] Vessel              203764      204252.275  488.275
+[RegionCheck] Spectrometer        204252.275  204647.525  395.25
+[RegionCheck] Vessel              204647.525  216760      12112.475
+[RegionCheck] LAV11               216760      218190      1430
+[RegionCheck] Vessel              218190      218678.075  488.075
+[RegionCheck] Spectrometer        218678.075  219073.325  395.25
+[RegionCheck] Vessel              219073.325  219545      471.675
+[RegionCheck] MUV0                237350      237380      30
+[RegionCheck] RICH                219600      237578      17978
+[RegionCheck] NewCHOD             237588      238198      610
+[RegionCheck] LAV12               238198      238898      700
+[RegionCheck] CHOD                238898      239540      642
+[RegionCheck] IRC                 239540      240388      848
+[RegionCheck] LKr                 240388      243222      2834
+[RegionCheck] MUV1                243224      244385      1161
+[RegionCheck] MUV2                244385      245350      965
+[RegionCheck] MUV3                245350      247800      2450
+[RegionCheck] HAC                 247800      255059      7259
+[RegionCheck] SAC                 255059      261186      6127
+[RegionCheck] Closure check completed for BlueField: volumes are continuous between 105595 and 183311
+[RegionCheck] Closure check completed for MNP33 field: volumes are continuous between 183311 and 212000
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Cedar/Cedar-MCSettings-West-N2.dat [Current Burst: 020000-0000]
+[CedarMaterialParameters] N2 pressure used [bar]: 1.71
+Cedar is not found in /
+[GigaTrackerDetector] Constructing with PixelType = 1
+GigaTracker is not found in /
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/VetoCounter/VetoCounter-Stations.dat [Current Burst: 020000-0000]
+VetoCounter is not found in /
+[GigaTrackerDetector] VetoCounter constructed (stations enabled : 1,2,3  = (1,1,1)) 
+[GigaTrackerDetector] Bend6, Trim5 field scale factors (CDB input) = 1.0000 1.0000
+[GigaTrackerDetector] Trim5 field scale factor (macros/Standard_DetectorOptions.mac) = 1.0000
+[GigaTrackerDetector] Trim5 field scale from CDB input used
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/GigaTracker-MCB-g4blmap.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/GigaTracker-CM30-g4blmap.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/MagnetFields/GigaTracker-MDX100-g4blmap.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/GigaTracker/GigaTracker-MDXCoilGDML.gdml [Current Burst: 020000-0000]
+G4GDML: Reading '/afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/GigaTracker/GigaTracker-MDXCoilGDML.gdml'...
+G4GDML: Reading definitions...
+G4GDML: Reading materials...
+G4GDML: Reading solids...
+G4GDML: Reading structure...
+G4GDML: Reading setup...
+G4GDML: Reading '/afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/GigaTracker/GigaTracker-MDXCoilGDML.gdml' done!
+Stripping off GDML names of materials, solids and volumes ...
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/VetoCounter/VetoCounter-Stations.dat [Current Burst: 020000-0000]
+CHANTI is not found in /
+ANTI0 is not found in /
+[LAVDetector] LAV station LAV1 is using LAV type 0
+LAVFast is not found in /
+[LAVDetector] LAV station LAV2 is using LAV type 0
+[LAVDetector] LAV station LAV3 is using LAV type 0
+[LAVDetector] LAV station LAV4 is using LAV type 0
+[LAVDetector] LAV station LAV5 is using LAV type 0
+[LAVDetector] LAV station LAV6 is using LAV type 1
+[LAVDetector] LAV station LAV7 is using LAV type 1
+[LAVDetector] LAV station LAV8 is using LAV type 1
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-Geometry.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-HolePosition-Chamber0.dat [Current Burst: 020000-0000]
+Spectrometer is not found in /
+[LAVDetector] LAV station LAV9 is using LAV type 2
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-Geometry.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-HolePosition-Chamber1.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/Spectrometer/Spectrometer-MagnetMNP33GDML.gdml [Current Burst: 020000-0000]
+G4GDML: Reading '/afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/Spectrometer/Spectrometer-MagnetMNP33GDML.gdml'...
+G4GDML: Reading definitions...
+G4GDML: Reading solids...
+G4GDML: Reading structure...
+G4GDML: Reading setup...
+G4GDML: Reading '/afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/Spectrometer/Spectrometer-MagnetMNP33GDML.gdml' done!
+Stripping off GDML names of materials, solids and volumes ...
+[LAVDetector] LAV station LAV10 is using LAV type 2
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-Geometry.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-HolePosition-Chamber2.dat [Current Burst: 020000-0000]
+[LAVDetector] LAV station LAV11 is using LAV type 2
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-Geometry.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/Spectrometer/Spectrometer-HolePosition-Chamber3.dat [Current Burst: 020000-0000]
+MUV0 is not found in /
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/RICH/RICH-MC-TuningParameters.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/RICH/RICH-MirrorPositions.dat [Current Burst: 020000-0000]
+[RICHParameters] Found 116 entries in RICH-MirrorPositions.dat
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/Data/RICH/RICH-MirrorAlignment.run012124_0000-run099999_9999.dat [Current Burst: 020000-0000]
+[RICHParameters] Mirror extra offsets: 19.67 19.42 20.36 8.53
+[RICHParameters] Mirror X-alignment: 2.03 0 0.45 0.03 -0.1 0.54 0 0.36 -0.89 -0.77 -0.26 -0.29 -0.17 -0.23 0.24 0.45 -1.23 0 0 -0.21 0.37 -0.11 -1.24 0.35 
+[RICHParameters] Mirror Y-alignment: -1.26 0 -0.95 1.01 0.22 -2.15 0 0.03 -0.49 -1.5 0.33 0.14 0.96 0.66 -0.12 -0.45 -0.69 0 0 -0.35 -1.12 0.6 -0.79 0.57 
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/RICH/RICH-ElectronParameters.dat [Current Burst: 020000-0000]
+[RICHParameters] Electron ring radius [mm], NHits: 191.369, 12.9893
+[RICHDetector] Electron ring radius = 191.369 mm 
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/RICH/RICH-MC-TuningParameters.dat [Current Burst: 020000-0000]
+[RICHGeometryParameters] Constructing HIKE SiPMs 
+[RICHGeometryParameters] Using Sensor Width = 6 mm
+PMTs is not found in /
+NewCHOD is not found in /
+[LAVDetector] LAV station LAV12 is using LAV type 3
+CHOD is not found in /
+IRC is not found in /
+LKr is not found in /
+[LKrSD] Loading LKr signal formation files
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/LKr/LKrGeVtoCurr1.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/LKr/LKrGeVtoCurr2.dat [Current Burst: 020000-0000]
+[NA62ConditionsService] Reading /afs/cern.ch/work/j/jsanders/Software/na62fw/NA62Tools/Conditions/MC/LKr/LKrGeVtoCurr3.dat [Current Burst: 020000-0000]
+MUV1 is not found in /
+MUV1/ is not found in /
+MUV1/ is not found in /
+MUV2 is not found in /
+MUV3 is not found in /
+HAC is not found in /
+SAC is not found in /
+### Birks coefficients used in run time
+   G4_POLYSTYRENE     0.07943 mm/MeV     0.00841958 g/cm^2/MeV  massFactor=  101.1670271 effCharge= 0.02702702703
+   Scint     0.151 mm/MeV     0.016006 g/cm^2/MeV  massFactor=  101.0209825 effCharge= 0.01390420776
+Warning : Region <EMCalo_parameterization_region> does not have specific production cuts,
+even though it appears in the current tracking world.
+Default cuts are used for this region.
+0 -31.575 -14.675
