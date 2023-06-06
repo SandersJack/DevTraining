@@ -43,12 +43,15 @@ void InputManager::InitTraningData(){
             fTraingData.push_back(Matrix(Shape(n_rows,n_cols)));
             fTraingData[i].allocateMemory();
 
-            fTargets.push_back(Matrix(Shape(1,1)));
+            fTargets.push_back(Matrix(Shape(1,10)));
             fTargets[i].allocateMemory();
+            for (int t=0; t<10;t++){
+                fTargets[i][t] = 0;
+            }
 
             unsigned char temp_tar=0;
             file_targets.read((char*)&temp_tar,sizeof(temp_tar));
-            fTargets[i][0] = (int)temp_tar;
+            fTargets[i][(int)temp_tar] = 1;
 
             for(int r=0;r<n_rows;++r)
             {

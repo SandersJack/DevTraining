@@ -10,6 +10,9 @@ class InputManager {
 
         void InitTraningData();
 
+        std::vector<Matrix> GetTrainingData(){return fTraingData;}
+        std::vector<Matrix> GetTargets(){return fTargets;}
+
     private:
 
         int reverseInt(int i);
