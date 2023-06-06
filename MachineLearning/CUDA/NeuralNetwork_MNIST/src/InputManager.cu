@@ -37,7 +37,7 @@ void InputManager::InitTraningData(){
         n_rows= reverseInt(n_rows);
         file.read((char*)&n_cols,sizeof(n_cols));
         n_cols= reverseInt(n_cols);
-
+        std::cout << "[InputManager] Size of Images: " << n_rows << "x" << n_cols <<std::endl;
         for(int i=0;i<number_of_images;++i)
         {
             fTraingData.push_back(Matrix(Shape(n_rows,n_cols)));

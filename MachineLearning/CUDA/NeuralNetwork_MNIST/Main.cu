@@ -9,7 +9,7 @@ int main() {
 
     inMan->InitTraningData();
 
-    std::vector<Matrix> trainData = inMan->GetTargets();
+    std::vector<Matrix> trainData = inMan->GetTrainingData();
     std::vector<Matrix> targets = inMan->GetTargets();
 
     std::cout << trainData.size() << std::endl;
