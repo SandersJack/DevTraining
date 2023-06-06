@@ -1,0 +1,18 @@
+==9429== NVPROF is profiling process 9429, command: ./vector_add
+==9429== Profiling application: ./vector_add
+==9429== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   95.90%  538.26ms         1  538.26ms  538.26ms  538.26ms  vector_add(float*, float*, float*, int)
+                    2.74%  15.400ms         2  7.6998ms  3.8559ms  11.544ms  [CUDA memcpy DtoH]
+                    1.35%  7.5997ms         2  3.7998ms  3.7524ms  3.8473ms  [CUDA memcpy HtoD]
+      API calls:   89.60%  561.88ms         4  140.47ms  3.8294ms  542.21ms  cudaMemcpy
+                   10.07%  63.149ms         3  21.050ms  69.670us  63.006ms  cudaMalloc
+                    0.30%  1.8875ms         3  629.16us  119.92us  884.35us  cudaFree
+                    0.02%  98.194us       101     972ns      78ns  52.542us  cuDeviceGetAttribute
+                    0.01%  48.474us         1  48.474us  48.474us  48.474us  cuDeviceGetName
+                    0.00%  14.775us         1  14.775us  14.775us  14.775us  cudaLaunchKernel
+                    0.00%  7.8180us         1  7.8180us  7.8180us  7.8180us  cuDeviceGetPCIBusId
+                    0.00%  1.2150us         3     405ns     117ns     973ns  cuDeviceGetCount
+                    0.00%     362ns         2     181ns      85ns     277ns  cuDeviceGet
+                    0.00%     305ns         1     305ns     305ns     305ns  cuDeviceTotalMem
+                    0.00%     188ns         1     188ns     188ns     188ns  cuDeviceGetUuid
