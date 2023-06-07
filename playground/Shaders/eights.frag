@@ -5,42 +5,13 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-vec3 pallete( float t) {
-    vec3 a = vec3(0.854 ,0.414 ,0.217);
-    vec3 b = vec3(0.179 ,0.198 ,0.020);
-    vec3 c = vec3(0.187 ,0.713 ,0.196);
-    vec3 d = vec3(4.086 ,2.624 ,3.019);
-
-    return a + b*cos(6.28318*(c*t*d));
-}
-
-vec3 pallete2( float t) {
-    vec3 a = vec3(0.706 ,0.161, 0.732);
-    vec3 b = vec3(0.179 ,0.198 ,0.020);
-    vec3 c = vec3(0.187 ,0.713 ,0.196);
-    vec3 d = vec3(4.086 ,2.624 ,3.019);
-
-    return a + b*cos(6.28318*(c*t*d));
-}
 
 void main() {
-    vec2 uv = (gl_FragCoord.xy * 2.0 - u_resolution.xy)/ u_resolution.xy;
-    vec2 uvo = uv;
-    vec3 fincol = vec3(1.0);
+    vec2 uv = (gl_FragCoord.xy )/ u_resolution.xy;
 
-    float t = u_time;
 
-    float d = length(uv);
-    float x = uv.x;
-    float z = t;
-    float y = uv.y; 
-    for (float i=0.; i< 10.; i++){
-        fincol *= pallete(1./((sin(cos(z*x*y*i)))));
-    }
-    fincol.y *= pallete2(x*t).y;
-    //fincol.y *= exp(d*u_time);
-
-    //fincol = vec3(log(d+u_time),cos(d),1);
-
-    gl_FragColor = vec4(fincol,1.0);
+    vec2 pos = (uv.xy-0.5);
+	vec2 cir = ((pos.xy*pos.xy+sin(uv.x*18.0+u_time)/25.0*sin(uv.y*7.0+u_time*1.5)/1.0)+uv.x*sin(u_time)/16.0+uv.y*sin(u_time*1.2)/16.0);
+	float circles = (sqrt(abs(cir.x+cir.y*0.5)*25.0)*5.0);
+	gl_FragColor = vec4(sin(circles*1.25+2.0),abs(sin(circles*1.0-1.0)-sin(circles)),abs(sin(circles)*1.0),1.0);
 }
