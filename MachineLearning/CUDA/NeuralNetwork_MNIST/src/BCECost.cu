@@ -25,7 +25,7 @@ __global__ void dBinaryCrossEntropyCost(float* predictions, float* target, float
 float BCECost::cost(Matrix predictions, Matrix target){
     assert(predictions.shape.y == target.shape.y);
 
-    float *cost;
+    float* cost;
     cudaMallocManaged(&cost, sizeof(float));
     *cost = 0.0f;
 
@@ -43,8 +43,10 @@ float BCECost::cost(Matrix predictions, Matrix target){
 }
 
 Matrix BCECost::dCost(Matrix predictions, Matrix target, Matrix dY){
-    assert(predictions.shape.x == target.shape.x);
+    //std::cout << predictions.shape.x << " " << target.shape.x <<std::endl;
 
+    assert(predictions.shape.x == target.shape.x);
+    
     dim3 block_size(256);
     dim3 num_of_blocks((predictions.shape.x + block_size.x -1)/block_size.x); // Again very non optimal.
     dBinaryCrossEntropyCost<<<num_of_blocks, block_size>>>(predictions.data_device.get(),target.data_device.get(),dY.data_device.get(), predictions.shape.x);
