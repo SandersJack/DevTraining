@@ -22,17 +22,17 @@ int main() {
     BCECost bce_cost;
 
     NeuralNetwork nn;
-    nn.addLayer(new LinearLayer("linear_1", Shape(28*28,1)));
+    nn.addLayer(new LinearLayer("linear_1", Shape(28*28,100)));
     nn.addLayer(new ReLUActivation("relu_1"));
-    nn.addLayer(new LinearLayer("linear_2", Shape(1, 10)));
+    nn.addLayer(new LinearLayer("linear_2", Shape(100, 10)));
     nn.addLayer(new ReLUActivation("relu_2"));
 
 
     Matrix Y;
     std::cout << "[Main] Start of Training" << std::endl;
-    for(int epoch=0; epoch<1; epoch++){
+    for(int epoch=0; epoch<10; epoch++){
         float cost = 0.0;
-        for(int batch=0; batch<trainData.size(); batch++){
+        for(int batch=0; batch<trainData.size()-1; batch++){
             Y = nn.forward(trainData.at(batch));
             nn.backprop(Y, targets.at(batch));
             cost += bce_cost.cost(Y, targets.at(batch));
@@ -44,10 +44,10 @@ int main() {
         }
     }
     // Compute accuracy
-    Y = nn.forward(trainData.at(0));
+    Y = nn.forward(trainData.at(trainData.size()-1));
     Y.copyDeviceToHost();
 
-    float accuracy = computeAccuracy(Y, targets.at(0));
+    float accuracy = computeAccuracy(Y, targets.at(trainData.size()-1));
     std::cout << "Accuracy: " << accuracy << std::endl;
 
     return 0;
@@ -55,12 +55,17 @@ int main() {
 
 float computeAccuracy(const Matrix& predictions, const Matrix& targets) {
     int m = predictions.shape.x;
+    int col = predictions.shape.y;
     int correct_predictions = 0;
-
     for (int i = 0; i<m; i++) {
-        float prediction = predictions[i] > 0.5 ? 1:0;
-        if (prediction == targets[i]){
-            correct_predictions++;
+        for(int c = 0; c<col; c++){
+            int vals = 0;
+            float prediction = predictions[i*col + col] > 0.5 ? 1:0;
+            if (prediction == targets[i*col + col]){
+                vals +=1;
+            }
+            if(vals == 10)
+                correct_predictions++;
         }
     }
 
