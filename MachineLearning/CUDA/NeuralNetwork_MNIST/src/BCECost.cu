@@ -4,21 +4,28 @@
 #include <math.h>
 #include <assert.h>
 
-__global__ void binaryCrossEntropyCost(float* predictions, float* target, int size, float* cost){
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
+__global__ void binaryCrossEntropyCost(float* predictions, float* target, float* cost,
+    int pred_x_dim, int pred_y_dim){
+    
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int col = blockIdx.y * blockDim.y + threadIdx.y;
 
-    if(index < size) {
-        float partial_cost = target[index] * logf(predictions[index])
-            + (1.0f - target[index]) * logf(1.0f - predictions[index]);
-        atomicAdd(cost, - partial_cost / size);
+
+    if(row < pred_x_dim && col < pred_y_dim) {
+        float partial_cost = target[row * pred_x_dim + col] * logf(predictions[row * pred_x_dim + col])
+            + (1.0f - target[row * pred_x_dim + col]) * logf(1.0f - predictions[row * pred_x_dim + col]);
+        atomicAdd(cost, - partial_cost / pred_x_dim);
     }
 }
 
-__global__ void dBinaryCrossEntropyCost(float* predictions, float* target, float* dY, int size){
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
+__global__ void dBinaryCrossEntropyCost(float* predictions, float* target, float* dY, 
+    int pred_x_dim, int pred_y_dim){
 
-    if (index < size) {
-        dY[index] = -1.0 * ( target[index]/predictions[index] - (1-target[index])/(1-predictions[index]));
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int col = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (row < pred_x_dim && col < pred_y_dim) {
+        dY[row * pred_x_dim + col] = -1.0 * ( target[row * pred_x_dim + col]/predictions[row * pred_x_dim + col] - (1-target[row * pred_x_dim + col])/(1-predictions[row * pred_x_dim + col]));
     }
 }
 
@@ -29,9 +36,10 @@ float BCECost::cost(Matrix predictions, Matrix target){
     cudaMallocManaged(&cost, sizeof(float));
     *cost = 0.0f;
 
-    dim3 block_size(256);
-    dim3 num_of_blocks((predictions.shape.x + block_size.x -1)/block_size.x); // Which will be 1 atm. Will optmise input at somepoint
-    binaryCrossEntropyCost<<<num_of_blocks,block_size>>>(predictions.data_device.get(), target.data_device.get(), predictions.shape.x, cost);
+    dim3 block_size(8,8);
+    dim3 num_of_blocks((predictions.shape.x + block_size.x -1)/block_size.x,(predictions.shape.y + block_size.y -1)/block_size.y); // Which will be 1 atm. Will optmise input at somepoint
+    binaryCrossEntropyCost<<<num_of_blocks,block_size>>>(predictions.data_device.get(), target.data_device.get(), cost,
+    predictions.shape.x,predictions.shape.x);
 
     cudaDeviceSynchronize();
     Exception::throwIfDeviceErrorOccurred("Cannot compute binary cross entropy cost");
@@ -47,9 +55,10 @@ Matrix BCECost::dCost(Matrix predictions, Matrix target, Matrix dY){
 
     assert(predictions.shape.x == target.shape.x);
     
-    dim3 block_size(256);
-    dim3 num_of_blocks((predictions.shape.x + block_size.x -1)/block_size.x); // Again very non optimal.
-    dBinaryCrossEntropyCost<<<num_of_blocks, block_size>>>(predictions.data_device.get(),target.data_device.get(),dY.data_device.get(), predictions.shape.x);
+    dim3 block_size(8,8);
+    dim3 num_of_blocks((predictions.shape.x + block_size.x -1)/block_size.x,(predictions.shape.y + block_size.y -1)/block_size.y); // Again very non optimal.
+    dBinaryCrossEntropyCost<<<num_of_blocks, block_size>>>(predictions.data_device.get(),target.data_device.get(),dY.data_device.get(), 
+    predictions.shape.x, predictions.shape.y);
     Exception::throwIfDeviceErrorOccurred("Cannot compute derivative for binary cross entropy");
 
     return dY;

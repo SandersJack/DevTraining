@@ -22,10 +22,15 @@ int main() {
     BCECost bce_cost;
 
     NeuralNetwork nn;
-    nn.addLayer(new LinearLayer("linear_1", Shape(28*28,100)));
+    nn.addLayer(new LinearLayer("linear_1", Shape(28*28,28*28)));
     nn.addLayer(new ReLUActivation("relu_1"));
-    nn.addLayer(new LinearLayer("linear_2", Shape(100, 10)));
+    nn.addLayer(new LinearLayer("linear_2", Shape(28*28, 10)));
     nn.addLayer(new ReLUActivation("relu_2"));
+
+    for(int i{0}; i<28*28; i++){
+
+        std::cout << trainData.at(2)[i] << std::endl;
+    }
 
 
     Matrix Y;
@@ -46,6 +51,13 @@ int main() {
     // Compute accuracy
     Y = nn.forward(trainData.at(trainData.size()-1));
     Y.copyDeviceToHost();
+    for( int i{0}; i<10; i++){
+        std::cout << Y[i] << std::endl;
+    }
+    std::cout << "------" << std::endl;
+    for( int i{0}; i<10; i++){
+        std::cout << targets.at(trainData.size()-1)[i] << std::endl;
+    }
 
     float accuracy = computeAccuracy(Y, targets.at(trainData.size()-1));
     std::cout << "Accuracy: " << accuracy << std::endl;

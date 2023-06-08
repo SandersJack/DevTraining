@@ -20,6 +20,7 @@ Matrix NeuralNetwork::forward(Matrix X){
 
     for (auto layer : fLayers){
         Z = layer->forward(Z);
+        
     }
 
     Y = Z;
