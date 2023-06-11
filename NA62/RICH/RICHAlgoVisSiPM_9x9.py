@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 m = 1000
-mm = 2
+mm = 1
 
 
 def DecodeChannelID(ChannelID):
@@ -15,7 +15,7 @@ def DecodeChannelID(ChannelID):
     
     return DiskID,UpDownDiskID,SuperCellID,OrSuperCellID,PmtID
 
-SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+SiType = 2 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
 
@@ -38,7 +38,7 @@ elif SiType == 2:
     cen_fac = 18/9
     supercell_fac = 25
     nRow = 12
-    channels_1 = 3924
+    channels_1 = 3816
     id_length = 271
 
 fPMsIDs = [None]*id_length
@@ -67,7 +67,7 @@ for i in range(nRow):
 
 plo = 0
 animate = False
-x_center = 285
+x_center = 0#285
 y_center = 0
 
 
@@ -84,6 +84,7 @@ if animate:
     
 def plot(x,y,n,m,l,k,i):
     if animate:
+        x_center = 0
         #print(k,l,m,n)
         shiftx = 1
         shifty = 1
@@ -134,31 +135,34 @@ for k in range(nRow):
         for l in range(nSuperCellinRow[k]):
             for m in range(0,3):
                 PM_positions[nPM][0] = (-1 + l + cell_dist[k])*SensorWidth;
-                PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                PM_positions[nPM][1] = (m + k*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 fPMsIDs[-1 + l + cell_dist[k]][m + k*3] = nPM;
-                print(l)
+                #print(l)
                 #print(-1 + l + cell_dist[k],m + k*3)
-                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                #print(PM_positions[nPM][0],PM_positions[nPM][1])
                 nPM += 1
                 if nPM ==1:
                     x_center = PM_positions[nPM-1][0] + 300
-        exit(l)
+        #exit(l)
                 
     else:
         for l in range(nSuperCellinRow[k],0,-1):
             for m in range(0,3):
                 PM_positions[nPM][0] = (l + cell_dist[k]-2)*SensorWidth;
-                PM_positions[nPM][1] = (m + k*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                PM_positions[nPM][1] = (m + k*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 fPMsIDs[l + cell_dist[k]-2][m + k*3] = nPM;
                 #print(-2 + l + cell_dist[k],m + k*3)
                 #print(nPM)
-                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                #print(PM_positions[nPM][0],PM_positions[nPM][1])
+                #exit(0)
                 nPM += 1
                 if nPM ==1:
                     x_center = PM_positions[nPM-1][0] + 300
             #print(triCell) 
-            # 
-
+    #print(PM_positions[0][0],PM_positions[0][1])
+    #exit(0)
 #end first half
 for j in range(nRow): 
     triCell = 0
@@ -167,25 +171,28 @@ for j in range(nRow):
             for m in range(0,3):
                 PM_positions[nPM][0] = (-1 + l + cell_dist[j])*SensorWidth;
                                 
-                PM_positions[nPM][1] = -(m + j*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                PM_positions[nPM][1] = -(m + j*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 
                 fPMsIDs[-1 + l + cell_dist[j]+ 200][m + j*3 + 200] = nPM;
                 print(l + cell_dist[j] - 1 + 200,m + j*3 + 200)
-                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 #print(n + l*3 + 3*cell_dist[j] - triCell+ 300)
+                
     else:
         for l in range(nSuperCellinRow[j],0,-1):
             for m in range(0,3):
                
                 PM_positions[nPM][0] = (l + cell_dist[j]-2)*SensorWidth;       
-                PM_positions[nPM][1] = -(m + j*3)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
+                PM_positions[nPM][1] = -(m + j*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 
                 fPMsIDs[l + cell_dist[j] - 2 + 200][m + j*3 + 200] = nPM;
                 print(l + cell_dist[j] - 2 + 200,m + j*3 + 200)
-                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
-
+                
+        
+    
     #exit(0)
 print(nPM)
 y_center = 0
@@ -228,11 +235,21 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
         
         #print(UpDwID,SCID)
         PMinSC = iPM - (SCID * 8 + channels_1/2 * UpDwID)
-        fGeoIDs[iPM] = UpDwID * 100000 + SCID * 100 + PMinSC; 
+        if (SiType == 1 or SiType == 2):
+            fGeoIDs[iPM] = UpDwID * 100000 + SCID * 100 + PMinSC; # For type 0 need to change this
+        else:
+            fGeoIDs[iPM] = UpDwID * 1000000 + SCID * 100 + PMinSC;
 
         string = "{}".format(fGeoIDs[iPM])
         out.write(string + '\n')
 
+        if (SCID % 3 == 0 and PMinSC % 8 == 4):
+            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
+        if (SCID % 3 == 2 and PMinSC % 8 == 3):
+            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
+        if (SCID % 3 == 1 and PMinSC % 8 == 5):
+            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
+        
         ### Needed to create rawDecoder
         if (PMinSC % 8 == 0 and iPM != 0):
             count += 1
@@ -247,7 +264,7 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
             channel = []
             count = 0
 
-        if PMinSC == 4:
+        if (SCID % 3 == 0 and PMinSC % 8 == 4) or (SCID % 3 == 2 and PMinSC % 8 == 3) or (SCID % 3 == 1 and PMinSC % 8 == 5):
             pos_SC.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center]) 
             count_sc += 1
 
@@ -263,12 +280,12 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
         if iPM == nPM-1:
             channel_map.append(channel)
             pos_map.append(pos)
+            pos_map_SC.append(pos_SC)
 
     #print(fGeoIDs[iPM],DecodeChannelID(fGeoIDs[iPM]))
     #print(DecodeChannelID(fGeoIDs[iPM])[-1]%8)
     #if (iPM == channels_1/2):
     #    break
-
 tmp = []
 for p in range(len(supercell)):
     if p%16 == 0 and p !=0:
@@ -283,15 +300,25 @@ for p in range(len(supercell)):
 
 createRawDec = False
 list_string = []
+chun = 0
+n = 0
 print(len(channel_map)) 
-print(channel_map[260])
+for i in range(len(channel_map)):
+    for t in range(len(channel_map[i])):
+        print(n + t,channel_map[i][t] )
+    n += len(channel_map[i])
+
+#print(chun)
 if createRawDec:
     try: 
         os.remove('RawDecoder_{}.txt'.format(SiType)) 
     except FileNotFoundError:
         pass
     with open('RawDecoder_{}.txt'.format(SiType), 'w') as out:
-        adder = [0,1000000,]
+        if (SiType == 1 or SiType == 2):
+            adder = [0,1000000,]
+        else:
+            adder = [0,10000000,]
         adder_i = [0,len(channel_map),len(channel_map)*2+1, len(channel_map)*2+len(supercell_map)+1]
         for v in range(0,4):
             if v<2:
@@ -314,12 +341,12 @@ if createRawDec:
                     out.write(string + '\n')
 
 
-            print(v ,len(list_string) % 32)
+            #print(v ,len(list_string) % 32)
             if (v == 1 or v ==3):
                 print(v, len(list_string), len(list_string) % 32)
                 if (len(list_string) % 32 > 0):
                     q = 0
-                    for po in range(32 -(len(list_string) % 32)):
+                    for po in range(32 -(len(list_string) % 32)):   
                         print(po,32 -(len(list_string) % 32))
                         substring = ""
                         for t in range(16):
@@ -353,7 +380,7 @@ if createRawDec:
 
             
 
-create_conf = False
+create_conf = True
 
 if create_conf:
         try: 
@@ -363,6 +390,10 @@ if create_conf:
         with open('PMTPositions_{}.dat'.format(SiType), 'w') as out:
             for i in range(len(pos_map)):
                 substring = ""
+                print(len(pos_map[i]) % 8)
+                if len(pos_map[i]) % 8 != 0:
+                    for add in range(8 - len(pos_map[i]) % 8):
+                        pos_map[i].append([-999.0, -999.0])
                 for t in range(len(pos_map[i])):
                     substring += " {}".format(pos_map[i][t][0])
                     substring += " {}".format(pos_map[i][t][1])
@@ -370,7 +401,7 @@ if create_conf:
                 out.write(string + '\n')
 
 
-create_SC_pos = False
+create_SC_pos = True
 
 if create_SC_pos:
         try: 
@@ -381,6 +412,7 @@ if create_SC_pos:
             for i in range(len(pos_map_SC)):
                 substring = ""
                 for t in range(len(pos_map_SC[i])):
+                    plot(pos_map_SC[i][t][0],pos_map_SC[i][t][1],-1,0,i,0,0)
                     substring += " {}".format(pos_map_SC[i][t][0])
                     substring += " {}".format(pos_map_SC[i][t][1])
                 string = "SCPosition_SC_{} ={}".format(i,substring)
