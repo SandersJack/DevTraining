@@ -15,7 +15,7 @@ def DecodeChannelID(ChannelID):
     
     return DiskID,UpDownDiskID,SuperCellID,OrSuperCellID,PmtID
 
-SiType = 2 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
 
@@ -84,7 +84,7 @@ if animate:
     
 def plot(x,y,n,m,l,k,i):
     if animate:
-        x_center = 0
+        #x_center = 0
         #print(k,l,m,n)
         shiftx = 1
         shifty = 1
@@ -139,7 +139,7 @@ for k in range(nRow):
                 fPMsIDs[-1 + l + cell_dist[k]][m + k*3] = nPM;
                 #print(l)
                 #print(-1 + l + cell_dist[k],m + k*3)
-                #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 #print(PM_positions[nPM][0],PM_positions[nPM][1])
                 nPM += 1
                 if nPM ==1:
@@ -154,7 +154,7 @@ for k in range(nRow):
                 fPMsIDs[l + cell_dist[k]-2][m + k*3] = nPM;
                 #print(-2 + l + cell_dist[k],m + k*3)
                 #print(nPM)
-                #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
+                plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 #print(PM_positions[nPM][0],PM_positions[nPM][1])
                 #exit(0)
                 nPM += 1
@@ -418,7 +418,6 @@ if create_SC_pos:
                 string = "SCPosition_SC_{} ={}".format(i,substring)
                 out.write(string + '\n')
 
-exit(0)
 #print(fPMsIDs)
 #x_center = 297
 y_center = 0
@@ -426,7 +425,7 @@ ang = 0
 print(nPM)
 if not animate:
     print("No Animate")
-    fig = plt.figure(figsize=(20,20))
+    fig = plt.figure(figsize=(10,10))
     plt.xlim(-400,400)
     plt.ylim(-400,400)
     circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue",alpha=0.5)
