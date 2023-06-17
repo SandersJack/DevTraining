@@ -15,7 +15,7 @@ def DecodeChannelID(ChannelID):
     
     return DiskID,UpDownDiskID,SuperCellID,OrSuperCellID,PmtID
 
-SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+SiType = 0 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
 
@@ -286,6 +286,47 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
     #print(DecodeChannelID(fGeoIDs[iPM])[-1]%8)
     #if (iPM == channels_1/2):
     #    break
+
+neighbours = True
+
+if neighbours:
+    try: 
+        os.remove('RICH-PMsNeighboursMap_{}.txt'.format(SiType)) 
+    except FileNotFoundError:
+        pass
+    with open('RICH-PMsNeighboursMap_{}.txt'.format(SiType), 'w') as out:
+        for disk in range(2):
+            shift = len(fGeoIDs)
+            channel_shift = 10000000
+            for i in range(len(fGeoIDs)):
+                secID = fGeoIDs[i]
+                pos_x = PM_positions[i][0]- x_center
+                pos_y = PM_positions[i][1]- y_Center
+
+                neighbours = [-99,-99,-99,-99]
+                neigh = 0
+                for t in range(len(fGeoIDs)):
+                    pos_x_chec = PM_positions[t][0]- x_center
+                    pos_y_chec = PM_positions[t][1]- y_Center
+                    if (abs(pos_x_chec - pos_x) <= SensorWidth and abs(pos_y_chec - pos_y) <= SensorWidth) and t != i and (abs(pos_x_chec - pos_x) != abs(pos_y_chec - pos_y)):
+                        if disk == 0:
+                            neighbours[neigh] = int(fGeoIDs[t])
+                        else:
+                            neighbours[neigh] = int(fGeoIDs[t] + channel_shift)
+                        neigh += 1
+
+                if disk == 0:
+                    string_ = "{} ".format(i)
+                else:
+                    string_ = "{} ".format(i+shift)
+
+                for u in range(len(neighbours)):
+                    string_ += "{} ".format(neighbours[u])
+
+                out.write(string_ + '\n')
+
+exit(0)
+
 tmp = []
 for p in range(len(supercell)):
     if p%16 == 0 and p !=0:
