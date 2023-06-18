@@ -16,13 +16,16 @@ __global__ void LinearLayerForward(float* W, float* A, float* Z, float* b,
     int Z_x_dim = A_x_dim;
     int Z_y_dim = W_y_dim;
 
-    float Z_value = 0;
+    //printf("A[136]: %f \n", A[136]);
 
+    float Z_value = 0;
     if(row<Z_x_dim && col<Z_y_dim){
         for(int i=0; i<W_x_dim; i++){
-            Z_value += W[row * W_x_dim + i] * A[i*A_x_dim+col];
+            Z_value += A[row*A_y_dim + i] *  W[i * W_y_dim + col];
+            //printf("Row: %i, Col %i, i: %i, A: %f, Ai: %i, W: %f, Wi: %i \n", row, col, i , A[row*A_y_dim + i], row*A_y_dim + i, W[i * W_y_dim + col], i * W_y_dim + col);
         }
-        Z[row * Z_x_dim + col] = Z_value + b[row];
+
+        Z[row * Z_y_dim + col] = Z_value + b[row];
     }
 }
 
@@ -40,9 +43,9 @@ __global__ void LinearLayerBackprop(float* W, float* dZ, float* dA,
 
     if(row < dA_x_dim && col < dA_y_dim){
         for(int i=0; i<W_y_dim; i++){
-            dA_value += W[i*W_x_dim + row] * dZ[i*dZ_x_dim + col];
+            dA_value += W[i*W_y_dim + row] * dZ[i*dZ_y_dim + col];
         }
-        dA[row*dA_x_dim+col] = dA_value;
+        dA[row*dA_y_dim+col] = dA_value;
     }
 }
 
@@ -61,9 +64,9 @@ __global__ void LinearLayerUpdateWeights(float* dZ, float* A, float* W,
 
     if(row < W_x_dim && col < W_y_dim){
         for(int i=0; i<dZ_x_dim; i++){
-            dW_value += dZ[row*W_x_dim + i] * A[col * A_x_dim + i];
+            dW_value += dZ[row*W_y_dim + i] * A[col * A_y_dim + i];
         }
-        W[row * W_x_dim + col] = W[row * W_x_dim + col] - learning_rate * dW_value/A_x_dim;
+        W[row * W_y_dim + col] = W[row * W_y_dim + col] - learning_rate * dW_value/A_y_dim;
     }
 }
 
@@ -74,9 +77,9 @@ __global__ void LinearLayerUpdateBias(float *dZ, float* b,
     int index = blockIdx.x * blockDim.x + threadIdx.x;
 
     if(index < dZ_x_dim * dZ_y_dim){
-        int dZ_x = index % dZ_x_dim;
-        int dZ_y = index / dZ_y_dim;
-        atomicAdd(&b[dZ_y], -learning_rate * (dZ[dZ_y * dZ_x_dim + dZ_x] / dZ_x_dim));
+        int dZ_x = index / dZ_y_dim;
+        int dZ_y = index % dZ_y_dim;
+        atomicAdd(&b[dZ_y], -learning_rate * (dZ[dZ_x * dZ_y_dim + dZ_y] / dZ_y_dim));
     }
 }
 
@@ -100,7 +103,7 @@ void LinearLayer::initWeightsRand() {
 
     for(int x=0; x<W.shape.x; x++){
         for(int y=0; y<W.shape.y; y++){
-            W[y*W.shape.x + x] = normal_distribution(gen) * weights_init_threshold;
+            W[x*W.shape.y + y] = normal_distribution(gen) * weights_init_threshold;
         }
     }
     W.copyHostToDevice();
@@ -120,9 +123,17 @@ Matrix& LinearLayer::forward(Matrix& A) {
     this->A = A;
     Shape Z_Shape(A.shape.x, W.shape.y);
     Z.allocateMemoryIfNot(Z_Shape);
-
+    
+    //for( int i{0}; i<28*28; i++){
+    //    std::cout << i << " B " <<A[i] << std::endl;
+    //}
+    //std::cout << "BBOOM" << std::endl;
     computeAndStoreLayerOutput(A);
     Exception::throwIfDeviceErrorOccurred("Cannot perform linear layer forward propagation");
+    //std::cout << "After" << std::endl;
+    //for( int i{0}; i<28*28; i++){
+    //    std::cout << i << " A " << Z[i] << std::endl;
+    //}
 
     return Z;
 }
@@ -130,9 +141,10 @@ Matrix& LinearLayer::forward(Matrix& A) {
 void LinearLayer::computeAndStoreLayerOutput(Matrix& A){
     dim3 block_size(8,8);
     dim3 num_of_blocks((Z.shape.x+block_size.x-1)/block_size.x,(Z.shape.y+block_size.y-1)/block_size.y);
-
+    A.copyHostToDevice();
     LinearLayerForward<<<num_of_blocks, block_size>>>(W.data_device.get(), A.data_device.get(), Z.data_device.get(),
         b.data_device.get(), W.shape.x, W.shape.y, A.shape.x, A.shape.y);
+    Z.copyDeviceToHost();
 }
 
 Matrix& LinearLayer::backprop(Matrix& dZ, float learning_rate) {
@@ -154,7 +166,6 @@ Matrix& LinearLayer::backprop(Matrix& dZ, float learning_rate) {
 void LinearLayer::computeAndStoreBackpropOutput(Matrix& dZ) {
     dim3 block_size(8,8);
     dim3 num_of_blocks((dZ.shape.x + block_size.x -1)/block_size.x, (dZ.shape.y + block_size.y -1)/block_size.y);
-
     LinearLayerBackprop<<<num_of_blocks, block_size>>>(W.data_device.get(), dZ.data_device.get(), dA.data_device.get(),
     dZ.shape.x, dZ.shape.y, A.shape.x, A.shape.y);
 }

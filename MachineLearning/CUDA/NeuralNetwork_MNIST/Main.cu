@@ -22,20 +22,13 @@ int main() {
     BCECost bce_cost;
 
     NeuralNetwork nn;
-    nn.addLayer(new LinearLayer("linear_1", Shape(28*28,28*28)));
+    nn.addLayer(new LinearLayer("linear_1", Shape(28*28,1000)));
     nn.addLayer(new ReLUActivation("relu_1"));
-    nn.addLayer(new LinearLayer("linear_2", Shape(28*28, 10)));
+    nn.addLayer(new LinearLayer("linear_2", Shape(1000, 10)));
     nn.addLayer(new ReLUActivation("relu_2"));
-
-    for(int i{0}; i<28*28; i++){
-
-        std::cout << trainData.at(2)[i] << std::endl;
-    }
-
-
     Matrix Y;
     std::cout << "[Main] Start of Training" << std::endl;
-    for(int epoch=0; epoch<10; epoch++){
+    for(int epoch=0; epoch<100; epoch++){
         float cost = 0.0;
         for(int batch=0; batch<trainData.size()-1; batch++){
             Y = nn.forward(trainData.at(batch));
@@ -43,7 +36,6 @@ int main() {
             cost += bce_cost.cost(Y, targets.at(batch));
         }
         
-
         if (epoch % 1 == 0){
             std::cout << "Epoch: " << epoch << ", Cost:" << cost/trainData.size() << std::endl;
         }
@@ -51,12 +43,15 @@ int main() {
     // Compute accuracy
     Y = nn.forward(trainData.at(trainData.size()-1));
     Y.copyDeviceToHost();
-    for( int i{0}; i<10; i++){
-        std::cout << Y[i] << std::endl;
+    for( int i{0}; i<20; i++){
+        std::cout << i << " " << Y[i] << std::endl;
     }
     std::cout << "------" << std::endl;
     for( int i{0}; i<10; i++){
-        std::cout << targets.at(trainData.size()-1)[i] << std::endl;
+        std::cout << i << " "<< targets.at(0)[i] << std::endl;
+    }
+    for( int i{0}; i<10; i++){
+        std::cout << i << " "<< targets.at(1)[i] << std::endl;
     }
 
     float accuracy = computeAccuracy(Y, targets.at(trainData.size()-1));
