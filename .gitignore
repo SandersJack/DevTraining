@@ -7,7 +7,7 @@
 *.rootmap
 *.venv
 ####### VisWithPy ########
-VisWithPy/.venv
+*/.venv
 VisWithPy/NatGas/__pycache__
 VisWithPy/NatGas/Constants.py
 __pycache__
