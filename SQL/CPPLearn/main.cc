@@ -1,3 +1,5 @@
+#include "PersonDB.hh"
+
 #include <stdio.h>
 #include <sqlite3.h> 
 #include <string>
@@ -134,11 +136,16 @@ int main() {
     //addValues(db, rc, 1, "Jack", 32, "Geneva", 100000);
     //addValues(db, rc, 2, "Emily", 20, "Birmingham", 10000000);
 
-    select(db, rc, data, "*");
-    update(db, rc, data, "SALARY = 20000 where ID=2");
-    select(db, rc, data, "*");
-    deleteEntry(db, rc, data, 2);
-    select(db, rc, data, "*");
+    //select(db, rc, data, "*");
+    //update(db, rc, data, "SALARY = 20000 where ID=2");
+    //select(db, rc, data, "*");
+    //deleteEntry(db, rc, data, 2);
+    //select(db, rc, data, "*");
+
+    PersonDB *start = new PersonDB();
+    //start->createDatabase(db,rc,zErrMsg);
+    //start->saveEntry(db,rc, 0, "Jack", "Jack.sanders@sand.com", 24);
+    start->selectEntry(db, rc, data, "ID=0");
 
     sqlite3_close(db);
     return 0;

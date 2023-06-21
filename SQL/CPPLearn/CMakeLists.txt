@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.20)
 
 project(CPPSQL)
 
-set(MAIN_FILE main.cc)
+file(GLOB SRC
+     "src/*.cc")
 
-add_executable(CPPSQL ${MAIN_FILE} )
+set(MAIN_FILE main.cc)
+include_directories(include)
+
+add_executable(CPPSQL ${MAIN_FILE} ${SRC})
 target_link_libraries(CPPSQL LINK_PUBLIC sqlite3)
