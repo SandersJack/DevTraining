@@ -30,7 +30,7 @@ y = []
 for i in range(len(v)):
     y.append(eq3(v[i]))
 '''
-
+'''
 r = 2150
 r2 = 1200
 
@@ -54,3 +54,10 @@ plt.plot(xvals, yvals)
 
 plt.scatter(points_x,points_y)
 plt.show()
+'''
+string = ''
+
+for i in range(45*4):
+    string += ' 2'
+
+print(string)
