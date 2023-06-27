@@ -1,4 +1,5 @@
 #include "PersonDB.hh"
+#include "Person.hh"
 
 #include <stdio.h>
 #include <sqlite3.h> 
@@ -145,7 +146,9 @@ int main() {
     PersonDB *start = new PersonDB();
     //start->createDatabase(db,rc,zErrMsg);
     //start->saveEntry(db,rc, 0, "Jack", "Jack.sanders@sand.com", 24);
-    start->selectEntry(db, rc, data, "ID=0");
+    //Person *Emily = new Person(99, "Emily", "Em.pyper@here.com", 22);
+    //start->saveEntry(db,rc , Emily);
+    Person *entry = start->getEntry(db, rc, data, "ID=99");
 
     sqlite3_close(db);
     return 0;
