@@ -17,7 +17,9 @@ def DecodeChannelID(ChannelID):
 
 SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
-SpotRadius = 0.30 * m
+SpotHeight = 0.30 * m
+SpotWidth = 0.325 * m
+SpotRadius = 0.3 * m
 
 if(SiType == 0):
     SensorWidth = 0.003 * m 
@@ -31,7 +33,7 @@ elif SiType == 1:
     cen_fac = 18/6
     supercell_fac = 37
     nRow = 23
-    channels_1 = int(8304*3)
+    channels_1 = 10#int(8304*3)
     id_length = 301
 elif SiType == 2:
     SensorWidth = 0.009 * m
@@ -79,8 +81,9 @@ if animate:
 
     
 
-    circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue")
-    plt.gca().add_patch(circle)
+    #circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue")
+    square1 = plt.Rectangle((-SpotWidth,-SpotHeight),SpotWidth, SpotHeight, fc="white",ec="blue" )
+    #plt.gca().add_patch(circle)
     
 def plot(x,y,n,m,l,k,i):
     if animate:
@@ -116,6 +119,7 @@ small_radius = 1220
 
 
 for k in range(nRow):
+    break
       #first half
     nSuperCellinRow[k] = 0
     x_width = np.sqrt(large_radius**2 - ((k)*3*SensorWidth)**2)
@@ -172,6 +176,7 @@ for k in range(nRow):
 #end first half
 
 for j in range(nRow): 
+    break
     triCell = 0
     if j%2 == 0:
         for l in range(nSuperCellinRow[j]):
@@ -532,6 +537,7 @@ if not animate:
     
     plotinit()
     circle = plt.Circle((-1600,0),SpotRadius, fc="white",ec="blue",alpha=0.5)
+    square1 = plt.Rectangle((-SpotWidth-1600,-SpotHeight),SpotWidth*2, SpotHeight*2, fc="white",ec="blue" )
     col = 'red'
     for i in range(len(PM_positions)):
         
@@ -555,6 +561,9 @@ if not animate:
             else:
                 col='red'
 
+
+plt.gca().add_patch(square1)
 plt.gca().add_patch(circle)
+plt.xlim(-2200, -1000)
 #plt.savefig('SiPM_new_{}.png'.format(SiType))
 plt.show()

@@ -57,7 +57,7 @@ plt.show()
 '''
 string = ''
 
-for i in range(45*4):
-    string += ' 2'
+for i in range(50):
+    string += ' f'
 
 print(string)

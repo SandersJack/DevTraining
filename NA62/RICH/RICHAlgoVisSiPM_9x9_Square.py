@@ -19,6 +19,9 @@ SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
 
+SpotHeight = 0.30 * m
+SpotWidth = 0.325 * m
+
 if(SiType == 0):
     SensorWidth = 0.003 * m 
     cen_fac = 18/3
@@ -31,8 +34,8 @@ elif SiType == 1:
     cen_fac = 18/6
     supercell_fac = 37
     nRow = 17
-    channels_1 = 10200
-    id_length = 301
+    channels_1 = 11118#10200
+    id_length = 401
 elif SiType == 2:
     SensorWidth = 0.009 * m
     cen_fac = 18/9
@@ -118,7 +121,7 @@ for k in range(nRow):
       #first half
     nSuperCellinRow[k] = 0
 
-    while((nSuperCellinRow[k] + 1) * SensorWidth * 3/3 < 2*SpotRadius):
+    while((nSuperCellinRow[k] + 1) * SensorWidth * 3/3 < 2*SpotWidth):
         nSuperCellinRow[k] +=1
     nSuperCellinRow[k] +=1
     
@@ -139,7 +142,7 @@ for k in range(nRow):
                 plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 if nPM ==1:
-                    x_center = PM_positions[nPM-1][0] + 300 - SensorWidth/2
+                    x_center = PM_positions[nPM-1][0] + SpotWidth - SensorWidth/2
         #exit(l)
                 
     else:
