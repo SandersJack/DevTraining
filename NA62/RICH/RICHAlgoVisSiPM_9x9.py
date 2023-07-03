@@ -15,7 +15,7 @@ def DecodeChannelID(ChannelID):
     
     return DiskID,UpDownDiskID,SuperCellID,OrSuperCellID,PmtID
 
-SiType = 0 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+SiType = 2 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
 
@@ -287,7 +287,7 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
     #if (iPM == channels_1/2):
     #    break
 
-neighbours = True
+neighbours = False
 
 if neighbours:
     try: 
@@ -325,7 +325,6 @@ if neighbours:
 
                 out.write(string_ + '\n')
 
-exit(0)
 
 tmp = []
 for p in range(len(supercell)):
@@ -421,7 +420,7 @@ if createRawDec:
 
             
 
-create_conf = True
+create_conf = False
 
 if create_conf:
         try: 
@@ -442,7 +441,7 @@ if create_conf:
                 out.write(string + '\n')
 
 
-create_SC_pos = True
+create_SC_pos = False
 
 if create_SC_pos:
         try: 
@@ -496,5 +495,5 @@ if not animate:
                 col='red'
 
 plt.gca().add_patch(circle)
-plt.savefig('SiPM_new_{}.png'.format(SiType))
+plt.savefig('SiPM_{}.png'.format(SiType))
 plt.show()

@@ -65,7 +65,7 @@ circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue")
 plt.gca().add_patch(circle)
 plo = 0
 
-animate = False
+animate = True
 
 def plot(x,y,n,m,l,k, col="red"):
     if animate:
@@ -73,7 +73,6 @@ def plot(x,y,n,m,l,k, col="red"):
         circle = plt.Circle((x-x_center,y-y_center),7.5, fc=col,ec="blue")
         #plt.plot(x,y)
         plt.gca().add_patch(circle)
-        plt.pause(1)
         if plo == 0:
             pass
         else:
@@ -130,7 +129,6 @@ for k in range(nRow):  #first half
                         nPM +=1
                 
                 print(PM_positions[nPM][0],PM_positions[nPM][1])
-                exit(0)
                     
         
     if k == 0: 
@@ -166,7 +164,7 @@ for j in range(nRow):
                         nPM +=1
 
                 print(PM_positions[nPM][0],PM_positions[nPM][1])
-                exit(0)
+
 
 plt.savefig('test.png')
 plt.show()
