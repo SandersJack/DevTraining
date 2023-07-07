@@ -484,5 +484,5 @@ if not animate:
                 col='red'
 
 plt.gca().add_patch(circle)
-plt.savefig('SiPM_new_{}.png'.format(SiType))
+plt.savefig('SiPM_new_{}_Sq.png'.format(SiType))
 plt.show()
