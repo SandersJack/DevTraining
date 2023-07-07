@@ -73,7 +73,6 @@ def plot(x,y,n,m,l,k, col="red"):
         circle = plt.Circle((x-x_center,y-y_center),7.5, fc=col,ec="blue")
         #plt.plot(x,y)
         plt.gca().add_patch(circle)
-        plt.pause(1)
         if plo == 0:
             pass
         else:
@@ -128,6 +127,8 @@ for k in range(nRow):  #first half
                         plo +=1
                         fPMsIDs[n + 5 * l + 1 * k + 5 * cell_dist[k] + 100][m - 1 * l + 3 * k - 1 * cell_dist[k] + 100] = nPM
                         nPM +=1
+                
+                print(PM_positions[nPM][0],PM_positions[nPM][1])
                     
         
     if k == 0: 
@@ -135,7 +136,6 @@ for k in range(nRow):  #first half
         y_center_row0_up = y_center_row0_up / nSuperCellinRow[k]
 
 #end first half
-exit(0)
 for j in range(nRow): 
     for l in range(nSuperCellinRow[j]):
 
@@ -162,6 +162,9 @@ for j in range(nRow):
                         plo +=1
                         fPMsIDs[n + 5 * l - 1 * (j + 1) + 5 * (12 - nSuperCellinRow[j] - cell_dist[j]) + 100][m - 1 * l - 3 * (j + 1) - 1 * (12 - nSuperCellinRow[j] - cell_dist[j])+ 100] = nPM
                         nPM +=1
+
+                print(PM_positions[nPM][0],PM_positions[nPM][1])
+
 
 plt.savefig('test.png')
 plt.show()

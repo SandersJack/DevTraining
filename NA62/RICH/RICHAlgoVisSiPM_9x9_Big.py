@@ -15,9 +15,11 @@ def DecodeChannelID(ChannelID):
     
     return DiskID,UpDownDiskID,SuperCellID,OrSuperCellID,PmtID
 
-SiType = 2 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
-SpotRadius = 0.30 * m
+SpotHeight = 0.30 * m
+SpotWidth = 0.325 * m
+SpotRadius = 0.3 * m
 
 if(SiType == 0):
     SensorWidth = 0.003 * m 
@@ -30,8 +32,8 @@ elif SiType == 1:
     SensorWidth = 0.006 * m 
     cen_fac = 18/6
     supercell_fac = 37
-    nRow = 17
-    channels_1 = 8304
+    nRow = 23
+    channels_1 = 10#int(8304*3)
     id_length = 301
 elif SiType == 2:
     SensorWidth = 0.009 * m
@@ -79,8 +81,9 @@ if animate:
 
     
 
-    circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue")
-    plt.gca().add_patch(circle)
+    #circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue")
+    square1 = plt.Rectangle((-SpotWidth,-SpotHeight),SpotWidth, SpotHeight, fc="white",ec="blue" )
+    #plt.gca().add_patch(circle)
     
 def plot(x,y,n,m,l,k,i):
     if animate:
@@ -110,50 +113,58 @@ def plot(x,y,n,m,l,k,i):
             #plt.draw()
 
     
-                
-            
+large_radius = 2130               
+
+small_radius = 1220
 
 
 for k in range(nRow):
+    break
       #first half
     nSuperCellinRow[k] = 0
-    x_width = np.sqrt(SpotRadius**2 - ((k)*3*SensorWidth)**2) 
+    x_width = np.sqrt(large_radius**2 - ((k)*3*SensorWidth)**2)
 
-    while((nSuperCellinRow[k] + 1) * SensorWidth * 3/3 < 2*x_width+(SensorWidth)):
+    x_width_2 = x_width-np.sqrt(small_radius**2 - ((k)*3*SensorWidth)**2)
+
+    if small_radius < (k)*3*SensorWidth/0.1989:
+        x_width_2 = x_width-(((k)*3*SensorWidth)/(0.1989*0.99))
+
+    #print(((k)*3*SensorWidth),small_radius,((k)*3*SensorWidth)/0.1989,x_width, x_width_2)
+    
+    while((nSuperCellinRow[k] + 1) * SensorWidth * 3/3 < x_width_2+(SensorWidth)):
         nSuperCellinRow[k] +=1
     nSuperCellinRow[k] +=1
     
     if(k != 0):
-        cell_dist[k] = int(np.floor((300-x_width) / (SensorWidth)))
+        cell_dist[k] = int(np.floor((large_radius-x_width) / (SensorWidth)))
 
     if(k == 0):
-        x_center = 600 - (nSuperCellinRow[k]) * SensorWidth * 3/3 /2 -10
+        x_center = 600 - (nSuperCellinRow[k]) * SensorWidth * 3/3 /2 -10 
         #print(x_center)
     
     triCell = 0 
     if k%2 == 0:
         for l in range(nSuperCellinRow[k]):
             for m in range(0,3):
-                PM_positions[nPM][0] = (-1 + l + cell_dist[k])*SensorWidth;
+                PM_positions[nPM][0] = (-1 + l + cell_dist[k])*SensorWidth
                 PM_positions[nPM][1] = (m + k*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
-                fPMsIDs[-1 + l + cell_dist[k]][m + k*3] = nPM;
+                #fPMsIDs[-1 + l + cell_dist[k]][m + k*3] = nPM;
                 #print(l)
                 #print(-1 + l + cell_dist[k],m + k*3)
                 plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 #print(PM_positions[nPM][0],PM_positions[nPM][1])
                 nPM += 1
                 if nPM ==1:
-                    x_center = PM_positions[nPM-1][0] + 300
+                    x_center = PM_positions[nPM-1][0] + large_radius
         #exit(l)
                 
     else:
         for l in range(nSuperCellinRow[k],0,-1):
             for m in range(0,3):
-                PM_positions[nPM][0] = (l + cell_dist[k]-2)*SensorWidth;
+                PM_positions[nPM][0] = (l + cell_dist[k]-2)*SensorWidth
                 PM_positions[nPM][1] = (m + k*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
-                fPMsIDs[l + cell_dist[k]-2][m + k*3] = nPM;
+                #fPMsIDs[l + cell_dist[k]-2][m + k*3] = nPM;
                 #print(-2 + l + cell_dist[k],m + k*3)
-                #print(nPM)
                 plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 #print(PM_positions[nPM][0],PM_positions[nPM][1])
                 #exit(0)
@@ -162,9 +173,10 @@ for k in range(nRow):
                     x_center = PM_positions[nPM-1][0] + 300
             #print(triCell) 
     #print(PM_positions[0][0],PM_positions[0][1])
-    #exit(0)
 #end first half
+
 for j in range(nRow): 
+    break
     triCell = 0
     if j%2 == 0:
         for l in range(nSuperCellinRow[j]):
@@ -173,8 +185,8 @@ for j in range(nRow):
                                 
                 PM_positions[nPM][1] = -(m + j*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 
-                fPMsIDs[-1 + l + cell_dist[j]+ 200][m + j*3 + 200] = nPM;
-                print(l + cell_dist[j] - 1 + 200,m + j*3 + 200)
+                #fPMsIDs[-1 + l + cell_dist[j]+ 200][m + j*3 + 200] = nPM;
+                #print(l + cell_dist[j] - 1 + 200,m + j*3 + 200)
                 #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 #print(n + l*3 + 3*cell_dist[j] - triCell+ 300)
@@ -186,8 +198,8 @@ for j in range(nRow):
                 PM_positions[nPM][0] = (l + cell_dist[j]-2)*SensorWidth;       
                 PM_positions[nPM][1] = -(m + j*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 
-                fPMsIDs[l + cell_dist[j] - 2 + 200][m + j*3 + 200] = nPM;
-                print(l + cell_dist[j] - 2 + 200,m + j*3 + 200)
+                #fPMsIDs[l + cell_dist[j] - 2 + 200][m + j*3 + 200] = nPM;
+                #print(l + cell_dist[j] - 2 + 200,m + j*3 + 200)
                 #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 
@@ -242,13 +254,6 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
 
         string = "{}".format(fGeoIDs[iPM])
         out.write(string + '\n')
-
-        if (SCID % 3 == 0 and PMinSC % 8 == 4):
-            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
-        if (SCID % 3 == 2 and PMinSC % 8 == 3):
-            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
-        if (SCID % 3 == 1 and PMinSC % 8 == 5):
-            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
         
         ### Needed to create rawDecoder
         if (PMinSC % 8 == 0 and iPM != 0):
@@ -342,11 +347,11 @@ createRawDec = False
 list_string = []
 chun = 0
 n = 0
-print(len(channel_map)) 
-for i in range(len(channel_map)):
-    for t in range(len(channel_map[i])):
-        print(n + t,channel_map[i][t] )
-    n += len(channel_map[i])
+#print(len(channel_map)) 
+#for i in range(len(channel_map)):
+#    for t in range(len(channel_map[i])):
+#        print(n + t,channel_map[i][t] )
+#    n += len(channel_map[i])
 
 #print(chun)
 if createRawDec:
@@ -459,20 +464,82 @@ if create_SC_pos:
                 out.write(string + '\n')
 
 #print(fPMsIDs)
+
+def plotinit():
+    fig = plt.figure(figsize=(10,10))
+    #plt.xlim(-1000,1000)
+    #plt.ylim(-1000,1000)
+    r = 2150
+    arc_angles = np.linspace(-np.pi/14 + np.pi , np.pi+ np.pi/14, 1000)
+    arc_xs = r * np.cos(arc_angles)
+    arc_ys = r * np.sin(arc_angles)
+    plt.plot(arc_xs, arc_ys, color = 'red', lw = 3)
+
+    r2 = 1200
+    arc_angles2 = np.linspace(-np.pi/14 + np.pi , np.pi+ np.pi/14, 1000)
+    arc_xs2 = r2 * np.cos(arc_angles) 
+    arc_ys2 = r2 * np.sin(arc_angles)
+    plt.plot(arc_xs2, arc_ys2, color = 'red', lw = 3)
+
+    posx = r * np.cos(np.pi+ np.pi/16)
+    posy =  r * np.sin(np.pi+ np.pi/16)
+
+    posx_in = r2 * np.cos(np.pi+ np.pi/16)
+    posy_in =  r2 * np.sin(np.pi+ np.pi/16)
+
+    points_x = [posx_in,posx]
+    points_y = [posy_in,posy]
+
+    plt.plot(points_x,points_y, "b--")
+
+    posx_2 = r * np.cos(np.pi+ -np.pi/16)
+    posy_2 =  r * np.sin(np.pi+ -np.pi/16)
+
+    posx_in_2 = r2 * np.cos(np.pi+ -np.pi/16)
+    posy_in_2 =  r2 * np.sin(np.pi+ -np.pi/16)
+
+    points_x_2 = [posx_in_2,posx_2]
+    points_y_2 = [posy_in_2,posy_2]
+
+    plt.plot(points_x_2,points_y_2, "b--")
+
+    posx_3 = r * np.cos(np.pi+ -np.pi/14)
+    posy_3 =  r * np.sin(np.pi+ -np.pi/14)
+
+    posx_in_3 = r2 * np.cos(np.pi+ -np.pi/14)
+    posy_in_3 =  r2 * np.sin(np.pi+ -np.pi/14)
+
+    points_x_3 = [posx_in_3,posx_3]
+    points_y_3 = [posy_in_3,posy_3]
+
+    plt.plot(points_x_3,points_y_3, "r")
+
+    posx_4 = r * np.cos(np.pi+ np.pi/14)
+    posy_4 =  r * np.sin(np.pi+ np.pi/14)
+
+    posx_in_4 = r2 * np.cos(np.pi+ np.pi/14)
+    posy_in_4 =  r2 * np.sin(np.pi+ np.pi/14)
+
+    points_x_4 = [posx_in_4,posx_4]
+    points_y_4 = [posy_in_4,posy_4]
+
+    plt.plot(points_x_4,points_y_4, "r")
+
+    
+
+
 #x_center = 297
 y_center = 0
 ang = 0
 print(nPM)
 if not animate:
     print("No Animate")
-    fig = plt.figure(figsize=(10,10))
-    plt.xlim(-400,400)
-    plt.ylim(-400,400)
-    circle = plt.Circle((0,0),SpotRadius, fc="white",ec="blue",alpha=0.5)
+    
+    plotinit()
+    circle = plt.Circle((-1600,0),SpotRadius, fc="white",ec="blue",alpha=0.5)
+    square1 = plt.Rectangle((-SpotWidth-1600,-SpotHeight),SpotWidth*2, SpotHeight*2, fc="white",ec="blue" )
     col = 'red'
     for i in range(len(PM_positions)):
-        
-
         
         #print(PM_positions[i][0],PM_positions[i][1])
         #print(i)
@@ -494,6 +561,9 @@ if not animate:
             else:
                 col='red'
 
+
+plt.gca().add_patch(square1)
 plt.gca().add_patch(circle)
-plt.savefig('SiPM_{}.png'.format(SiType))
+plt.xlim(-2200, -1000)
+#plt.savefig('SiPM_new_{}.png'.format(SiType))
 plt.show()

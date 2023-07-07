@@ -15,30 +15,33 @@ def DecodeChannelID(ChannelID):
     
     return DiskID,UpDownDiskID,SuperCellID,OrSuperCellID,PmtID
 
-SiType = 2 # 0 = 3mm, 1 = 6mm, 2 = 9mm
+SiType = 1 # 0 = 3mm, 1 = 6mm, 2 = 9mm
 
 SpotRadius = 0.30 * m
+
+SpotHeight = 0.30 * m
+SpotWidth = 0.325 * m
 
 if(SiType == 0):
     SensorWidth = 0.003 * m 
     cen_fac = 18/3
     supercell_fac = 75
     nRow = 34
-    channels_1 = 32346
+    channels_1 = 40800
     id_length = 401
 elif SiType == 1:
     SensorWidth = 0.006 * m 
     cen_fac = 18/6
     supercell_fac = 37
     nRow = 17
-    channels_1 = 8304
-    id_length = 301
+    channels_1 = 11118#10200
+    id_length = 401
 elif SiType == 2:
     SensorWidth = 0.009 * m
     cen_fac = 18/9
     supercell_fac = 25
-    nRow = 12
-    channels_1 = 3816
+    nRow = 11
+    channels_1 = 4422 #4824
     id_length = 271
 
 fPMsIDs = [None]*id_length
@@ -117,14 +120,13 @@ def plot(x,y,n,m,l,k,i):
 for k in range(nRow):
       #first half
     nSuperCellinRow[k] = 0
-    x_width = np.sqrt(SpotRadius**2 - ((k)*3*SensorWidth)**2) 
 
-    while((nSuperCellinRow[k] + 1) * SensorWidth * 3/3 < 2*x_width+(SensorWidth)):
+    while((nSuperCellinRow[k] + 1) * SensorWidth * 3/3 < 2*SpotWidth):
         nSuperCellinRow[k] +=1
     nSuperCellinRow[k] +=1
     
     if(k != 0):
-        cell_dist[k] = int(np.floor((300-x_width) / (SensorWidth)))
+        cell_dist[k] = 0
 
     if(k == 0):
         x_center = 600 - (nSuperCellinRow[k]) * SensorWidth * 3/3 /2 -10
@@ -137,13 +139,10 @@ for k in range(nRow):
                 PM_positions[nPM][0] = (-1 + l + cell_dist[k])*SensorWidth;
                 PM_positions[nPM][1] = (m + k*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 fPMsIDs[-1 + l + cell_dist[k]][m + k*3] = nPM;
-                #print(l)
-                #print(-1 + l + cell_dist[k],m + k*3)
                 plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
-                #print(PM_positions[nPM][0],PM_positions[nPM][1])
                 nPM += 1
                 if nPM ==1:
-                    x_center = PM_positions[nPM-1][0] + 300
+                    x_center = PM_positions[nPM-1][0] + SpotWidth - SensorWidth/2
         #exit(l)
                 
     else:
@@ -159,7 +158,7 @@ for k in range(nRow):
                 #exit(0)
                 nPM += 1
                 if nPM ==1:
-                    x_center = PM_positions[nPM-1][0] + 300
+                    x_center = PM_positions[nPM-1][0] + 300 - SensorWidth/2
             #print(triCell) 
     #print(PM_positions[0][0],PM_positions[0][1])
     #exit(0)
@@ -174,7 +173,7 @@ for j in range(nRow):
                 PM_positions[nPM][1] = -(m + j*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 
                 fPMsIDs[-1 + l + cell_dist[j]+ 200][m + j*3 + 200] = nPM;
-                print(l + cell_dist[j] - 1 + 200,m + j*3 + 200)
+                #print(l + cell_dist[j] - 1 + 200,m + j*3 + 200)
                 #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 #print(n + l*3 + 3*cell_dist[j] - triCell+ 300)
@@ -187,7 +186,7 @@ for j in range(nRow):
                 PM_positions[nPM][1] = -(m + j*3 + 0.5)*SensorWidth; #SensorWidth*m + SensorWidth*k*3
                 
                 fPMsIDs[l + cell_dist[j] - 2 + 200][m + j*3 + 200] = nPM;
-                print(l + cell_dist[j] - 2 + 200,m + j*3 + 200)
+                #print(l + cell_dist[j] - 2 + 200,m + j*3 + 200)
                 #plot(PM_positions[nPM][0],PM_positions[nPM][1],-1,m,l,k,nPM)
                 nPM += 1
                 
@@ -209,6 +208,8 @@ count = 0
 
 count_sc = 0
 
+n_sc = 0
+
 pos = []
 pos_map = []
 
@@ -219,7 +220,7 @@ supercell_map = []
 supercell = []
 
 
-with open('Channels_{}.txt'.format(SiType), 'w') as out:
+with open('Channels_{}_S.txt'.format(SiType), 'w') as out:
     for iPM in range(nPM):
         
         
@@ -242,13 +243,6 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
 
         string = "{}".format(fGeoIDs[iPM])
         out.write(string + '\n')
-
-        if (SCID % 3 == 0 and PMinSC % 8 == 4):
-            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
-        if (SCID % 3 == 2 and PMinSC % 8 == 3):
-            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
-        if (SCID % 3 == 1 and PMinSC % 8 == 5):
-            print(fGeoIDs[iPM],PM_positions[iPM][0]- x_center,PM_positions[iPM][1]- y_center )
         
         ### Needed to create rawDecoder
         if (PMinSC % 8 == 0 and iPM != 0):
@@ -267,6 +261,7 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
         if (SCID % 3 == 0 and PMinSC % 8 == 4) or (SCID % 3 == 2 and PMinSC % 8 == 3) or (SCID % 3 == 1 and PMinSC % 8 == 5):
             pos_SC.append([PM_positions[iPM][0]- x_center, PM_positions[iPM][1]-y_Center]) 
             count_sc += 1
+            n_sc +=1
 
         if count_sc == 2:
             pos_map_SC.append(pos_SC)
@@ -287,14 +282,14 @@ with open('Channels_{}.txt'.format(SiType), 'w') as out:
     #if (iPM == channels_1/2):
     #    break
 
-neighbours = False
+neighbours = True
 
 if neighbours:
     try: 
-        os.remove('RICH-PMsNeighboursMap_{}.txt'.format(SiType)) 
+        os.remove('RICH-PMsNeighboursMap_{}_S.txt'.format(SiType)) 
     except FileNotFoundError:
         pass
-    with open('RICH-PMsNeighboursMap_{}.txt'.format(SiType), 'w') as out:
+    with open('RICH-PMsNeighboursMap_{}_S.txt'.format(SiType), 'w') as out:
         for disk in range(2):
             shift = len(fGeoIDs)
             channel_shift = 10000000
@@ -338,23 +333,17 @@ for p in range(len(supercell)):
     tmp.append(supercell[p])
 
 
-createRawDec = False
+createRawDec = True
 list_string = []
 chun = 0
 n = 0
-print(len(channel_map)) 
-for i in range(len(channel_map)):
-    for t in range(len(channel_map[i])):
-        print(n + t,channel_map[i][t] )
-    n += len(channel_map[i])
-
 #print(chun)
 if createRawDec:
     try: 
-        os.remove('RawDecoder_{}.txt'.format(SiType)) 
+        os.remove('RawDecoder_{}_S.txt'.format(SiType)) 
     except FileNotFoundError:
         pass
-    with open('RawDecoder_{}.txt'.format(SiType), 'w') as out:
+    with open('RawDecoder_{}_S.txt'.format(SiType), 'w') as out:
         if (SiType == 1 or SiType == 2):
             adder = [0,1000000,]
         else:
@@ -383,16 +372,16 @@ if createRawDec:
 
             #print(v ,len(list_string) % 32)
             if (v == 1 or v ==3):
-                print(v, len(list_string), len(list_string) % 32)
+                #print(v, len(list_string), len(list_string) % 32)
                 if (len(list_string) % 32 > 0):
                     q = 0
                     for po in range(32 -(len(list_string) % 32)):   
-                        print(po,32 -(len(list_string) % 32))
+                        #print(po,32 -(len(list_string) % 32))
                         substring = ""
                         for t in range(16):
                             substring += " {}".format(-1)
                         string = "ChRemap_{:04n}={}".format(len(list_string),substring)
-                        print(len(list_string))
+                        #print(len(list_string))
                         list_string.append(string)
                         #print(string)
                         q += 1
@@ -420,17 +409,17 @@ if createRawDec:
 
             
 
-create_conf = False
+create_conf = True
 
 if create_conf:
         try: 
-            os.remove('PMTPositions_{}.txt'.format(SiType)) 
+            os.remove('PMTPositions_{}_S.txt'.format(SiType)) 
         except FileNotFoundError:
             pass 
-        with open('PMTPositions_{}.dat'.format(SiType), 'w') as out:
+        with open('PMTPositions_{}_S.dat'.format(SiType), 'w') as out:
             for i in range(len(pos_map)):
                 substring = ""
-                print(len(pos_map[i]) % 8)
+                #print(len(pos_map[i]) % 8)
                 if len(pos_map[i]) % 8 != 0:
                     for add in range(8 - len(pos_map[i]) % 8):
                         pos_map[i].append([-999.0, -999.0])
@@ -441,14 +430,14 @@ if create_conf:
                 out.write(string + '\n')
 
 
-create_SC_pos = False
+create_SC_pos = True
 
 if create_SC_pos:
         try: 
-            os.remove('SCPositions_{}.txt'.format(SiType)) 
+            os.remove('SCPositions_{}_S.txt'.format(SiType)) 
         except FileNotFoundError:
             pass 
-        with open('SCPositions_{}.dat'.format(SiType), 'w') as out:
+        with open('SCPositions_{}_S.dat'.format(SiType), 'w') as out:
             for i in range(len(pos_map_SC)):
                 substring = ""
                 for t in range(len(pos_map_SC[i])):
@@ -462,7 +451,7 @@ if create_SC_pos:
 #x_center = 297
 y_center = 0
 ang = 0
-print(nPM)
+print(nPM*2,n_sc*2, nPM*2+n_sc*2)
 if not animate:
     print("No Animate")
     fig = plt.figure(figsize=(10,10))
@@ -495,5 +484,5 @@ if not animate:
                 col='red'
 
 plt.gca().add_patch(circle)
-plt.savefig('SiPM_{}.png'.format(SiType))
+plt.savefig('SiPM_new_{}_Sq.png'.format(SiType))
 plt.show()
