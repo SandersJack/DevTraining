@@ -5,6 +5,7 @@
 *pcm
 *module.modulemap
 *.rootmap
+*.venv
 ####### VisWithPy ########
 */.venv
 VisWithPy/NatGas/__pycache__
